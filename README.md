@@ -22,4 +22,5 @@ Learning Management System
 - Launch `meteor` to start a local instance of the application.
 
 ### License
+
 To be decided.
