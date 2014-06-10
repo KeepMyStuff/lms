@@ -18,7 +18,8 @@ Learning Management System
 ### Set Up
 
 - Clone the repo
-- Launch `meteor install`g
+- Launch `mrt install`
+- Launch `meteor` to start a local instance of the application.
 
 ### License
 To be decided.
