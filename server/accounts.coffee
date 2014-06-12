@@ -2,11 +2,11 @@
 tokenFromUrl = (url) -> s = url.split '/'; s[s.length - 1]
 Meteor.startup -> # Executed when the server starts
   # Create default admin user if there are no users
-  if Meteor.users().find().count() is 0
+  if Meteor.users.find().count() is 0
     id = Accounts.createUser
       username: 'admin', password: 'admin', email: 'admin@admin.app'
     console.log '''No users in the database. Creating default admin user
-    Username: admin - Password: admin - Email: admin@admin.app - ID: #{id}'''
+    Username: admin - Password: admin - Email: admin@admin.app - ID: '''+id
 
 Accounts.config forbidClientAccountCreation: yes
 Accounts.onCreateUser (options,user) ->
