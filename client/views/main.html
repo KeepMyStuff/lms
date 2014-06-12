@@ -1,6 +1,11 @@
 <!-- LayoutTemplate -->
 <template name="layout">
 <div class="container">
+	<nav>
+		<a href="{{pathFor 'login'}}">Login</a>
+		<a class="current" href="#">Home</a>
+		<a href="#">Profilo</a>
+	</nav>
 	{{> yield}} <!-- Insert here the current router template -->
 </div>
 </template>
