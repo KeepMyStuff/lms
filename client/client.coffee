@@ -2,8 +2,10 @@
 
 # - LOGIN -
 
-login = (user,pass) -> # Perform login request
-  return null
+login = (mail,pass) -> # Perform login request
+  if mail.length < 4 then return showErr msg: 'Invalid E-Mail Address'
+  if pass.length < 8 then return showErr msg: 'Invalid Password'
+  Accounts.loginWithPassword user, pass, errCallback
 
 # Events
 Template.login.events
@@ -19,8 +21,8 @@ errorDep = new Deps.Dependency
 # This rective function can be used to show an error to the user. The user can
 # dismiss the error. Example of an error: { title: "404", msg: "not found" }
 showErr = (err) ->
-  currentError = err; errorDep.changed()
-
+  currentError = err; if !err.title then err.title = 'Error'; errorDep.changed()
+errCallback = (err) -> showErr msg: err.reason
 # Returns current error. This function is reactive
 getError = -> errorDep.depend(); currentError
 
