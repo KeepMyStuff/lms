@@ -1,7 +1,15 @@
 // Import Flat UI
+@import "/client/flat-ui/bootstrap/bootstrap.import.less";
 @import "/client/flat-ui/flat-ui.import.less";
 @import "/client/flat-ui/variables.import.less";
-@import "/client/flat-ui/bootstrap/forms.import.less";
+
+.justify {
+	text-align: justify;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	-ms-hyphens: auto;
+	hyphens: auto;
+}
 
 // Homepage
 header {
@@ -15,7 +23,7 @@ header {
 		font-size: 6em;
 	}
 
-	#logo {height: 15em}
+	#logo {height: 12em}
 
 	#title {
 		height: 10em;
@@ -34,8 +42,32 @@ header {
 	background: @turquoise;
 	color: white;
 
-	h3 {
-		padding: .2em;
+	h4 {
+		padding: .4em;
 		margin: 0;
+	}
+}
+
+#features {
+	.row;
+	.clearfix;
+	width: 80em;
+	margin: 2em;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+
+	article {
+		text-align: center;
+		display: inline-block;
+		margin-right: 2.5%;
+		padding: 2em;
+		background: white;
+		color: @silver;
+		width: 25%;
+
+		p {.justify;}
+		i {font-size: 4em; color: @asbestos}
+		h4{font-weight: 400; color: @wet-asphalt}
 	}
 }
