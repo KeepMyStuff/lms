@@ -7,13 +7,15 @@ Router.configure
   # The router is automatically rendered and takes up all the body.
 
 # True if the user is logged in and is an administrator
-admin = -> Meteor.user() and Meteor.user().type is 'admin'
+UI.registerHelper 'is', (what) ->
+  Meteor.user() and Meteor.user().type is what
 
 Router.map ->
   @route 'home', # Declare a route named 'home'
     path: '/' # the url that triggers this route
     template: 'homepage' # The template shown in this route
-    onBeforeAction: -> Router.go 'admin' if admin()
-  @route 'login', path: '/login'
-  @route 'admin',
-    onBeforeAction: -> Router.go 'home' if !admin()
+    onBeforeAction: -> Router.go 'me' if Meteor.user()
+  @route 'me', onBeforeAction: -> Router.go 'home' if !Meteor.user()
+  @route 'login',
+    path: '/login', onBeforeAction: -> Router.go 'me' if Meteor.user()
+  @route '404', path: '*'

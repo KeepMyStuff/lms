@@ -10,6 +10,13 @@
 	</div>
 </template>
 
+<!-- /me -->
+<template name="me"><div id="me">
+{{#if is 'admin'}}{{> admin}}{{/if}}
+{{#if is 'teacher'}}{{> teacher}}{{/if}}
+{{#if is 'student'}}{{> student}}{{/if}}
+</div></template>
+
 <!-- Error Showing template -->
 <template name="error">
 	<div align="center" class="error-container">

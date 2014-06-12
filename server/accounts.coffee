@@ -7,11 +7,14 @@ Meteor.startup -> # Executed when the server starts
       username: 'admin', password: 'admin', email: 'admin@admin.app'
     console.log '''No users in the database. Creating default admin user
     Username: admin - Password: admin - Email: admin@admin.app - ID: '''+id
+  console.log Meteor.users.find().fetch()
 
 Accounts.config forbidClientAccountCreation: yes
 Accounts.onCreateUser (options,user) ->
-  # If user type is not specified, then create an administrator user.
-  user.type = options.type or 'admin'
+  user.type = options.type or 'admin'; user
+# Tell the user his "type" field
+Meteor.publish 'userType', ->
+  Meteor.users.find { _id: @userId }, fields: { type: 1 }
 
 # Email configuration
 Accounts.emailTemplates.siteName = 'Photon'
