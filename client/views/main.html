@@ -1,13 +1,29 @@
 <!-- LayoutTemplate -->
 <template name="layout">
 <div class="container">
-  <h1>LMS <small>WIP</small></h1><hr>
-  {{> yield}} <!-- Insert here the current router template -->
+	{{> yield}} <!-- Insert here the current router template -->
 </div>
 </template>
 
 <!-- route: / -->
 <template name="homepage">
-  <h2>Homepage</h2>
-  <p class="lead">This is a test of a page using bootstrap</p>
+	<header>
+		<nav>
+			<a href="#">Login</a>
+			<a class="current" href="#">Home</a>
+			<a href="#">Profilo</a>
+		</nav>
+		<div id="logo">
+			<i class="fa fa-graduation-cap"></i>
+		</div>
+		<div id="title">
+			<h1>Photon</h1>
+			<p>A light learning management system</p>
+		</div>
+	</header>
+	<div id="features-title">
+		<h3>Features</h3>
+	</div>
+	<div id="">
+	</div>
 </template>

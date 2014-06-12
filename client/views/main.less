@@ -1,9 +1,69 @@
-// Import general Bootstrap
+// Import Flat UI
 @import "/client/flat-ui/flat-ui.import.less";
-// Import forms
+@import "/client/flat-ui/variables.import.less";
 @import "/client/flat-ui/bootstrap/forms.import.less";
 
 input {
-  // Apply form-control class to all input fields
-  .form-control
+	.form-control
+}
+
+body {
+	background: @wet-asphalt;
+}
+
+.container {
+	width: 100%;
+	padding: 0;
+}
+
+nav {
+	.navbar;
+	.navbar-static-top;
+	.text-left;
+	background: @wet-asphalt;
+	min-height: .5em;
+	padding: .6em;
+	padding-left: 4em;
+	font-size: .8em;
+	font-weight: bold;
+
+	a {color: white; margin-right: 1.5em;}
+	.current {color: @turquoise}
+}
+
+//Homepage
+header {
+	.text-center;
+	background: white;
+	color: @turquoise;
+
+	i {
+		margin-top: .2em;
+		color: @midnight-blue;
+		font-size: 6em;
+	}
+
+	#logo {height: 15em}
+
+	#title {
+		height: 10em;
+		border-top: 1px solid @clouds;
+
+		h1{font-weight: 300}
+		p {color: @concrete}
+	}
+
+}
+
+#features-title {
+	.text-center;
+	.center-block;
+	width: 70%;
+	background: @turquoise;
+	color: white;
+
+	h3 {
+		padding: .2em;
+		margin: 0;
+	}
 }
