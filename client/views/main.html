@@ -1,28 +1,30 @@
 <!-- LayoutTemplate -->
 <template name="layout">
-<div class="container">
-	<nav>
-		<a href="{{pathFor 'login'}}">Login</a>
-		<a class="current" href="#">Home</a>
-		<a href="#">Profilo</a>
-	</nav>
-	{{> yield}} <!-- Insert here the current router template -->
-</div>
+	<div class="container">
+		<nav>
+			<a class="{{isCurrent}}" href="{{pathFor 'login'}}">Login</a>
+			<a class="{{isCurrent}}" href="{{pathFor 'home'}}">Home</a>
+			<a class="{{isCurrent}}" href="{{pathFor 'me'}}">Me</a>
+		</nav>
+		{{> yield}} <!-- Insert here the current router template -->
+	</div>
 </template>
 
 <!-- Error Showing template -->
 <template name="error">
-<div align="center" class="error-container">
-	{{#if error}}
-	<div class="alert alert-danger">
-		<button type="button" class="close">&times;</button>
-		<strong>{{error.title}}</strong> {{error.msg}}
+	<div align="center" class="error-container">
+		{{#if error}}
+		<div class="alert alert-danger">
+			<button type="button" class="close">&times;</button>
+			<strong>{{error.title}}</strong> {{error.msg}}
+		</div>
+		{{/if}}
 	</div>
-	{{/if}}
-</div>
 </template>
 
 <!-- 404 -->
 <template name="404">
-<div align="center"><h1>404</h1></div>
+	<div align="center">
+		<h1>404</h1>
+	</div>
 </template>
