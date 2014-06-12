@@ -5,25 +5,14 @@
 </div>
 </template>
 
-<!-- route: / -->
-<template name="homepage">
-	<header>
-		<nav>
-			<a href="#">Login</a>
-			<a class="current" href="#">Home</a>
-			<a href="#">Profilo</a>
-		</nav>
-		<div id="logo">
-			<i class="fa fa-graduation-cap"></i>
-		</div>
-		<div id="title">
-			<h1>Photon</h1>
-			<p>A light learning management system</p>
-		</div>
-	</header>
-	<div id="features-title">
-		<h3>Features</h3>
+<!-- Error Showing template -->
+<template name="error">
+<div align="center" class="error-container">
+	{{#if error}}
+	<div class="alert alert-danger">
+		<button type="button" class="close">&times;</button>
+		<strong>{{error.title}}</strong> {{error.msg}}
 	</div>
-	<div id="">
-	</div>
+	{{/if}}
+</div>
 </template>
