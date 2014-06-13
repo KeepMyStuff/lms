@@ -3,7 +3,8 @@
 @import "/client/flat-ui/flat-ui.import.less";
 @import "/client/flat-ui/variables.import.less";
 
-.justify {
+//Mixins
+.justify() {
 	text-align: justify;
 	-webkit-hyphens: auto;
 	-moz-hyphens: auto;
@@ -11,53 +12,85 @@
 	hyphens: auto;
 }
 
+.make-title(@color) {
+	.title {
+		.text-center;
+		.center-block;
+		width: 70%;
+		max-width: 45em;
+		margin-bottom: 1em;
+		background-color: @color;
+		color: white;
+
+		h4 {padding: .4em; margin: 0}
+	}
+}
+
 // Homepage
-header {
-	.text-center;
-	background: white;
-	color: @turquoise;
-
-	img {height: 15em;}
-	#logo {height: 15em}
-	#title {
-		height: 10em;
-		border-top: 1px solid @clouds;
-
-		h1{font-weight: 300}
-		p {color: @concrete}
-	}
-
-}
-
-#features-title {
-	.text-center;
-	.center-block;
-	width: 70%;
-	background: @turquoise;
-	color: white;
-
-	h4 {
-		padding: .4em;
-		margin: 0;
-	}
-}
-
-#features {
-	.container;
-	.text-center;
-	padding: 1em;
-
-	article {
-		text-align: center;
-		display: inline-block;
-		margin: 1em;
-		padding: 2em;
+#home {
+	header {
+		.text-center;
 		background: white;
-		color: @silver;
-		width: 18em;
+		color: @turquoise;
 
-		p {.justify;}
-		i {font-size: 4em; color: @asbestos}
-		h4{font-weight: 400; color: @wet-asphalt}
+		img {height: 15em;}
+		#logo {height: 15em}
+		.title {
+			height: 10em;
+			border-top: 1px solid @clouds;
+
+			h1{font-weight: 300}
+			p {color: @concrete}
+		}
+
+	}
+
+	#ideas {
+		.container;
+		.text-center;
+		.make-title(@turquoise);
+		padding-bottom: 1em;
+
+		article {
+			text-align: center;
+			display: inline-block;
+			margin: .5em;
+			margin-bottom: 1em;
+			padding: 1em;
+			background: white;
+			color: @silver;
+			width: 18em;
+
+			p {.justify;}
+			i {font-size: 4em; color: @asbestos}
+			h4{font-weight: 400; color: @wet-asphalt}
+		}
+	}
+
+	#features {
+		.text-left;
+		padding: 2em;
+		.make-title(@green-sea);
+		padding-top: 0;
+		background: @emerald;
+
+		article {
+			.center-block;
+			.justify;
+			max-width: 60em;
+			margin-bottom: 2em;
+
+			img {
+				.img-thumbnail;
+				float: left;
+				width: 10em;
+				height: 10em;
+				margin: 1em;
+			}
+
+			h4 {font-size: 1.2em}
+		}
+
+		article:nth-child(even) > img {float: right}
 	}
 }
