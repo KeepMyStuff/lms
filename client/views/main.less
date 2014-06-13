@@ -1,7 +1,6 @@
 // Import Flat UI
 @import "/client/flat-ui/flat-ui.import.less";
 @import "/client/flat-ui/variables.import.less";
-@import "/client/flat-ui/bootstrap/forms.import.less";
 
 input {
 	.form-control;
@@ -10,11 +9,6 @@ input {
 body {
 	background: @wet-asphalt;
 	color: white;
-}
-
-body > .container {
-	width: 100%;
-	padding: 0;
 }
 
 nav {
@@ -31,4 +25,17 @@ nav {
 
 	a {color: white; margin-right: 1.5em;}
 	.current {color: @turquoise}
+}
+
+#spinner {
+	position: fixed;
+	top: calc(50% - 3em);
+	left: calc(50% - 3em);
+	background: @concrete;
+	padding: 1em;
+	width: 5em;
+	i {
+		color: white;
+		font-size: 3em;
+	}
 }
