@@ -9,7 +9,8 @@ Meteor.subscribe 'users'
 
 login = (mail,pass) -> # Perform login request
   if mail.length < 4 then return showErr msg: 'Invalid E-Mail Address'
-  Meteor.loginWithPassword mail, pass, errCallback
+  Meteor.loginWithPassword mail, pass, (e) ->
+    if e then errCallback e else Router.go 'me'
 
 # Events
 Template.login.events
@@ -36,11 +37,42 @@ Template.error.events
 
 # - ADMIN -
 
-selectedUser = undefined; selectedUserDep = new Deps.Dependency
+# SelectedUser - Reactive user list component
+
+selectedUserVar = undefined; selectedUserDep = new Deps.Dependency
+# Selects a new user and displays the editor for him
+selectUser = (u) -> selectedUserVar = u; selectedUserDep.changed()
+# Returns the selected user. These functions are all reactive
+selectedUser = -> selectedUserDep.depend(); selectedUserVar
+
+# Admin UI
+
 Template.admin.users = -> Meteor.users.find().fetch()
 Template.admin.active = ->
-  selectedUserDep.depend()
-  if selectedUser is this then console.log "Active"; return 'active'
-Template.userEditor.user = -> selectedUserDep.depend(); selectedUser
+  if selectedUser() is this
+    console.log 'active: '+@username; return 'active'
 Template.admin.events
-  'click .user': -> selectedUser = this; selectedUserDep.changed()
+  'click .user': -> selectUser this; showEditor yes
+
+# User editor
+show_editor = no; showEditorDep = new Deps.Dependency
+showEditor = (v) -> show_editor = v; showEditorDep.changed()
+Template.userEditor.show = -> showEditorDep.depend(); show_editor
+Template.userEditor.user = -> selectedUser()
+Template.userEditor.events
+  'click .btn-close': -> selectUser(); showEditor no
+  'click .btn-insert': (e,t) ->
+    if Meteor.users.findOne {username: t.find('.name').value}
+      # Account already exists
+      Meteor.users.update {_id: selectedUser()._id},
+        $set: type: t.find('.type').value
+      if t.find('#pass').value # Update the password
+        Meteor.call 'newPassword', selectedUser()._id,
+                    t.find('.pass').value, errCallback
+    else # Create new user
+      Meteor.call 'newUser', {
+        username: t.find('.name').value
+        password: t.find('.pass').value
+        type: t.find('.type').value }, errCallback
+  'click .btn-delete': (e,t) ->
+    Meteor.call 'deleteUser', selectedUser()._id, errCallback

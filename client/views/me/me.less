@@ -1,18 +1,36 @@
 @import "/client/flat-ui/flat-ui.import.less";
 
 #me {
-  h1 {
-    color: @concrete
+  h2 {
+    color: @emerald
   }
 }
 
 .admin-container {
   .container;
+  .btn {
+    margin-top: 1em;
+  }
+  .btn-insert {
+    margin-right: 1em; margin-left: 1em;
+  }
+  .type {
+    margin-top: 0.5em;
+  }
   .userlist {
     .user {
       .list-group-item;
-      h4 { .list-group-item-heading; }
-      p { .list-group-item-text; }
+      h4 {
+        .list-group-item-heading;
+        color: @asbestos
+      }
+      p {
+        .list-group-item-text;
+        color: @concrete
+      }
+    }
+    .active {
+      background-color: @clouds;
     }
   }
 }

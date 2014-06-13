@@ -14,8 +14,14 @@ Router.map ->
   @route 'home', # Declare a route named 'home'
     path: '/' # the url that triggers this route
     template: 'homepage' # The template shown in this route
-    onBeforeAction: -> Router.go 'me' if Meteor.user()
-  @route 'me', onBeforeAction: -> Router.go 'home' if !Meteor.user()
+    #onBeforeAction: -> Router.go 'me' if Meteor.user()
+  @route 'me',
+    onBeforeAction: ->
+      Router.go 'admin' if Meteor.user() and Meteor.user().type is 'admin'
+      Router.go 'login' if !Meteor.user()
+  @route 'admin',
+    path: '/admin/:_id?'
+    data: -> Meteor.users.findOne _id: @params._id
   @route 'login',
     path: '/login', onBeforeAction: -> Router.go 'me' if Meteor.user()
   @route '404', path: '*'

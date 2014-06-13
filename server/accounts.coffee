@@ -15,9 +15,6 @@ Meteor.startup -> # Executed when the server starts
 Accounts.config forbidClientAccountCreation: yes
 Accounts.onCreateUser (options,user) ->
   user.type = options.type or 'student'; user
-# Tell the user his "type" field
-Meteor.publish 'userType', ->
-  Meteor.users.find { _id: @userId }, fields: { type: 1 }
 
 # Email configuration
 Accounts.emailTemplates.siteName = 'Photon'
@@ -29,7 +26,40 @@ Accounts.emailTemplates.verifyEmail.text = (user, url) ->
   '''You can verify this email address and start using your account by logging\
   in and using the following token: #{token}'''
 
-# Publish some data
+user = (id) -> Meteor.users.findOne _id: id
+Meteor.methods
+  'newUser': (options) ->
+    u = user @userId; return no if !u or u.type isnt 'admin'
+    console.log "Create Account request accepted from "+u.username
+    Accounts.createUser options
+  'deleteUser': (id) ->
+    u = user @userId
+    if id is @userId or (u and u.type is 'admin')
+      console.log "user id:"+id+" is being deleted from the database"
+      Meteor.users.remove id; return yes
+    else return no
+  'newPassword': (id,pass) ->
+    u = user @userId
+    if u and u.type is 'admin' and user id
+      console.log "user id:"+id+" has been given a new password"
+      Accounts.setPassword id, pass; return yes
+    else
+      console.log u
+      console.log "Password change request denied"
+      return no
+
+# Publications and Permissions
+
+Meteor.users.allow
+  insert: (id) -> id and user(id).type is 'admin'
+  remove: (id) -> id and user(id).type is 'admin'
+  update: (id) ->
+    console.log "ID: "+id+" Type:"+user(id).type
+    id and user(id).type is 'admin'
+
 Meteor.publish 'users', ->
   if @userId and Meteor.users.findOne(@userId).type is 'admin'
     return Meteor.users.find()
+# Tell the user his "type" field
+Meteor.publish 'userType', ->
+  Meteor.users.find { _id: @userId }, fields: { type: 1 }

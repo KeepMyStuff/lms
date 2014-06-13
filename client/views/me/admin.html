@@ -1,7 +1,8 @@
 <!-- Admin Interface -->
 <template name="admin">
 <div class="admin-container">
-  <h1>Admin</h1>
+  <h2>Administration Panel</h2>
+  {{> error}}
   {{> userEditor}}
   <div class="userlist">
     {{#each users}}
@@ -15,19 +16,17 @@
 </template>
 
 <template name="userEditor">
-{{#if user}}
-<div align="center">
+{{#if show}}<div align="center">
   <div class="panel panel-default user-editor">
     <div class="panel-heading">
-      <input type="text" placeholder="Username" value="{{user.username}}">
+      <input type="text" class="name" placeholder="Username" value="{{user.username}}">
     </div>
     <div class="panel-body">
-      <input type="text" placeholder="Set a new password">
-      <input type="text" placeholder="Type" value="{{user.type}}">
+      <input type="text" class="pass" placeholder="Set a new password">
+      <input type="text" class="type" placeholder="Type: student, teacher or admin" value="{{user.type}}">
       <button class="btn btn-danger btn-delete">Delete</button>
-      <!--<button class="btn btn-danger btn-delete">Update</button>
-      <button class="btn btn-danger btn-delete">Add New</button>
-      <button class="btn btn-danger btn-delete">Close</button>-->
+      <button class="btn btn-success btn-insert">Insert</button>
+      <button class="btn btn-warning btn-close">Close</button>
     </div>
   </div>
 </div>{{/if}}
