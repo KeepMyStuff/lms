@@ -6,6 +6,7 @@
 		<a class="{{isCurrent 'me'}}" href="{{pathFor 'me'}}">Me</a>
 	</nav>
 	{{> yield}} <!-- Insert here the current router template -->
+	{{#if loggingIn}}{{> loading}}{{/if}}
 </template>
 
 <!-- /me -->
