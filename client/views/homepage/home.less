@@ -1,9 +1,10 @@
 // Import Flat UI
-@import "/client/flat-ui/bootstrap/bootstrap.import.less";
 @import "/client/flat-ui/flat-ui.import.less";
 @import "/client/flat-ui/variables.import.less";
 
 //Mixins
+
+//Justify and enable hyphen
 .justify() {
 	text-align: justify;
 	-webkit-hyphens: auto;
@@ -33,16 +34,17 @@
 		background: white;
 		color: @turquoise;
 
-		img {height: 15em;}
-		#logo {height: 15em}
 		.title {
 			height: 10em;
+			padding-top: 2em;
 			border-top: 1px solid @clouds;
 
 			h1{font-weight: 300}
 			p {color: @concrete}
 		}
 
+		img {height: 15em;}
+		#logo {height: 15em}
 	}
 
 	#ideas {
@@ -52,14 +54,14 @@
 		padding-bottom: 1em;
 
 		article {
+			background: white;
+			color: @silver;
+			width: 18em;
 			text-align: center;
 			display: inline-block;
 			margin: .5em;
 			margin-bottom: 1em;
 			padding: 1em;
-			background: white;
-			color: @silver;
-			width: 18em;
 
 			p {.justify;}
 			i {font-size: 4em; color: @asbestos}
@@ -69,9 +71,10 @@
 
 	#features {
 		.text-left;
-		padding: 2em;
 		.make-title(@green-sea);
+		padding: 2em;
 		padding-top: 0;
+		padding-bottom: 4em;
 		background: @emerald;
 
 		article {
@@ -81,7 +84,7 @@
 			margin-bottom: 2em;
 
 			img {
-				.img-thumbnail;
+				.thumbnail;
 				float: left;
 				width: 10em;
 				height: 10em;
@@ -89,8 +92,21 @@
 			}
 
 			h4 {font-size: 1.2em}
+			&:nth-child(even) > img {float: right}
 		}
+	}
 
-		article:nth-child(even) > img {float: right}
+	footer {
+		.text-left;
+		color: @green-sea;
+		padding: 2em;
+
+		a {
+		display: inline-block;
+			margin-top: 2em;
+			margin-right: 1em;
+			line-height: 2em;
+			i {font-size: 2em; color: @midnight-blue}
+		}
 	}
 }

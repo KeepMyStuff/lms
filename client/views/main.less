@@ -2,14 +2,25 @@
 @import "/client/flat-ui/flat-ui.import.less";
 @import "/client/flat-ui/variables.import.less";
 
-input {
-	.form-control
+//Mixins
+
+//style every heading
+.h (@index) when (@index > 0) {
+	h@{index} {
+		margin: 0;
+		font-weight: 400
+	}
+	.h(@index - 1);
 }
 
+//Elements
+
 body {
+	.h(6);
 	background: @wet-asphalt;
 	color: white;
 }
+
 
 nav {
 	.navbar;
