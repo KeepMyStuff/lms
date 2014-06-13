@@ -1,0 +1,99 @@
+//Mixins
+
+.make-title(@color) {
+	.title {
+		.text-center;
+		.center-block;
+		width: 70%;
+		max-width: 45em;
+		margin-bottom: 1em;
+		background-color: @color;
+		color: white;
+
+		h4 {padding: .4em; margin: 0}
+	}
+}
+
+// Homepage
+#home {
+	header {
+		.text-center;
+		background: white;
+		color: @turquoise;
+
+		.title {
+			height: 10em;
+			padding-top: 2em;
+			border-top: 1px solid @clouds;
+
+			h1{font-weight: 300}
+			p {color: @concrete}
+		}
+
+		img {height: 15em;}
+		#logo {height: 15em}
+	}
+
+	#ideas {
+		.container;
+		.text-center;
+		.make-title(@turquoise);
+		padding-bottom: 1em;
+
+		article {
+			background: white;
+			color: @silver;
+			width: 18em;
+			text-align: center;
+			display: inline-block;
+			margin: .5em;
+			margin-bottom: 1em;
+			padding: 1em;
+
+			p {.justify;}
+			i {font-size: 4em; color: @asbestos}
+			h4{font-weight: 400; color: @wet-asphalt}
+		}
+	}
+
+	#features {
+		.text-left;
+		.make-title(@green-sea);
+		padding: 2em;
+		padding-top: 0;
+		padding-bottom: 4em;
+		background: @emerald;
+
+		article {
+			.center-block;
+			.justify;
+			max-width: 60em;
+			margin-bottom: 2em;
+
+			img {
+				.thumbnail;
+				float: left;
+				width: 10em;
+				height: 10em;
+				margin: 1em;
+			}
+
+			h4 {font-size: 1.2em}
+			&:nth-child(even) > img {float: right}
+		}
+	}
+
+	footer {
+		.text-left;
+		color: @green-sea;
+		padding: 2em;
+
+		a {
+		display: inline-block;
+			margin-top: 2em;
+			margin-right: 1em;
+			line-height: 2em;
+			i {font-size: 2em; color: @midnight-blue}
+		}
+	}
+}
