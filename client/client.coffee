@@ -2,6 +2,8 @@
 
 # I want to know my "type" field if I'm logged in
 Meteor.subscribe 'userType'
+# User data. Only receivable by admins
+Meteor.subscribe 'users'
 
 # - LOGIN -
 
@@ -28,7 +30,17 @@ showErr = (err) ->
   errorDep.changed()
 errCallback = (err) -> if err then showErr msg: err.reason
 
-# Events
 Template.error.error = -> errorDep.depend(); currentError
 Template.error.events
   'click .close': -> showErr() # Set current error to undefined
+
+# - ADMIN -
+
+selectedUser = undefined; selectedUserDep = new Deps.Dependency
+Template.admin.users = -> Meteor.users.find().fetch()
+Template.admin.active = ->
+  selectedUserDep.depend()
+  if selectedUser is this then console.log "Active"; return 'active'
+Template.userEditor.user = -> selectedUserDep.depend(); selectedUser
+Template.admin.events
+  'click .user': -> selectedUser = this; selectedUserDep.changed()
