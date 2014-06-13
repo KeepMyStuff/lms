@@ -58,20 +58,20 @@
 
 	#features {
 		.text-left;
-		.make-title(@green-sea);
+		.make-title(@turquoise);
 		padding: 2em;
 		padding-top: 0;
 		padding-bottom: 4em;
-		background: @emerald;
+		background: @green-sea;
 
 		article {
 			.center-block;
 			.justify;
-			max-width: 60em;
+			max-width: 55em;
 			margin-bottom: 2em;
 
 			img {
-				.thumbnail;
+				background: white;
 				float: left;
 				width: 10em;
 				height: 10em;
@@ -85,15 +85,21 @@
 
 	footer {
 		.text-left;
-		color: @green-sea;
+		background: @clouds;
+		color: @sun-flower;
 		padding: 2em;
 
 		a {
-		display: inline-block;
+			display: inline-block;
 			margin-top: 2em;
 			margin-right: 1em;
-			line-height: 2em;
-			i {font-size: 2em; color: @midnight-blue}
+			line-height: 0em;
+
+			i {
+				font-size: 2em;
+				color: @midnight-blue;
+				vertical-align: middle
+			}
 		}
 	}
 }
