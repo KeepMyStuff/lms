@@ -1,13 +1,11 @@
 <!-- LayoutTemplate -->
 <template name="layout">
-	<div class="container">
-		<nav>
-			<a class="{{isCurrent}}" href="{{pathFor 'login'}}">Login</a>
-			<a class="{{isCurrent}}" href="{{pathFor 'home'}}">Home</a>
-			<a class="{{isCurrent}}" href="{{pathFor 'me'}}">Me</a>
-		</nav>
-		{{> yield}} <!-- Insert here the current router template -->
-	</div>
+	<nav>
+		<a class="{{isCurrent 'login'}}" href="{{pathFor 'login'}}">Login</a>
+		<a class="{{isCurrent 'home'}}" href="{{pathFor 'home'}}">Home</a>
+		<a class="{{isCurrent 'me'}}" href="{{pathFor 'me'}}">Me</a>
+	</nav>
+	{{> yield}} <!-- Insert here the current router template -->
 </template>
 
 <!-- /me -->
