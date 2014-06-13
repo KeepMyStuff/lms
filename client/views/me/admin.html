@@ -1,3 +1,33 @@
+<!-- Admin Interface -->
 <template name="admin">
-<h1>Admin</h1>
+<div class="admin-container">
+  <h2>Administration Panel</h2>
+  {{> error}}
+  {{> userEditor}}
+  <div class="userlist">
+    {{#each users}}
+    <a class="user {{active}}">
+      <h4>{{username}}</h4>
+      <p>{{type}}</p>
+    </a>
+    {{/each}}
+  </div>
+</div>
+</template>
+
+<template name="userEditor">
+{{#if show}}<div align="center">
+  <div class="panel panel-default user-editor">
+    <div class="panel-heading">
+      <input type="text" class="name" placeholder="Username" value="{{user.username}}">
+    </div>
+    <div class="panel-body">
+      <input type="text" class="pass" placeholder="Set a new password">
+      <input type="text" class="type" placeholder="Type: student, teacher or admin" value="{{user.type}}">
+      <button class="btn btn-danger btn-delete">Delete</button>
+      <button class="btn btn-success btn-insert">Insert</button>
+      <button class="btn btn-warning btn-close">Close</button>
+    </div>
+  </div>
+</div>{{/if}}
 </template>

@@ -2,8 +2,12 @@
 @import "/client/flat-ui/flat-ui.import.less";
 @import "/client/flat-ui/variables.import.less";
 
-//Mixins
+//Import templates
+@import "/client/views/me/me.import.less";
+@import "/client/views/auth/auth.import.less";
+@import "/client/views/home/home.import.less";
 
+//Mixins
 //style every heading
 .h (@index) when (@index > 0) {
 	h@{index} {
@@ -11,6 +15,15 @@
 		font-weight: 400
 	}
 	.h(@index - 1);
+}
+
+//Justify and enable hyphen
+.justify() {
+	text-align: justify;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	-ms-hyphens: auto;
+	hyphens: auto;
 }
 
 //Elements
