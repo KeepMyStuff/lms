@@ -27,7 +27,7 @@
 <template name="error">
 	<div align="center" class="error-container">
 		{{#if error}}
-		<div class="alert alert-danger">
+		<div class="alert alert-{{error.type}}">
 			<button type="button" class="close">&times;</button>
 			<strong>{{error.title}}</strong> {{error.msg}}
 		</div>

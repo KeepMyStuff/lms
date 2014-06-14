@@ -16,7 +16,7 @@ Template.layout.isCurrent = (i) ->
 # - LOGIN -
 
 login = (mail,pass) -> # Perform login request
-  if mail.length < 4 then return showErr msg: 'Invalid E-Mail Address'
+  if mail.length < 4 then return notify msg: 'Invalid E-Mail Address'
   Meteor.loginWithPassword mail, pass, (e) ->
     if e then errCallback e else Router.go 'me'
 
@@ -34,14 +34,16 @@ errorDep = new Deps.Dependency
 
 # This rective function can be used to show an error to the user. The user can
 # dismiss the error. Example of an error: { title: "404", msg: "not found" }
-showErr = (err) ->
-  currentError = err; if err? and !err.title then err.title = 'Error'
+notify = (err) ->
+  if !err then currentError = undefined; errorDep.changed(); return
+  currentError = err; if !err.title then err.title = 'Error'
+  if !err.type then err.type = 'danger'
   errorDep.changed()
-errCallback = (err) -> if err then showErr msg: err.reason
+errCallback = (err) -> if err then notify msg: err.reason
 
 Template.error.error = -> errorDep.depend(); currentError
 Template.error.events
-  'click .close': -> showErr() # Set current error to undefined
+  'click .close': -> notify() # Set current error to undefined
 
 # - ADMIN -
 
@@ -57,30 +59,43 @@ selectedUser = -> selectedUserDep.depend(); selectedUserVar
 
 Template.admin.users = -> Meteor.users.find().fetch()
 Template.admin.active = ->
-  if selectedUser() is this
-    console.log 'active: '+@username; return 'active'
+  if Router.current().data() is this
+    return 'active'
 Template.admin.events
-  'click .user': -> selectUser this; showEditor yes
+  'keypress .new': (e,t) ->
+    if e.keyCode is 13 and t.find('.new').value isnt ''
+      data = t.find('.new').value; t.find('.new').value = ''
+      if !Meteor.users.findOne {username: data}
+        Meteor.call 'newUser', {
+          username: data, password: data
+          type: 'student' },
+          (e) ->
+            if e then errCallback e
+            else notify title: 'OK', type: 'success', msg: 'Account created'
+      else notify msg: 'Account already exists'
 
 # User editor
-show_editor = no; showEditorDep = new Deps.Dependency
-showEditor = (v) -> show_editor = v; showEditorDep.changed()
-Template.userEditor.show = -> showEditorDep.depend(); show_editor
-Template.userEditor.user = -> selectedUser()
+Template.userEditor.show = ->
+  Router.current().params._id and Router.current().params._id isnt ''
+Template.userEditor.user = ->
+  Meteor.users.findOne _id: Router.current().params._id
 Template.userEditor.events
-  'click .btn-close': -> selectUser(); showEditor no
+  'click .btn-close': -> Router.go 'admin'
   'click .btn-insert': (e,t) ->
-    if Meteor.users.findOne {username: t.find('.name').value}
-      # Account already exists
-      Meteor.users.update {_id: selectedUser()._id},
-        $set: type: t.find('.type').value
+    if Meteor.users.findOne {_id: Router.current().params._id}
+      # Account exists
+      Meteor.users.update {_id: Router.current().params._id},
+        $set:
+          username: t.find('.name').value
+          type: t.find('.type').value
       if t.find('#pass').value # Update the password
         Meteor.call 'newPassword', selectedUser()._id,
                     t.find('.pass').value, errCallback
-    else # Create new user
-      Meteor.call 'newUser', {
-        username: t.find('.name').value
-        password: t.find('.pass').value
-        type: t.find('.type').value }, errCallback
+    else notify msg: 'User does not exist'
   'click .btn-delete': (e,t) ->
-    Meteor.call 'deleteUser', selectedUser()._id, errCallback
+    Meteor.call 'deleteUser', Router.current().params._id,
+    (e) ->
+      if e then errCallback e
+      else
+        notify title: 'OK', type: 'success', msg: 'Account has been deleted'
+        Router.go 'admin'

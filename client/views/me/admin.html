@@ -6,12 +6,13 @@
   {{> userEditor}}
   <div class="userlist">
     {{#each users}}
-    <a class="user {{active}}">
+    <a class="user {{active}}" href="{{pathFor 'admin'}}">
       <h4>{{username}}</h4>
       <p>{{type}}</p>
     </a>
     {{/each}}
   </div>
+  <input type="text" class="form-control new" placeholder="Username for new user">
 </div>
 </template>
 
@@ -19,9 +20,10 @@
 {{#if show}}<div align="center">
   <div class="panel panel-default user-editor">
     <div class="panel-heading">
-      <input type="text" class="name form-control" placeholder="Username" value="{{user.username}}">
+      ID: {{user._id}}
     </div>
     <div class="panel-body">
+      <input type="text" class="name form-control" placeholder="Username" value="{{user.username}}">
       <input type="text" class="pass form-control" placeholder="Set a new password">
       <input type="text" class="type form-control" placeholder="Type: student, teacher or admin" value="{{user.type}}">
       <!--<div class="dropdown">
