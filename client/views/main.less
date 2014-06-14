@@ -1,6 +1,9 @@
+//Import Bootstrap
+@import "/client/flat-ui/bootstrap/less/bootstrap.import.less";
+
 // Import Flat UI
-@import "/client/flat-ui/flat-ui.import.less";
-@import "/client/flat-ui/variables.import.less";
+@import "/client/flat-ui/less/flat-ui.import.less";
+@import "/client/flat-ui/less/variables.import.less";
 
 //Import templates
 @import "/client/views/me/me.import.less";
@@ -38,14 +41,14 @@ nav {
 	.navbar;
 	.navbar-static-top;
 	background: @wet-asphalt;
-	min-height: .5em;
+	min-height: 3em;
 	margin: 0;
 	padding: .6em;
 	padding-left: 4em;
 	padding-right: 4em;
 	font-size: .8em;
 	font-weight: bold;
-	
+
 	a { .pull-left; color: white; margin-right: 1.5em;}
 	.current {color: @turquoise}
 	.right-text { .pull-right; }
