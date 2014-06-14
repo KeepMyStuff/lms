@@ -5,6 +5,14 @@ Meteor.subscribe 'userType'
 # User data. Only receivable by admins
 Meteor.subscribe 'users'
 
+UI.registerHelper 'user', -> Meteor.user()
+UI.registerHelper 'admin', -> Meteor.user() and Meteor.user().type is 'admin'
+
+# Layout
+Template.layout.isCurrent = (i) ->
+  if Router.current() and Router.current().lookupTemplate() is i
+    return 'current'
+
 # - LOGIN -
 
 login = (mail,pass) -> # Perform login request

@@ -13,7 +13,6 @@ UI.registerHelper 'is', (what) ->
 Router.map ->
   @route 'home', # Declare a route named 'home'
     path: '/' # the url that triggers this route
-    template: 'homepage' # The template shown in this route
     #onBeforeAction: -> Router.go 'me' if Meteor.user()
   @route 'me',
     onBeforeAction: ->

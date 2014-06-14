@@ -37,17 +37,18 @@ body {
 nav {
 	.navbar;
 	.navbar-static-top;
-	.text-left;
 	background: @wet-asphalt;
 	min-height: .5em;
 	margin: 0;
 	padding: .6em;
 	padding-left: 4em;
+	padding-right: 4em;
 	font-size: .8em;
 	font-weight: bold;
 
-	a {color: white; margin-right: 1.5em;}
+	a { .pull-left; color: white; margin-right: 1.5em;}
 	.current {color: @turquoise}
+	.right-text { .pull-right; }
 }
 
 #spinner {
