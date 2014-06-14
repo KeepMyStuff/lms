@@ -12,7 +12,14 @@
     </a>
     {{/each}}
   </div>
-  <input type="text" class="form-control new" placeholder="Username for new user">
+  <!--<div class="new-container" align="center">
+    <input type="text" class="form-control new" placeholder="Username for new user">
+    <button class="btn btn-primary">Add</button>
+  </div>-->
+    <div class="input-group new-container">
+      <span class="input-group-addon">New User</span>
+      <input type="text" class="form-control new" placeholder="Enter username and press enter">
+    </div>
 </div>
 </template>
 
@@ -20,12 +27,18 @@
 {{#if show}}<div align="center">
   <div class="panel panel-default user-editor">
     <div class="panel-heading">
-      ID: {{user._id}}
+      <b>ID</b>: {{user._id}}
     </div>
     <div class="panel-body">
-      <input type="text" class="name form-control" placeholder="Username" value="{{user.username}}">
-      <input type="text" class="pass form-control" placeholder="Set a new password">
-      <input type="text" class="type form-control" placeholder="Type: student, teacher or admin" value="{{user.type}}">
+      <div class="input-group name-container">
+      <span class="input-group-addon">Username</span>
+      <input type="text" class="name form-control" placeholder="Username" value="{{user.username}}"></div>
+      <div class="input-group pass-container">
+      <span class="input-group-addon">Password</span>
+      <input type="text" class="pass form-control" placeholder="Set a new password"></div>
+      <div class="input-group type-container">
+      <span class="input-group-addon">Type</span>
+      <input type="text" class="type form-control" placeholder="Type: student, teacher or admin" value="{{user.type}}"></div>
       <!--<div class="dropdown">
         <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">{{user.type}}<span class="caret"></span></button>
         <span class="dropdown-arrow"></span>
@@ -36,7 +49,7 @@
           </ul>
       </div> -->
       <button class="btn btn-danger btn-delete">Delete</button>
-      <button class="btn btn-success btn-insert">Insert</button>
+      <button class="btn btn-success btn-insert">Update</button>
       <button class="btn btn-warning btn-close">Close</button>
     </div>
   </div>

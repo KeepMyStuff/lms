@@ -8,7 +8,7 @@
 			{{else}}
 				<a class="{{isCurrent 'me'}}" href="{{pathFor 'me'}}">Me</a>
 			{{/if}}
-			<p class="right-text">Logged in as <span class="current">{{user.username}}</span></p>
+			<span class="right-text">Logged in as <span class="current">{{user.username}}</span></span>
 		{{else}}
 			<a class="{{isCurrent 'login'}}" href="{{pathFor 'login'}}">Login</a>
 		{{/if}}

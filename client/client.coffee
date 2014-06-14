@@ -89,8 +89,10 @@ Template.userEditor.events
           username: t.find('.name').value
           type: t.find('.type').value
       if t.find('#pass').value # Update the password
-        Meteor.call 'newPassword', selectedUser()._id,
-                    t.find('.pass').value, errCallback
+        Meteor.call 'newPassword', selectedUser()._id, t.find('.pass').value,
+        (e) ->
+          if e then errCallback e
+          else notify title: 'OK', type: 'success', msg: 'password changed'
     else notify msg: 'User does not exist'
   'click .btn-delete': (e,t) ->
     Meteor.call 'deleteUser', Router.current().params._id,

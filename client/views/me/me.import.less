@@ -9,10 +9,23 @@
   .btn-insert {
     margin-right: 1em; margin-left: 1em;
   }
-  .type {
+  .type-container, .pass-container {
     margin-top: 0.5em;
   }
+  .pass-container,.name-container {
+    max-width: 500px;
+  }
+  .type-container {
+    max-width: 300px;
+  }
+  .new-container {
+    .new {
+      .text-center;
+      max-width: 20em;
+    }
+  }
   .userlist {
+    margin-bottom: 1em;
     .user {
       .list-group-item;
       h4 {
@@ -32,5 +45,6 @@
 
 .user-editor {
   width: 90%;
+  max-width: 600px;
   margin-bottom: 2em;
 }
