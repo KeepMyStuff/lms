@@ -48,7 +48,21 @@ Meteor.methods
       console.log "Password change request denied"
       return no
 
+# Collections
+
+classes = new Meteor.Collection 'classes'
+
 # Publications and Permissions
+
+Meteor.publish 'classes', ->
+  if @userId
+    user = Meteor.users.findOne(_id:@userId)
+    if user.type is 'admin'
+      return classes.find()
+    else if user.type is 'student'
+      return classes.findOne _id:user.classId
+    else if user.type is 'teacher'
+      return classes.find teachers: $elemMatch: _id: @userId
 
 Meteor.users.allow
   insert: (id) -> id and user(id).type is 'admin'
@@ -58,7 +72,7 @@ Meteor.users.allow
     id and user(id).type is 'admin'
 
 Meteor.publish 'users', ->
-  if @userId and Meteor.users.findOne(@userId).type is 'admin'
+  if @userId and Meteor.users.findOne(_id:@userId).type is 'admin'
     return Meteor.users.find()
 # Tell the user his "type" field
 Meteor.publish 'userType', ->

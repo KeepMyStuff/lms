@@ -1,4 +1,5 @@
-<!-- Admin Interface -->
+<!-- Overview -->
+
 <template name="admin">
 <div class="admin-container">
 <h2>Administration Panel</h2>
@@ -24,6 +25,8 @@
 </div>
 </template>
 
+<!-- Users -->
+
 <template name="users">
 <div class="users-container">
 	<h2>Users</h2>
@@ -37,26 +40,13 @@
 		</a>
 		{{/each}}
 	</div>
-		<div class="input-group new-container">
-			<span class="input-group-addon">New User</span>
-			<input type="text" class="form-control new" placeholder="Enter username and press enter">
-		</div>
-</div>
-</template>
-
-<template name="class">
-<div class="class-container">
-	<h2>Classes</h2>
-	{{> error}}
-	<div class="classlist">
-		{{#each classes}}
-		<a class="class {{active}}" href="{{pathFor 'classes'}}">
-			{{class.year}}
-		</a>
-		{{/each}}
+	<div class="input-group new-container">
+		<span class="input-group-addon">New User</span>
+		<input type="text" class="form-control new" placeholder="Enter username and press enter">
 	</div>
 </div>
 </template>
+
 
 <template name="userEditor">
 {{#if show}}<div align="center">
@@ -85,4 +75,73 @@
 		</div>
 	</div>
 </div>{{/if}}
+</template>
+
+<!-- Classes -->
+
+<template name="classes">
+<div class="class-container">
+	<h2>Classes</h2>
+	{{> error}}
+	<div class="classlist">
+		{{#each classes}}
+		<a class="class {{active}}" href="{{pathFor 'classes'}}">
+			{{class.year}}{{class.course}}{{class.section}}
+		</a>
+		{{/each}}
+	</div>
+	{{> classAdder}}
+</div>
+</template>
+
+<template name="classAdder">
+<div class="panel panel-default class-adder-panel">
+	<div align="center" class="panel-heading">
+		<span class="pull-left"><i class="fa fa-plus"></i></span> New Class
+	</div>
+	<div class="panel-body">
+		<div class="input-group year">
+			<span class="input-group-addon">Year</span>
+			<input type="text" class="form-control new" placeholder="1-5">
+		</div>
+		<div class="input-group course">
+			<span class="input-group-addon">Course</span>
+			<input type="text" class="form-control new" placeholder="Enter any letter">
+		</div>
+		<div class="input-group section">
+			<span class="input-group-addon">Section</span>
+			<input type="text" class="form-control new" placeholder="A-Z">
+		</div>
+		<button class="btn btn-success btn-insert">
+			<i class="fa fa-upload"></i> Create</button>
+		<button class="btn btn-warning btn-close">
+			<i class="fa fa-times"></i> Close</button>
+	</div>
+</div>
+</template>
+
+<template name="classEditor">
+	<div class="panel panel-default class-editor-panel">
+		<div align="center" class="panel-heading">
+			<span class="pull-left"><i class="fa fa-plus"></i></span> New Class
+		</div>
+		<div class="panel-body">
+			<div class="input-group year">
+				<span class="input-group-addon">Year</span>
+				<input type="text" class="form-control new" placeholder="1-5" value>
+			</div>
+			<div class="input-group course">
+				<span class="input-group-addon">Course</span>
+				<input type="text" class="form-control new" placeholder="Enter any letter">
+			</div>
+			<div class="input-group section">
+				<span class="input-group-addon">Section</span>
+				<input type="text" class="form-control new" placeholder="A-Z">
+			</div>
+			<button class="btn btn-success btn-insert">
+				<i class="fa fa-upload"></i> Create</button>
+			<button class="btn btn-warning btn-close">
+				<i class="fa fa-times"></i> Close</button>
+		</div>
+	</div>
 </template>
