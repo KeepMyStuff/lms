@@ -39,4 +39,5 @@ Router.map ->
   @route 'test_editor',
       onBeforeAction: ->
         Router.go 'me' if !Meteor.user() or Meteor.user().type isnt 'teacher'
+  @route 'codepen'
   @route '404', path: '*'
