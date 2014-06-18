@@ -12,6 +12,8 @@ UI.registerHelper 'admin', -> Meteor.user() and Meteor.user().type is 'admin'
 Template.layout.isCurrent = (i) ->
   if Router.current() and Router.current().lookupTemplate() is i
     return 'current'
+Template.layout.events
+  'click .logout': -> Meteor.logout(); Router.go 'home'
 
 # - LOGIN -
 

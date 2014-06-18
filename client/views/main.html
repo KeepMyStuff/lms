@@ -1,16 +1,18 @@
 <!-- LayoutTemplate -->
 <template name="layout">
 	<nav>
-		<a class="{{isCurrent 'home'}}" href="{{pathFor 'home'}}">Home</a>
+		<a class="bar-item {{isCurrent 'home'}}" href="{{pathFor 'home'}}">Home</a>
 		{{#if user}}
 			{{#if admin}}
-				<a class="{{isCurrent 'admin'}}" href="{{pathFor 'admin'}}">Admin</a>
+				<a class="bar-item {{isCurrent 'admin'}}" href="{{pathFor 'admin'}}">Admin</a>
 			{{else}}
-				<a class="{{isCurrent 'me'}}" href="{{pathFor 'me'}}">Me</a>
+				<a class="bar-item {{isCurrent 'me'}}" href="{{pathFor 'me'}}">Me</a>
 			{{/if}}
-			<span class="right-text">Logged in as <span class="current">{{user.username}}</span></span>
+			<span class="right-text">
+				Logged in as <a class="logout current">{{user.username}}</a>
+			</span>
 		{{else}}
-			<a class="{{isCurrent 'login'}}" href="{{pathFor 'login'}}">Login</a>
+			<a class="bar-item {{isCurrent 'login'}}" href="{{pathFor 'login'}}">Login</a>
 		{{/if}}
 	</nav>
 	{{> yield}} <!-- Insert here the current router template -->
