@@ -101,3 +101,6 @@ Template.userEditor.events
       else
         notify title: 'OK', type: 'success', msg: 'Account has been deleted'
         Router.go 'admin'
+
+"""currently I let it here"""
+Template.quiz.materia=->"Matematica"
