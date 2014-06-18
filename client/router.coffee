@@ -25,7 +25,9 @@ Router.map ->
   @route 'login',
   path: '/login', onBeforeAction: -> Router.go 'me' if Meteor.user()
   @route 'student',
-    path: '/student/:_id?'
+    path: '/student'
     data: -> Meteor.users.findOne _id: @params._id
-  @route 'quiz'
+  @route 'quiz',
+    path: '/student/quiz'
+    data: -> Meteor.users.findOne _id: @params._id
   @route '404', path: '*'
