@@ -45,6 +45,10 @@ Template.error.error = -> errorDep.depend(); currentError
 Template.error.events
   'click .close': -> notify() # Set current error to undefined
 
+# - STUDENT -
+
+Template.quiz.materia = -> "Matematica"
+
 # - ADMIN -
 
 # Admin UI
@@ -84,8 +88,9 @@ Template.userEditor.events
         $set:
           username: t.find('.name').value
           type: t.find('.type').value
-      if t.find('#pass').value # Update the password
-        Meteor.call 'newPassword', selectedUser()._id, t.find('.pass').value,
+      if t.find('.pass').value # Update the password
+        p = t.find('.pass').value
+        Meteor.call 'newPassword', Router.current().params._id, p,
         (e) ->
           if e then errCallback e
           else notify title: 'OK', type: 'success', msg: 'password changed'
