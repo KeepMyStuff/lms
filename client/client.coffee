@@ -47,21 +47,17 @@ Template.error.events
 
 # - ADMIN -
 
-# SelectedUser - Reactive user list component
-
-selectedUserVar = undefined; selectedUserDep = new Deps.Dependency
-# Selects a new user and displays the editor for him
-selectUser = (u) -> selectedUserVar = u; selectedUserDep.changed()
-# Returns the selected user. These functions are all reactive
-selectedUser = -> selectedUserDep.depend(); selectedUserVar
-
 # Admin UI
+Template.admin.nusers = -> Meteor.users.find().count()
+Template.admin.nteachers = -> Meteor.users.find(type:'teacher').count()
+Template.admin.nstudents = -> Meteor.users.find(type:'student').count()
+Template.admin.nadmins = -> Meteor.users.find(type:'admin').count()
 
-Template.admin.users = -> Meteor.users.find().fetch()
-Template.admin.active = ->
-  if Router.current().data() is this
+Template.users.users = -> Meteor.users.find().fetch()
+Template.users.active = ->
+  if Router.current().data() and Router.current().data()._id is @_id
     return 'active'
-Template.admin.events
+Template.users.events
   'keypress .new': (e,t) ->
     if e.keyCode is 13 and t.find('.new').value isnt ''
       data = t.find('.new').value; t.find('.new').value = ''
@@ -80,7 +76,7 @@ Template.userEditor.show = ->
 Template.userEditor.user = ->
   Meteor.users.findOne _id: Router.current().params._id
 Template.userEditor.events
-  'click .btn-close': -> Router.go 'admin'
+  'click .btn-close': -> Router.go 'users'
   'click .btn-insert': (e,t) ->
     if Meteor.users.findOne {_id: Router.current().params._id}
       # Account exists
@@ -100,4 +96,4 @@ Template.userEditor.events
       if e then errCallback e
       else
         notify title: 'OK', type: 'success', msg: 'Account has been deleted'
-        Router.go 'admin'
+        Router.go 'users'
