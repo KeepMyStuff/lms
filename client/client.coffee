@@ -36,8 +36,8 @@ errorDep = new Deps.Dependency
 # dismiss the error. Example of an error: { title: "404", msg: "not found" }
 notify = (err) ->
   if !err then currentError = undefined; errorDep.changed(); return
-  currentError = err; if !err.title then err.title = 'Error'
-  if !err.type then err.type = 'danger'
+  currentError = err; if !currentError.title then currentError.title = 'Error'
+  if !currentError.type then currentError.type = 'danger'
   errorDep.changed()
 errCallback = (err) -> if err then notify msg: err.reason
 
