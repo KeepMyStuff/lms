@@ -1,57 +1,81 @@
 <!-- Admin Interface -->
 <template name="admin">
 <div class="admin-container">
-  <h2>Administration Panel</h2>
-  {{> error}}
-  {{> userEditor}}
-  <div class="userlist">
-    {{#each users}}
-    <a class="user {{active}}" href="{{pathFor 'admin'}}">
-      <h4>{{username}}</h4>
-      <p>{{type}}</p>
-    </a>
-    {{/each}}
+<h2>Administration Panel</h2>
+<div class="panels">
+<!-- Users information -->
+<div class="user-panel panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">User Information</h3>
+	</div>
+	<div class="panel-body">
+		There are <b>{{nusers}}</b> accounts in the database.
+		<ul><li><b>{{nstudents}}</b> students</li>
+		<li><b>{{nteachers}}</b> teachers</li>
+		<li><b>{{nadmins}}</b> administrators</li></ul>
+	</div>
+	<div align="center">
+    <a class="users-button" href="{{pathFor 'users'}}">Manage Users</a>
   </div>
-  <!--<div class="new-container" align="center">
-    <input type="text" class="form-control new" placeholder="Username for new user">
-    <button class="btn btn-primary">Add</button>
-  </div>-->
-    <div class="input-group new-container">
-      <span class="input-group-addon">New User</span>
-      <input type="text" class="form-control new" placeholder="Enter username and press enter">
-    </div>
+</div>
+</div>
+</div>
+</template>
+
+<template name="users">
+<div class="users-container">
+	<h2>Users</h2>
+	{{> error}}
+	{{> userEditor}}
+	<div class="userlist">
+		{{#each users}}
+		<a class="user {{active}}" href="{{pathFor 'users'}}">
+			<h4>{{username}}</h4>
+			<p>{{type}}</p>
+		</a>
+		{{/each}}
+	</div>
+		<div class="input-group new-container">
+			<span class="input-group-addon">New User</span>
+			<input type="text" class="form-control new" placeholder="Enter username and press enter">
+		</div>
+</div>
+</template>
+
+<template name="class">
+<div class="class-container">
+	<h2>Classes</h2>
+	{{> error}}
+	<div class="classlist">
+		{{#each classes}}
+		<a class="class {{active}}" href="{{pathFor 'classes'}}">
+			{{class.year}}
+		</a>
+		{{/each}}
+	</div>
 </div>
 </template>
 
 <template name="userEditor">
 {{#if show}}<div align="center">
-  <div class="panel panel-default user-editor">
-    <div class="panel-heading">
-      <b>ID</b>: {{user._id}}
-    </div>
-    <div class="panel-body">
-      <div class="input-group name-container">
-      <span class="input-group-addon">Username</span>
-      <input type="text" class="name form-control" placeholder="Username" value="{{user.username}}"></div>
-      <div class="input-group pass-container">
-      <span class="input-group-addon">Password</span>
-      <input type="text" class="pass form-control" placeholder="Set a new password"></div>
-      <div class="input-group type-container">
-      <span class="input-group-addon">Type</span>
-      <input type="text" class="type form-control" placeholder="Type: student, teacher or admin" value="{{user.type}}"></div>
-      <!--<div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">{{user.type}}<span class="caret"></span></button>
-        <span class="dropdown-arrow"></span>
-          <ul class="dropdown-menu">
-            <li><a class="set-student">Student</a></li>
-            <li><a class="set-teacher">Teacher</a></li>
-            <li><a class="set-admin">Admin</a></li>
-          </ul>
-      </div> -->
-      <button class="btn btn-danger btn-delete">Delete</button>
-      <button class="btn btn-success btn-insert">Update</button>
-      <button class="btn btn-warning btn-close">Close</button>
-    </div>
-  </div>
+	<div class="panel panel-default user-editor">
+		<div class="panel-heading">
+			<b>ID</b>: {{user._id}}
+		</div>
+		<div class="panel-body">
+			<div class="input-group name-container">
+			<span class="input-group-addon">Username</span>
+			<input type="text" class="name form-control" placeholder="Username" value="{{user.username}}"></div>
+			<div class="input-group pass-container">
+			<span class="input-group-addon">Password</span>
+			<input type="text" class="pass form-control" placeholder="Set a new password"></div>
+			<div class="input-group type-container">
+			<span class="input-group-addon">Type</span>
+			<input type="text" class="type form-control" placeholder="Type: student, teacher or admin" value="{{user.type}}"></div>
+			<button class="btn btn-danger btn-delete">Delete</button>
+			<button class="btn btn-success btn-insert">Update</button>
+			<button class="btn btn-warning btn-close">Close</button>
+		</div>
+	</div>
 </div>{{/if}}
 </template>
