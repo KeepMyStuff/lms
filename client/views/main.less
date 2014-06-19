@@ -9,6 +9,7 @@
 @import "/client/views/me/admin.import.less";
 @import "/client/views/auth/auth.import.less";
 @import "/client/views/home/home.import.less";
+@import "/client/views/ui-test/ui-test.import.less";
 
 
 
@@ -37,24 +38,26 @@ body {
 	.h(6);
 	background: @wet-asphalt;
 	color: white;
+
+	& > nav {
+		.navbar;
+		.navbar-static-top;
+		background: @wet-asphalt;
+		min-height: 3em;
+		margin: 0;
+		padding: .6em;
+		padding-left: 4em;
+		padding-right: 4em;
+		font-size: .8em;
+		font-weight: bold;
+
+		.bar-item { .pull-left; color: white; margin-right: 1.5em;}
+		.current {color: @turquoise}
+		.right-text { .pull-right; }
+	}
+
 }
 
-nav {
-	.navbar;
-	.navbar-static-top;
-	background: @wet-asphalt;
-	min-height: 3em;
-	margin: 0;
-	padding: .6em;
-	padding-left: 4em;
-	padding-right: 4em;
-	font-size: .8em;
-	font-weight: bold;
-
-	.bar-item { .pull-left; color: white; margin-right: 1.5em;}
-	.current {color: @turquoise}
-	.right-text { .pull-right; }
-}
 
 #spinner {
 	position: fixed;
