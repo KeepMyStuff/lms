@@ -10,7 +10,7 @@
 
 
 ## Code
-Use hard tabs for indentation and soft tabs (spaces) for align.
+For less use hard tabs for indentation and soft tabs (spaces) for align.
 See [this](http://lea.verou.me/2012/01/why-tabs-are-clearly-superior/).
 
-Use coffeelint suggestion for coffeescript
+For coffeescript follow coffeelint suggestions.
