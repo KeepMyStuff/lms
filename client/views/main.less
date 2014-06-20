@@ -1,15 +1,16 @@
-//Import Bootstrap
-@import "/client/flat-ui/bootstrap/less/bootstrap.import.less";
+// Paths
+@views:      "/client/views/";
+@flatter-ui: "/packages/flatter-ui/assets/";
 
-// Import Flat UI
-@import "/client/flat-ui/less/flat-ui.import.less";
-@import "/client/flat-ui/less/variables.import.less";
+//Import Bootstrap and Flatter UI
+@import "@{flatter-ui}bootstrap/less/bootstrap.import.less";
+@import "@{flatter-ui}less/flat-ui.import.less";
 
 //Import templates
-@import "/client/views/me/admin.import.less";
-@import "/client/views/auth/auth.import.less";
-@import "/client/views/home/home.import.less";
-@import "/client/views/ui-test/ui-test.import.less";
+@import "@{views}me/admin.import.less";
+@import "@{views}auth/auth.import.less";
+@import "@{views}home/home.import.less";
+@import "@{views}ui-test/ui-test.import.less";
 
 
 
@@ -27,9 +28,9 @@
 .justify() {
 	text-align: justify;
 	-webkit-hyphens: auto;
-	-moz-hyphens: auto;
-	-ms-hyphens: auto;
-	hyphens: auto;
+	   -moz-hyphens: auto;
+	    -ms-hyphens: auto;
+            hyphens: auto;
 }
 
 //Elements

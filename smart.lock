@@ -3,6 +3,7 @@
   "dependencies": {
     "basePackages": {
       "iron-router": {},
+      "flatter-ui": {},
       "font-awesome": {}
     },
     "packages": {
@@ -10,6 +11,11 @@
         "git": "https://github.com/EventedMind/iron-router.git",
         "tag": "v0.7.1",
         "commit": "d1ffb3f06ea4c112132b030f2eb1a70b81675ecb"
+      },
+      "flatter-ui": {
+        "git": "https://github.com/rnhmjoj/flatter-ui.git",
+        "tag": "v0.1.5",
+        "commit": "29cb561ac65d5a6ea39c9e8b2d5c04568cb3110c"
       },
       "font-awesome": {
         "git": "https://github.com/nate-strauser/meteor-font-awesome.git",
