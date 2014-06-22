@@ -1,15 +1,17 @@
-//Import Bootstrap
-@import "/client/flat-ui/bootstrap/less/bootstrap.import.less";
+// Paths
+@views:      "/client/views/";
+@flatter-ui: "/packages/flatter-ui/assets/";
 
-// Import Flat UI
-@import "/client/flat-ui/less/flat-ui.import.less";
-@import "/client/flat-ui/less/variables.import.less";
+//Import Bootstrap and Flatter UI
+@import "@{flatter-ui}bootstrap/less/bootstrap.import.less";
+@import "@{flatter-ui}less/flat-ui.import.less";
 
 //Import templates
-@import "/client/views/me/me.import.less";
-@import "/client/views/auth/auth.import.less";
-@import "/client/views/home/home.import.less";
-@import "/client/views/test_editor/test_editor.import.less";
+@import "@{views}me/admin.import.less";
+@import "@{views}auth/auth.import.less";
+@import "@{views}home/home.import.less";
+@import "@{views}ui-test/ui-test.import.less";
+
 
 
 //Mixins
@@ -26,9 +28,9 @@
 .justify() {
 	text-align: justify;
 	-webkit-hyphens: auto;
-	-moz-hyphens: auto;
-	-ms-hyphens: auto;
-	hyphens: auto;
+	   -moz-hyphens: auto;
+	    -ms-hyphens: auto;
+            hyphens: auto;
 }
 
 //Elements
@@ -37,24 +39,26 @@ body {
 	.h(6);
 	background: @wet-asphalt;
 	color: white;
+
+	& > nav {
+		.navbar;
+		.navbar-static-top;
+		background: @wet-asphalt;
+		min-height: 3em;
+		margin: 0;
+		padding: .6em;
+		padding-left: 4em;
+		padding-right: 4em;
+		font-size: .8em;
+		font-weight: bold;
+
+		.bar-item { .pull-left; color: white; margin-right: 1.5em;}
+		.current {color: @turquoise}
+		.right-text { .pull-right; }
+	}
+
 }
 
-nav {
-	.navbar;
-	.navbar-static-top;
-	background: @wet-asphalt;
-	min-height: 3em;
-	margin: 0;
-	padding: .6em;
-	padding-left: 4em;
-	padding-right: 4em;
-	font-size: .8em;
-	font-weight: bold;
-
-	.bar-item { .pull-left; color: white; margin-right: 1.5em;}
-	.current {color: @turquoise}
-	.right-text { .pull-right; }
-}
 
 #spinner {
 	position: fixed;
