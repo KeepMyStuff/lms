@@ -1,47 +1,42 @@
 <template name="test_editor">
-    <div class="panel panel-info">
-        {{> Dpanel_head}}
-        <div class="panel-body">
-            {{> risposta}}
-        </div>
-        {{> Dpanel_footer}}
-    </div>
+  <div class="container" id="test_editor">
+    {{> Question}}
+  </div>
 </template>
 
-<template name="risposta">
-    <div class="input-group">
-        <span class="input-group-addon">
-            <input type="checkbox">
-        </span>
-        <input type="text" class="form-control" placeholder="Inserisci la risposta e indica se è corretta">
-    </div>
-
-    <input type="checkbox" checked data-toggle="switch" />
-
-    <input type="checkbox" id="test1" />
-
-    <div class="switch switch-square">
-        <input type="checkbox" checked data-toggle="switch" />
-    </div>
-
-    <label class="checkbox" for="checkbox1">
-        <input class="checkbox" type="checkbox" value="" id="checkbox1" data-toggle="checkbox">
-            Checkbox
-    </label>
-
+<template name="Question">
+  <div class="panel panel-info">
+      {{> Qpanel_head}}
+      <div class="panel-body">
+          {{> Answer}}
+          {{> Answer}}
+          {{> Answer}}
+      </div>
+      {{> Qpanel_footer}}
+  </div>
 </template>
 
-<template name="Dpanel_head">
+<template name="Answer">
+  <div class="input-group answerbox">
+    <span class="input-group-addon">
+        <input type="checkbox">
+    </span>
+    <input type="text" class="form-control" placeholder="Inserisci la risposta e indica se è corretta">
+    <button class="btn btn-danger removeanswerbtn">Elimina</button>
+  </div>
+</template>
+
+<template name="Qpanel_head">
     <div class="panel-heading">
         <div class="input-group">
             <span class="input-group-addon">n)</span>
-            <input type="text" class="form-control" placeholder="Inserisci la domanda">
+            <textarea class="form-control questionarea" placeholder="Inserisci la Domanda"></textarea>
         </div>
     </div>
 </template>
 
-<template name="Dpanel_footer">
-    <div class="panel-footer">
+<template name="Qpanel_footer">
+    <div class="panel-footer ">
         <div class="input-group">
             <span class="input-group-addon">Punteggio </span>
             <input type="text" class="form-control" placeholder="Inserisci il punteggio">
