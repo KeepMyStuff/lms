@@ -27,15 +27,15 @@ Template.userEditor.show = ->
   Router.current().params._id and Router.current().params._id isnt ''
 Template.userEditor.user = ->
   Meteor.users.findOne _id: Router.current().params._id
+Template.userEditor.rendered = ->
+  $('.main-drop').on 'click', -> $('.drop-wrap ul').slideToggle()
 Template.userEditor.events
   'click .btn-close': -> Router.go 'users'
   'click .btn-insert': (e,t) ->
     if Meteor.users.findOne {_id: Router.current().params._id}
       # Account exists
       Meteor.users.update {_id: Router.current().params._id},
-        $set:
-          username: t.find('.name').value
-          type: t.find('.type').value
+        $set: username: t.find('.name').value #, type: t.find('.type').value
       if t.find('.pass').value # Update the password
         p = t.find('.pass').value
         Meteor.call 'newPassword', Router.current().params._id, p,
@@ -44,9 +44,9 @@ Template.userEditor.events
           share.notify title: 'OK', type: 'success', msg: 'password changed'
     else share.notify msg: 'User does not exist'
   'click .btn-assume': ->
-    Meteor.call 'assumeIdentity', @_id, (e) ->
+    Meteor.call 'assumeIdentity', Router.current().params._id, (e) ->
       if e then share.errCallback e else
-      share.notify title:'OK',type:'success',"you're a wizard now!"
+      share.notify title:'OK',type:'success', msg:"you're a wizard now!"
   'click .btn-delete': (e,t) ->
     Meteor.call 'deleteUser', Router.current().params._id,
     (e) ->
@@ -55,6 +55,13 @@ Template.userEditor.events
         share.notify
           title: 'OK', type: 'success', msg: 'Account has been deleted'
         Router.go 'users'
+  'click .set-type': -> $('.drop-wrap ul').slideToggle()
+  'click .set-student': ->
+    Meteor.users.update Router.current().params._id, $set: type: 'student'
+  'click .set-teacher': ->
+    Meteor.users.update Router.current().params._id, $set: type: 'teacher'
+  'click .set-admin': ->
+    Meteor.users.update Router.current().params._id, $set: type: 'admin'
 
 # Classes
 

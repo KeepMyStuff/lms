@@ -77,9 +77,14 @@
 			<div class="input-group pass-container">
 			<span class="input-group-addon">Password</span>
 			<input type="text" class="pass form-control" placeholder="Set a new password"></div>
-			<div class="input-group type-container">
-			<span class="input-group-addon">Type</span>
-			<input type="text" class="type form-control" placeholder="Type: student, teacher or admin" value="{{user.type}}"></div>
+			<div class="drop-wrap">
+				<div class="main-drop">{{user.type}}
+					<span><img src="http://static.tumblr.com/upanoab/WRTmmcfvs/drop-down.png"/></span>
+				</div>
+				<ul><li class="set-type set-student">Student</li>
+					<li class="set-type set-teacher">Teacher</li>
+					<li class="set-type set-admin">Admin</li></ul>
+			</div>
 			<button class="btn btn-danger btn-delete">
 				<i class="fa fa-trash-o"></i> Delete</button>
 			<button class="btn btn-success btn-insert">
@@ -144,6 +149,7 @@
 		<!--<span class="pull-right"><i class="fa fa-times"></i></span>-->
 	</div>
 	<div class="panel-body">
+		<!-- buttons -->
 		<button class="btn btn-danger btn-delete">
 			<i class="fa fa-trash-o"></i> Delete</button>
 		<button class="btn btn-success btn-insert">

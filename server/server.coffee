@@ -46,7 +46,7 @@ Meteor.methods
     else return no
   'newPassword': (id,pass) ->
     u = getUser @userId
-    if u and u.type is 'admin' and user id
+    if u and u.type is 'admin' and getUser id
       console.log "user id:"+id+" has been given a new password"
       Accounts.setPassword id, pass; return yes
     else
