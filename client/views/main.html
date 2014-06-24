@@ -1,20 +1,27 @@
 <!-- LayoutTemplate -->
 <template name="layout">
-	<nav>
-		<a class="bar-item {{isCurrent 'home'}}" href="{{pathFor 'home'}}">Home</a>
-		{{#if user}}
-			{{#if admin}}
-				<a class="bar-item {{isCurrent 'admin'}}" href="{{pathFor 'admin'}}">Admin</a>
-			{{else}}
-				<a class="bar-item {{isCurrent 'me'}}" href="{{pathFor 'me'}}">Me</a>
-			{{/if}}
-			<span class="right-text">
-				Logged in as <a class="logout current">{{user.username}}</a>
-			</span>
-		{{else}}
-			<a class="bar-item {{isCurrent 'login'}}" href="{{pathFor 'login'}}">Login</a>
-		{{/if}}
-	</nav>
+	<header class="top" role="header">
+        <div class="container">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <i class="fa fa-bookmark-o"></i>
+            </button>
+            <nav class="navbar-collapse collapse" role="navigation">
+                <ul class="navbar-nav nav">
+                    <li><a class="{{isCurrent 'home'}}" href="{{pathFor 'home'}}">Home</a></li>
+					{{#if user}}
+						{{#if admin}}
+							<li><a class="{{isCurrent 'admin'}}" href="{{pathFor 'admin'}}">Admin</a></li>
+						{{else}}
+							<li><a class="{{isCurrent 'me'}}" href="{{pathFor 'me'}}">Me</a></li>
+						{{/if}}
+						<li><a class="logout current">{{user.username}}</a></li>
+					{{else}}
+						<li><a class="{{isCurrent 'login'}}" href="{{pathFor 'login'}}">Login</a></li>
+					{{/if}}
+                </ul>
+            </nav>
+		</div>
+    </header>
 	{{> yield}} <!-- Insert here the current router template -->
 	{{#if loggingIn}}{{> loading}}{{/if}}
 </template>

@@ -40,8 +40,10 @@ body {
 	.h(6);
 	background: @wet-asphalt;
 	color: white;
+}
 
-	& > nav {
+header.top {
+	nav {
 		.navbar;
 		.navbar-static-top;
 		background: @wet-asphalt;
@@ -53,13 +55,20 @@ body {
 		font-size: .8em;
 		font-weight: bold;
 
-		.bar-item { .pull-left; color: white; margin-right: 1.5em;}
+		a {
+			display: inline;
+			padding-right: 2em;
+		}
+
+		li:last-child{
+			float: right;
+			a {padding: 0}
+		}
+
+		ul {width: 100%}
 		.current {color: @turquoise}
-		.right-text { .pull-right; }
 	}
-
 }
-
 
 #spinner {
 	position: fixed;
