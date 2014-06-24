@@ -40,4 +40,7 @@ Router.map ->
       onBeforeAction: ->
         Router.go 'me' if !Meteor.user() or Meteor.user().type isnt 'teacher'
   @route 'ui-test'
+  @route 'quiz',
+      onBeforeAction: ->
+        Router.go 'me' if !Meteor.user() or Meteor.user().type isnt 'student'
   @route '404', path: '*'
