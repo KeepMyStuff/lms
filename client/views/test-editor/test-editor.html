@@ -1,4 +1,4 @@
-<template name="test-editor">
+<template name="testEditor">
   <div class="container" id="test-editor">
     {{> Question}}
     <button class="btn btn-info">Aggiungi</button>
@@ -20,10 +20,10 @@
 
 <template name="Answer">
   <div class="input-group answerbox">
-    <span class="input-group-addon">
-      <input type="checkbox" id="checkbox" data-toggle="checkbox">
+    <span class="input-group-addon checkbackgr">
+      <input class="check" type="checkbox">
     </span>
-    <input type="text" class="form-control form-inline" placeholder="Inserisci la risposta e indica se è corretta">
+    <input type="text" class="form-control form-inline answerinput" placeholder="Inserisci la risposta e indica se è corretta">
     <span class="input-group-btn removeanswerbtn btn btn-danger">Elimina</span>
   </div>
     <!--<button class="btn btn-danger removeanswerbtn">Elimina</button>-->
