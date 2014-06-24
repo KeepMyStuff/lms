@@ -2,9 +2,7 @@
 
 # Admin UI
 Template.admin.nusers = -> Meteor.users.find().count()
-Template.admin.nteachers = -> Meteor.users.find(type:'teacher').count()
-Template.admin.nstudents = -> Meteor.users.find(type:'student').count()
-Template.admin.nadmins = -> Meteor.users.find(type:'admin').count()
+Template.admin.ntype = (t) -> Meteor.users.find(type:t).count()
 Template.admin.nclasses = -> share.classes.find().count()
 
 Template.users.users = -> Meteor.users.find().fetch()
@@ -20,8 +18,8 @@ Template.users.events
           username: data, password: data
           type: 'student' },
           (e) ->
-            if e then share.errCallback e
-            else share.notify title: 'OK', type: 'success', msg: 'Account created'
+            if e then share.errCallback e else
+            share.notify title: 'OK', type: 'success', msg: 'Account created'
       else share.notify msg: 'Account already exists'
 
 # User editor

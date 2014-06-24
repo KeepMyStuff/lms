@@ -12,9 +12,9 @@
 			</div>
 			<div class="panel-body">
 				There are <b>{{nusers}}</b> accounts in the database.
-				<ul><li><b>{{nstudents}}</b> students</li>
-				<li><b>{{nteachers}}</b> teachers</li>
-				<li><b>{{nadmins}}</b> administrators</li></ul>
+				<ul><li><b>{{ntype 'student'}}</b> students</li>
+				<li><b>{{ntype 'teacher'}}</b> teachers</li>
+				<li><b>{{ntype 'admin'}}</b> administrators</li></ul>
 			</div>
 			<div align="center">
 		    <a class="users-button" href="{{pathFor 'users'}}">
