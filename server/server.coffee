@@ -38,6 +38,12 @@ Meteor.methods
       console.log "user id:"+id+" is being deleted from the database"
       Meteor.users.remove id; return yes
     else return no
+  'assumeIdentity': (id) ->
+    u = getUser @userId
+    if u.type is 'admin'
+      @setUserId id
+      return yes
+    else return no
   'newPassword': (id,pass) ->
     u = getUser @userId
     if u and u.type is 'admin' and user id

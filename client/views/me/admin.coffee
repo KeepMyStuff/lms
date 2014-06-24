@@ -20,9 +20,9 @@ Template.users.events
           username: data, password: data
           type: 'student' },
           (e) ->
-            if e then errCallback e
-            else notify title: 'OK', type: 'success', msg: 'Account created'
-      else notify msg: 'Account already exists'
+            if e then share.errCallback e
+            else share.notify title: 'OK', type: 'success', msg: 'Account created'
+      else share.notify msg: 'Account already exists'
 
 # User editor
 Template.userEditor.show = ->
@@ -42,15 +42,20 @@ Template.userEditor.events
         p = t.find('.pass').value
         Meteor.call 'newPassword', Router.current().params._id, p,
         (e) ->
-          if e then errCallback e
-          else notify title: 'OK', type: 'success', msg: 'password changed'
-    else notify msg: 'User does not exist'
+          if e then share.errCallback e else
+          share.notify title: 'OK', type: 'success', msg: 'password changed'
+    else share.notify msg: 'User does not exist'
+  'click .btn-assume': ->
+    Meteor.call 'assumeIdentity', @_id, (e) ->
+      if e then share.errCallback e else
+      share.notify title:'OK',type:'success',"you're a wizard now!"
   'click .btn-delete': (e,t) ->
     Meteor.call 'deleteUser', Router.current().params._id,
     (e) ->
-      if e then errCallback e
+      if e then share.errCallback e
       else
-        notify title: 'OK', type: 'success', msg: 'Account has been deleted'
+        share.notify
+          title: 'OK', type: 'success', msg: 'Account has been deleted'
         Router.go 'users'
 
 # Classes
@@ -66,19 +71,19 @@ Template.classAdder.events
     section = t.find('.section-val').value
     course = t.find('.course-val').value
     if !year
-      return notify msg: 'Missing "year"'
+      return share.notify msg: 'Missing "year"'
     else if !course
-      return notify msg: 'Missing "course"'
+      return share.notify msg: 'Missing "course"'
     else if !section
-      return notify msg: 'Missing "section"'
+      return share.notify msg: 'Missing "section"'
     else if !share.classes.find {year: year, section:section, course:course}
-      return notify msg: 'This class already exists'
+      return share.notify msg: 'This class already exists'
     share.classes.insert {
       year: year, section: section, course: course,
       teachers:[], students: []
       }, (e) ->
-      if e then errCallback e else
-      notify title: 'OK', type: 'success', msg: 'class added successfully'
+      if e then share.errCallback e else
+      share.notify title: 'OK', type: 'success', msg: 'class added successfully'
 
 Template.classEditor.class = ->
   share.classes.findOne _id: Router.current().params._id
@@ -87,7 +92,7 @@ Template.classEditor.events
   'click .btn-delete': ->
     share.classes.remove Router.current().params._id,
     (e) ->
-      if e then errCallback e
+      if e then share.errCallback e
       else
-        notify title: 'OK', type: 'success', msg: 'class has been deleted'
+        share.notify title: 'OK', type: 'success', msg: 'class has been deleted'
         Router.go 'classes'
