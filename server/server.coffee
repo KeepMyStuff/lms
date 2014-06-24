@@ -1,4 +1,5 @@
 # Account management: server side code
+getUser = (id) -> Meteor.users.findOne _id: id
 
 Meteor.startup -> # Executed when the server starts
   # Create default admin user if there are no users
@@ -26,20 +27,19 @@ Accounts.emailTemplates.verifyEmail.text = (user, url) ->
   '''You can verify this email address and start using your account by logging\
   in and using the following token: #{token}'''
 
-user = (id) -> Meteor.users.findOne _id: id
 Meteor.methods
   'newUser': (options) ->
-    u = user @userId; return no if !u or u.type isnt 'admin'
+    u = getUser @userId; return no if !u or u.type isnt 'admin'
     console.log "Create Account request accepted from "+u.username
     Accounts.createUser options
   'deleteUser': (id) ->
-    u = user @userId
+    u = getUser @userId
     if id is @userId or (u and u.type is 'admin')
       console.log "user id:"+id+" is being deleted from the database"
       Meteor.users.remove id; return yes
     else return no
   'newPassword': (id,pass) ->
-    u = user @userId
+    u = getUser @userId
     if u and u.type is 'admin' and user id
       console.log "user id:"+id+" has been given a new password"
       Accounts.setPassword id, pass; return yes
@@ -56,7 +56,7 @@ classes = new Meteor.Collection 'classes'
 
 Meteor.publish 'classes', ->
   if @userId
-    user = Meteor.users.findOne(_id:@userId)
+    user = Meteor.users.findOne _id:@userId
     if user.type is 'admin'
       return classes.find()
     else if user.type is 'student'
@@ -65,11 +65,11 @@ Meteor.publish 'classes', ->
       return classes.find teachers: $elemMatch: _id: @userId
 
 Meteor.users.allow
-  insert: (id) -> id and user(id).type is 'admin'
-  remove: (id) -> id and user(id).type is 'admin'
+  insert: (id) -> id and getUser(id).type is 'admin'
+  remove: (id) -> id and getUser(id).type is 'admin'
   update: (id) ->
-    console.log "ID: "+id+" Type:"+user(id).type
-    id and user(id).type is 'admin'
+    console.log "ID: "+id+" Type:"+getUser(id).type
+    id and getUser(id).type is 'admin'
 
 Meteor.publish 'users', ->
   if @userId and Meteor.users.findOne(_id:@userId).type is 'admin'
