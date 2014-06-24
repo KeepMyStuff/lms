@@ -1,7 +1,15 @@
 #test-editor {
   .answerbox {
     margin-top: 0.2em;
+    border-color: @nephritis;
   }
+  .answerinput{
+    border-color: @nephritis;
+    border-left: 0;
+    border-right: 0;
+  }
+
+
   .questionarea{
     resize: none;
     font-weight: bold;
@@ -10,5 +18,51 @@
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
     font-size: 0.7em;
+  }
+
+  .checkbackgr{
+    background: @peter-river;
+    border-color: @peter-river;
+  }
+
+  .check {
+    .square(0.7em);
+    .transition;
+    .border-radius(4px);
+    position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none!important;
+    text-align: center;
+
+    &:hover{
+      cursor: pointer;
+    }
+
+    &:after {
+      .transition;
+      position: absolute;
+      top: -0.35em;
+      left: -0.46em;
+      content:"";
+      background:url('http://static.tumblr.com/upanoab/0hOmmcbuh/tick-sprite.png');
+      width: 22px;
+      height: 22px;
+    }
+
+    &:checked {
+      .transition;
+    }
+
+    &:checked:after {
+      .transition;
+      position: absolute;
+      top: -0.35em;
+      left: -0.46em;
+      content:"";
+      background:url('http://static.tumblr.com/upanoab/0hOmmcbuh/tick-sprite.png');
+      background-position:-20px;
+      width: 22px;
+      height: 22px;
+    }
   }
 }
