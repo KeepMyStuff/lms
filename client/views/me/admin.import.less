@@ -24,6 +24,27 @@
   .btn {
     margin-top: 1em;
   }
+  .btn-insert {
+    margin-right: 1em; margin-left: 1em;
+  }
+  .userlist, .classlist {
+    .list-group;
+    margin-bottom: 1em;
+    .user, .class {
+      .list-group-item;
+      h4 {
+        .list-group-item-heading;
+        color: @asbestos
+      }
+      p {
+        .list-group-item-text;
+        color: @concrete
+      }
+    }
+    .active {
+      background-color: @clouds;
+    }
+  }
 }
 
 // Classes
@@ -46,9 +67,6 @@
   h2 {
     margin-bottom: 0.4em;
   }
-  .btn-insert {
-    margin-right: 1em; margin-left: 1em;
-  }
   .type-container, .pass-container {
     margin-top: 0.5em;
   }
@@ -62,24 +80,6 @@
     .new {
       .text-center;
       max-width: 20em;
-    }
-  }
-  .userlist {
-    .list-group;
-    margin-bottom: 1em;
-    .user {
-      .list-group-item;
-      h4 {
-        .list-group-item-heading;
-        color: @asbestos
-      }
-      p {
-        .list-group-item-text;
-        color: @concrete
-      }
-    }
-    .active {
-      background-color: @clouds;
     }
   }
 }

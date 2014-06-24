@@ -97,10 +97,12 @@
 <div class="class-container">
 	<h2>Classes</h2>
 	{{> error}}
+	{{> classEditor}}
 	<div class="classlist">
 		{{#each classes}}
 		<a class="class {{active}}" href="{{pathFor 'classes'}}">
-			{{class.year}}{{class.course}}{{class.section}}
+			<h4>{{year}}{{course}}{{section}}</h4>
+			<p>Students: {{students.length}}, Teachers: {{teachers.length}}</p>
 		</a>
 		{{/each}}
 	</div>
@@ -130,4 +132,22 @@
 			<i class="fa fa-upload"></i> Create</button>
 	</div>
 </div>
+</template>
+
+<template name="classEditor">
+{{#if class}}<div class="panel panel-default user-editor">
+	<div class="panel-heading">
+		<span class="pull-left"><i class="fa fa-edit"></i></span>
+		{{class._id}}
+		<!--<span class="pull-right"><i class="fa fa-times"></i></span>-->
+	</div>
+	<div class="panel-body">
+		<button class="btn btn-danger btn-delete">
+			<i class="fa fa-trash-o"></i> Delete</button>
+		<button class="btn btn-success btn-insert">
+			<i class="fa fa-upload"></i> Update</button>
+		<button class="btn btn-warning btn-close">
+			<i class="fa fa-times"></i> Close</button>
+	</div>
+</div>{{/if}}
 </template>

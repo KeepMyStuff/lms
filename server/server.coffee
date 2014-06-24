@@ -64,14 +64,14 @@ Meteor.publish 'classes', ->
     else if user.type is 'teacher'
       return classes.find teachers: $elemMatch: _id: @userId
 
-Meteor.users.allow
-  insert: (id) -> id and getUser(id).type is 'admin'
-  remove: (id) -> id and getUser(id).type is 'admin'
-  update: (id) ->
-    console.log "ID: "+id+" Type:"+getUser(id).type
-    id and getUser(id).type is 'admin'
+isAdmin = (id) -> id and getUser(id).type is 'admin'
+gibPowerToAdmins =
+  insert: isAdmin, remove: isAdmin, update: isAdmin
 
-Meteor.publish 'users', ->
+Meteor.users.allow gibPowerToAdmins
+classes.allow gibPowerToAdmins
+
+Meteor.publish 'user', ->
   if @userId and Meteor.users.findOne(_id:@userId).type is 'admin'
     return Meteor.users.find()
 # Tell the user his "type" field
