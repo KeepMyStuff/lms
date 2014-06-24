@@ -4,6 +4,9 @@
 Meteor.subscribe 'userType'
 # User data. Only receivable by admins
 Meteor.subscribe 'users'
+# Classes
+classes = new Meteor.Collection 'classes'
+Meteor.subscribe 'classes'
 
 UI.registerHelper 'user', -> Meteor.user()
 UI.registerHelper 'admin', -> Meteor.user() and Meteor.user().type is 'admin'
@@ -58,6 +61,7 @@ Template.admin.nusers = -> Meteor.users.find().count()
 Template.admin.nteachers = -> Meteor.users.find(type:'teacher').count()
 Template.admin.nstudents = -> Meteor.users.find(type:'student').count()
 Template.admin.nadmins = -> Meteor.users.find(type:'admin').count()
+Template.admin.nclasses = -> classes.find().count()
 
 Template.users.users = -> Meteor.users.find().fetch()
 Template.users.active = ->
@@ -104,3 +108,28 @@ Template.userEditor.events
       else
         notify title: 'OK', type: 'success', msg: 'Account has been deleted'
         Router.go 'users'
+
+# Classes
+
+Template.classes.active = ->
+  Router.current() and Router.current().params._id is @_id
+Template.classes.classes = classes.find().fetch()
+
+Template.classAdder.events
+  'click .btn-close': -> Router.go 'classes'
+  'click .btn-insert': (e,t) ->
+    console.log t.find('.new')
+    year = t.find('.year-val').value
+    section = t.find('.section-val').value
+    course = t.find('.course-val').value
+    if !year
+      return showErr msg: 'Missing "year"'
+    else if !course
+      return showErr msg: 'Missing "course"'
+    else if !section
+      return showErr msg: 'Missing "section"'
+    else if !classes.find {year: year, section:section, course:course}
+      return showErr msg: 'This class already exists'
+    classes.insert {year: year, section: section, course: course}, (e) ->
+      if e then errCallback e else
+      showErr title: 'OK', type: 'success', msg: 'class added successfully'

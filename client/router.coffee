@@ -36,9 +36,9 @@ Router.map ->
     path: '/student/quiz'
     data: -> Meteor.users.findOne _id: @params._id
   @route 'quiz'
-  @route 'editor-test',
-      onBeforeAction: ->
-        Router.go 'me' if !Meteor.user() or Meteor.user().type isnt 'teacher'
+  @route 'test-editor'
+      #onBeforeAction: ->
+        #Router.go 'me' if !Meteor.user() or Meteor.user().type isnt 'teacher'
   @route 'ui-test'
   @route 'quiz',
       onBeforeAction: ->
