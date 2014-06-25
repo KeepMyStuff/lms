@@ -90,9 +90,6 @@ Template.classAdder.events
 
 Template.classEditor.class = ->
   share.classes.findOne _id: Router.current().params._id
-<<<<<<< HEAD
-Template.classEditor.events
-=======
 Template.classEditor.students = -> Meteor.users.find type: 'student'
 Template.classEditor.teachers = -> Meteor.users.find type: 'teacher'
 indexOfUser = (u) ->
@@ -113,7 +110,6 @@ Template.classEditor.events
     if indexOfUser(this) is false
       share.classes.update Router.current().params._id, $push: teachers: @_id
     else share.classes.update Router.current().params._id, $pull: teachers: @_id
->>>>>>> can now manage classes in the admin ui
   'click .btn-close': -> Router.go 'classes'
   'click .btn-delete': ->
     share.classes.remove Router.current().params._id,
