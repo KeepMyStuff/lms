@@ -156,11 +156,11 @@
 			<ul>
 				{{#each students}}
 				<li>{{username}}
-				<span class="pull-right">
-					<a class="toggle">
+				<button class="btn btn-{{#if added}}danger{{else}}success{{/if}} pull-right">
+					<a class="toggle-student">
 					{{#if added}}<i class="fa fa-times"></i>{{else}}<i class="fa fa-plus"></i>{{/if}}
 					</a>
-				</span></li>
+				</button></li>
 				{{/each}}
 			</ul>
 		</div>
@@ -169,7 +169,13 @@
 				<span><img src="http://static.tumblr.com/upanoab/WRTmmcfvs/drop-down.png"/></span>
 			</div>
 			<ul>
-				{{#each teachers}}<li>{{added}}{{username}}</li>{{/each}}
+				{{#each teachers}}<li>{{username}}
+				<button class="btn btn-{{#if added}}danger{{else}}success{{/if}} pull-right">
+					<a class="toggle-teacher">
+					{{#if added}}<i class="fa fa-times"></i>{{else}}<i class="fa fa-plus"></i>{{/if}}
+					</a>
+				</button>
+				</li>{{/each}}
 			</ul>
 		</div>
 		<!-- buttons -->

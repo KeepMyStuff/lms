@@ -40,6 +40,7 @@ Template.userEditor.events
         (e) ->
           if e then share.errCallback e else
           share.notify title: 'OK', type: 'success', msg: 'password changed'
+        t.find('.pass').value = ''
     else share.notify msg: 'User does not exist'
   'click .btn-assume': ->
     Meteor.call 'assumeIdentity', Router.current().params._id, (e) ->
@@ -89,7 +90,30 @@ Template.classAdder.events
 
 Template.classEditor.class = ->
   share.classes.findOne _id: Router.current().params._id
+<<<<<<< HEAD
 Template.classEditor.events
+=======
+Template.classEditor.students = -> Meteor.users.find type: 'student'
+Template.classEditor.teachers = -> Meteor.users.find type: 'teacher'
+indexOfUser = (u) ->
+  list = Template.classEditor.class()
+  if u.type is 'teacher' then l = list.teachers else l = list.students
+  return k for i,k in l when i is u._id; no
+Template.classEditor.added = -> indexOfUser(this) isnt false
+Template.classEditor.events
+  'click .students-drop .main-drop': (e,t) ->
+    t.$('.students-drop ul').slideToggle()
+  'click .teachers-drop .main-drop': (e,t) ->
+    t.$('.teachers-drop ul').slideToggle()
+  'click .toggle-student': ->
+    if indexOfUser(this) is false
+      share.classes.update Router.current().params._id, $push: students: @_id
+    else share.classes.update Router.current().params._id, $pull: students: @_id
+  'click .toggle-teacher': ->
+    if indexOfUser(this) is false
+      share.classes.update Router.current().params._id, $push: teachers: @_id
+    else share.classes.update Router.current().params._id, $pull: teachers: @_id
+>>>>>>> can now manage classes in the admin ui
   'click .btn-close': -> Router.go 'classes'
   'click .btn-delete': ->
     share.classes.remove Router.current().params._id,

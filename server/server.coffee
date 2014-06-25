@@ -5,11 +5,18 @@ gibPowerToAdmins =
 insert: isAdmin, remove: isAdmin, update: isAdmin
 
 Meteor.startup -> # Executed when the server starts
-  # Create default admin user if there are no users
+  # Create default admin user if there are no users†
   if Meteor.users.find().count() is 0
     id = Accounts.createUser
       username: 'admin', password: 'admin',
       email: 'admin@admin.app', type: 'admin'
+    for i in [1..1000]
+      console.log "Creating user "+i
+      Accounts.createUser
+        username: 'user'+i
+        password: 'user'+i
+        email: 'user'+i+"@user.com"
+        type: 'student'
     console.log '''No users in the database. Creating default admin user
     Username: admin - Password: admin - Email: admin@admin.app - ID: '''+id
   else
