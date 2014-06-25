@@ -149,6 +149,29 @@
 		<!--<span class="pull-right"><i class="fa fa-times"></i></span>-->
 	</div>
 	<div class="panel-body">
+		<div class="students-drop drop-wrap">
+			<div class="main-drop">{{ntype 'student'}} Students
+				<span><img src="http://static.tumblr.com/upanoab/WRTmmcfvs/drop-down.png"/></span>
+			</div>
+			<ul>
+				{{#each students}}
+				<li>{{username}}
+				<span class="pull-right">
+					<a class="toggle">
+					{{#if added}}<i class="fa fa-times"></i>{{else}}<i class="fa fa-plus"></i>{{/if}}
+					</a>
+				</span></li>
+				{{/each}}
+			</ul>
+		</div>
+		<div class="teachers-drop drop-wrap">
+			<div class="main-drop">{{ntype 'teacher'}} Teachers
+				<span><img src="http://static.tumblr.com/upanoab/WRTmmcfvs/drop-down.png"/></span>
+			</div>
+			<ul>
+				{{#each teachers}}<li>{{added}}{{username}}</li>{{/each}}
+			</ul>
+		</div>
 		<!-- buttons -->
 		<button class="btn btn-danger btn-delete">
 			<i class="fa fa-trash-o"></i> Delete</button>

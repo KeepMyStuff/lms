@@ -1,8 +1,8 @@
 # - ADMIN template and subtemplates -
 
 # Admin UI
-Template.admin.nusers = -> Meteor.users.find().count()
-Template.admin.ntype = (t) -> Meteor.users.find(type:t).count()
+UI.registerHelper 'nusers', -> Meteor.users.find().count()
+UI.registerHelper 'ntype', (t) -> Meteor.users.find(type:t).count()
 Template.admin.nclasses = -> share.classes.find().count()
 
 Template.users.users = -> Meteor.users.find().fetch()
@@ -27,10 +27,11 @@ Template.userEditor.show = ->
   Router.current().params._id and Router.current().params._id isnt ''
 Template.userEditor.user = ->
   Meteor.users.findOne _id: Router.current().params._id
-Template.userEditor.rendered = ->
-  $('.main-drop').on 'click', -> $('.drop-wrap ul').slideToggle()
+#Template.userEditor.rendered = ->
+  #$('.main-drop').on 'click', -> $('.drop-wrap ul').slideToggle()
 Template.userEditor.events
   'click .btn-close': -> Router.go 'users'
+  'click .main-drop': (e,t) -> t.$('.drop-wrap ul').slideToggle()
   'click .btn-insert': (e,t) ->
     if Meteor.users.findOne {_id: Router.current().params._id}
       # Account exists
@@ -92,7 +93,11 @@ Template.classAdder.events
 
 Template.classEditor.class = ->
   share.classes.findOne _id: Router.current().params._id
+Template.classEditor.students = -> Meteor.users.find type: 'student'
+Template.classEditor.teachers = -> Meteor.users.find type: 'teacher'
 Template.classEditor.events
+  'click .students-drop': (e,t) -> t.$('.students-drop ul').slideToggle()
+  'click .teachers-drop': (e,t) -> t.$('.teachers-drop ul').slideToggle()
   'click .btn-close': -> Router.go 'classes'
   'click .btn-delete': ->
     share.classes.remove Router.current().params._id,
