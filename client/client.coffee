@@ -18,6 +18,11 @@ Template.layout.isCurrent = (i) ->
     return 'current'
 Template.layout.events
   'click .logout': -> Meteor.logout(); Router.go 'home'
+# Dropdown click event
+Template.layout.rendered = ->
+  $(document).ready ->
+    $('.drop-wrap').each ->
+      $(this).on 'click', -> $('ul', this).slideToggle()
 
 # - ERROR template -
 

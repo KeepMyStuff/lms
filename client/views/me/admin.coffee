@@ -27,8 +27,6 @@ Template.userEditor.show = ->
   Router.current().params._id and Router.current().params._id isnt ''
 Template.userEditor.user = ->
   Meteor.users.findOne _id: Router.current().params._id
-Template.userEditor.rendered = ->
-  $('.main-drop').on 'click', -> $('.drop-wrap ul').slideToggle()
 Template.userEditor.events
   'click .btn-close': -> Router.go 'users'
   'click .btn-insert': (e,t) ->
@@ -55,7 +53,6 @@ Template.userEditor.events
         share.notify
           title: 'OK', type: 'success', msg: 'Account has been deleted'
         Router.go 'users'
-  'click .set-type': -> $('.drop-wrap ul').slideToggle()
   'click .set-student': ->
     Meteor.users.update Router.current().params._id, $set: type: 'student'
   'click .set-teacher': ->
