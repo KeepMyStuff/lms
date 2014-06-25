@@ -16,6 +16,9 @@ Meteor.startup ->
 Template.layout.isCurrent = (i) ->
   if Router.current() and Router.current().lookupTemplate() is i
     return 'current'
+  if Router.current() and Router.current().path.lastIndexOf('/'+i,0) is 0
+    console.log Router.current().path+" "+i
+    return 'current'
 Template.layout.events
   'click .logout': -> Meteor.logout(); Router.go 'home'
 # Dropdown click event

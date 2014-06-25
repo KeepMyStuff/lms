@@ -8,6 +8,8 @@ Learning Management System
 - Class, Student, Teacher organization
 - Homework and Test management and evaluation
 - Responsive interface (mobile friendly)
+- E-portfolio
+- Lessons Blogs
 
 ### Technology Used
 
