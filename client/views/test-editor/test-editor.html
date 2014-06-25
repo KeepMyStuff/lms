@@ -2,17 +2,17 @@
   <div class="container" id="test-editor">
     {{> Question}}
     <button class="btn btn-info">Aggiungi</button>
-    <button class="btn btn-danger">Elimina</button>
   </div>
 </template>
 
 <template name="Question">
-  <div class="panel panel-info">
+  <div class="panel panel-default questionpanel">
       {{> Qpanel_head}}
       <div class="panel-body">
-          {{> Answer}}
-          {{> Answer}}
-          {{> Answer}}
+        {{> Answer}}
+        {{> Answer}}
+        {{> Answer}}
+        <button class="btn btn-info answerbox">aggiungi</button>
       </div>
       {{> Qpanel_footer}}
   </div>
@@ -23,13 +23,20 @@
     <span class="input-group-addon checkbackgr">
       <input class="check" type="checkbox">
     </span>
-    <input type="text" class="form-control form-inline answerinput" placeholder="Inserisci la risposta e indica se è corretta">
+      <textarea class="form-control answerarea" placeholder="Inserisci la risposta e indica se è corretta"></textarea>
+    <!--<input type="text" class="form-control form-inline answerinput" placeholder="Inserisci la risposta e indica se è corretta">-->
     <span class="input-group-btn removeanswerbtn btn btn-danger">Elimina</span>
   </div>
-    <!--<button class="btn btn-danger removeanswerbtn">Elimina</button>-->
 </template>
 
 <template name="Qpanel_head">
+  <div class="input-group">
+      <span class="input-group-addon panelheadnumber"><h4> n)</h4></span>
+      <textarea class="form-control questionarea" placeholder="Inserisci la Domanda"></textarea>
+  </div>
+</template>
+
+<template name="Qpanel_head_old">
     <div class="panel-heading">
         <div class="input-group">
             <span class="input-group-addon"><h4> n)</h4></span>
@@ -39,7 +46,7 @@
 </template>
 
 <template name="Qpanel_footer">
-    <div class="panel-footer">
+    <div class="panel-footer">-
         <div class="input-group">
             <span class="input-group-addon">Punteggio </span>
             <input type="text" class="form-control" placeholder="Inserisci il punteggio">
