@@ -5,26 +5,71 @@
 	width:75%;
 	max-width:45em;
 	min-width:15em;
-	background-color:#eee;
-	border-radius:10px;
+	background-color:#cdc;
+	border-radius:4px;
 	margin-top:3em;
 	padding: 1em;
 	color:#136;
 
 	h3{
 		color:#3ba57e;
+		padding:.3em;
 	}
 	.question{
 		.text-justify;
 		padding: 1em;
+		background-color:#eeeeee;
+		border-radius:4px;
 		.options{
 			width:90%;
 			.container;
 			margin-top:1em;
 			.center-block;
 			.text-left;
+
+			/* Checkbox
+			===============================*/
+			.check {
+				.square(40px);
+				.transition;
+				.border-radius(4px);
+				position: relative;
+				-webkit-appearance: none;
+				-moz-appearance: none!important;
+				text-align: center;
+				vertical-align:-13px;
+
+				&:after {
+					.transition;
+					position: absolute;
+					top: 9px;
+					left: 8px;
+					content:"";
+					background:url('http://static.tumblr.com/upanoab/0hOmmcbuh/tick-sprite.png');
+					width: 22px;
+					height: 22px;
+				}
+
+				&:checked {
+					.transition;
+				}
+
+				&:checked:after {
+					.transition;
+					position: absolute;
+					top: 9px;
+					left: 6px;
+					content:"";
+					background:url('http://static.tumblr.com/upanoab/0hOmmcbuh/tick-sprite.png');
+					background-position:-20px;
+					width: 22px;
+					height: 22px;
+				}
+			}
 		}
 	}
+
+
 
 }
 
@@ -35,12 +80,12 @@
 	width:75%;
 	max-width:45em;
 	background-color:#eee;
-	border-radius:10px;
+	border-radius:4px;
 	margin-top:3em;
 	padding: 1em;
 
 	h3{
-		color:#cbae03;
+		color:#46f;
 	}
 	.btn{
 		.center-block;
