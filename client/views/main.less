@@ -1,0 +1,85 @@
+// Paths
+@views:      "/client/views/";
+@flatter-ui: "/packages/flatter-ui/assets/";
+
+//Import Bootstrap and Flatter UI
+@import "@{flatter-ui}bootstrap/less/bootstrap.import.less";
+@import "@{flatter-ui}less/flat-ui.import.less";
+
+//Import templates
+@import "@{views}me/admin.import.less";
+@import "@{views}auth/auth.import.less";
+@import "@{views}home/home.import.less";
+@import "@{views}test-editor/test-editor.import.less";
+@import "@{views}ui-test/ui-test.import.less";
+@import "@{views}me/student.import.less";
+
+
+
+//Mixins
+//style every heading
+.h (@index) when (@index > 0) {
+	h@{index} {
+		margin: 0;
+		font-weight: 400
+	}
+	.h(@index - 1);
+}
+
+//Justify and enable hyphen
+.justify() {
+	text-align: justify;
+	-webkit-hyphens: auto;
+	   -moz-hyphens: auto;
+	    -ms-hyphens: auto;
+            hyphens: auto;
+}
+
+//Elements
+
+body {
+	.h(6);
+	background: @wet-asphalt;
+	color: white;
+}
+
+header.top {
+	nav {
+		.navbar;
+		.navbar-static-top;
+		background: @wet-asphalt;
+		min-height: 3em;
+		margin: 0;
+		padding: .6em;
+		padding-left: 4em;
+		padding-right: 4em;
+		font-size: .8em;
+		font-weight: bold;
+
+		a {
+			display: inline;
+			padding-right: 2em;
+		}
+
+		li:last-child{
+			float: right;
+			a {padding: 0}
+		}
+
+		ul {width: 100%}
+		.current {color: @turquoise}
+	}
+}
+
+#spinner {
+	position: fixed;
+	top: calc(50% - 3em);
+	left: calc(50% - 3em);
+	background: @concrete;
+	padding: 1em;
+	width: 5em;
+	i {
+		color: white;
+		font-size: 3em;
+	}
+}

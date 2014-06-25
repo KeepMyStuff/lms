@@ -1,0 +1,59 @@
+<!-- LayoutTemplate -->
+<template name="layout">
+	<header class="top" role="header">
+        <div class="container">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <i class="fa fa-bookmark-o"></i>
+            </button>
+            <nav class="navbar-collapse collapse" role="navigation">
+                <ul class="navbar-nav nav">
+                    <li><a class="{{isCurrent 'home'}}" href="{{pathFor 'home'}}">Home</a></li>
+					{{#if user}}
+						{{#if admin}}
+							<li><a class="{{isCurrent 'admin'}}" href="{{pathFor 'admin'}}">Admin</a></li>
+						{{else}}
+							<li><a class="{{isCurrent 'me'}}" href="{{pathFor 'me'}}">Me</a></li>
+						{{/if}}
+						<li><a class="logout current">{{user.username}}</a></li>
+					{{else}}
+						<li><a class="{{isCurrent 'login'}}" href="{{pathFor 'login'}}">Login</a></li>
+					{{/if}}
+                </ul>
+            </nav>
+		</div>
+    </header>
+	{{> yield}} <!-- Insert here the current router template -->
+	{{#if loggingIn}}{{> loading}}{{/if}}
+</template>
+
+<!-- /me -->
+<template name="me"><div id="me">
+{{#if is 'teacher'}}{{> teacher}}{{/if}}
+{{#if is 'student'}}{{> student}}{{/if}}
+</div></template>
+
+<!-- Error Showing template -->
+<template name="error">
+	<div align="center" class="error-container">
+		{{#if error}}
+		<div class="alert alert-{{error.type}}">
+			<button type="button" class="close">&times;</button>
+			<strong>{{error.title}}</strong> {{error.msg}}
+		</div>
+		{{/if}}
+	</div>
+</template>
+
+<!-- 404 -->
+<template name="404">
+	<div align="center">
+		<h1>404</h1>
+	</div>
+</template>
+
+<!-- loading spinner -->
+<template name="loading">
+	<div id="spinner">
+		<i class="fa fa-circle-o-notch fa-spin"></i>
+	</div>
+</template>

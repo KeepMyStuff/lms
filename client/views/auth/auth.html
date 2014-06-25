@@ -1,0 +1,24 @@
+<!-- route: /login -->
+<template name="login">
+	<div align="center" class="auth-container">
+		<div class="auth-minicontainer">
+			<p class="lead"><i class="fa fa-user fa-2x"></i></p>
+			{{> error}}
+			<input type="text" class="form-control mail" placeholder="Mail or Username">
+			<input type="password" class="form-control pass" placeholder="Password">
+			<a role="button" class="btn btn-primary login-btn">
+				<i class="fa fa-sign-in"></i> Login</a>
+			<!--<a role="button" href="{{pathFor 'register'}}" class="btn btn-success">Sign Up</a> -->
+		</div>
+	</div>
+</template>
+
+<!-- route: /verify -->
+<template name="verify">
+	<div align="center" class="auth-container">
+		<div class="auth-minicontainer">
+			<i class="fa fa-envelope fa-2x"></i>
+			<input type="text" class="form-control token" placeholder="Insert Token">
+		</div>
+	</div>
+</template>

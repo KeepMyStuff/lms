@@ -1,0 +1,99 @@
+.admin-container {
+  .container;
+  .panels {
+    margin-top: 2em;
+    .users-button, .classes-button {
+      .btn; .btn-primary;
+      margin-bottom: 1em;
+      align: center;
+    }
+    .panel {
+      max-width: 25em;
+    }
+    .panel-body {
+      color: @concrete;
+    }
+  }
+}
+
+.users-container, .class-container {
+  .container;
+  h2 {
+    margin-bottom: 0.4em;
+  }
+  .btn {
+    margin-top: 1em;
+  }
+  .btn-insert {
+    margin-right: 1em; margin-left: 1em;
+  }
+  .userlist, .classlist {
+    .list-group;
+    margin-bottom: 1em;
+    .user, .class {
+      .list-group-item;
+      h4 {
+        .list-group-item-heading;
+        color: @asbestos
+      }
+      p {
+        .list-group-item-text;
+        color: @concrete
+      }
+    }
+    .active {
+      background-color: @clouds;
+    }
+  }
+}
+
+// Classes
+
+.class-container {
+  .text-center;
+  .course {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+  .class-adder-panel {
+    max-width: 25em;
+  }
+  ul .btn {
+    padding: 0.2em 0.5em;
+    margin-top: 0.2em;
+    font-size: 12px;
+  }
+}
+
+// Users
+
+.users-container {
+  .container;
+  h2 {
+    margin-bottom: 0.4em;
+  }
+  .type-container, .pass-container {
+    margin-top: 0.5em;
+  }
+  .pass-container,.name-container {
+    max-width: 500px;
+  }
+  .type-container {
+    max-width: 300px;
+  }
+  .new-container {
+    .new {
+      .text-center;
+      max-width: 20em;
+    }
+  }
+}
+
+.user-editor {
+  width: 90%;
+  max-width: 600px;
+  margin-bottom: 2em;
+  .drop-wrap {
+    margin-top: 1em;
+  }
+}

@@ -1,0 +1,26 @@
+<template name="student">
+		<div id="student">
+			<h3>Benvenuto {{user.username}}</h3><br>
+			<a href={{pathFor 'ui-test'}} class="btn btn-block btn-primary">CODEPEN</a>
+			<a href="#fakelink" class="btn btn-block btn-success">Compiti</a>
+			<a href="#fakelink" class="btn btn-block btn-primary">Consegne</a>
+			<a href="#fakelink" class="btn btn-block btn-success">Materiale</a>
+			<a href={{pathFor 'quiz'}} class="btn btn-block btn-primary ">Verifiche</a>
+
+		</div>
+</template>
+
+
+<template name="quiz">
+		<div id="quiz">
+			<h3>Verifica di {{materia}}</h3><br>
+			<div class="question">
+				1. La nonna Pina compra 3 confezioni di biscotti; ciascuna confezione contiene 12 biscotti; li distribuisce tra i suoi 4 nipotini. Quanti biscotti dà a ciascuno?
+				<div class="options">
+					<p><input class="check turq" type="checkbox"/> 3,14 </p>
+					<p><input class="check turq" type="checkbox"/> Molti!!!!</p>
+					<p><input class="check turq" type="checkbox"/> Boooohhhh</p>
+				</div>
+			</div>
+		</div>
+</template>
