@@ -14,11 +14,6 @@ Router.map ->
   @route 'home', # Declare a route named 'home'
     path: '/' # the url that triggers this route
     #onBeforeAction: -> Router.go 'me' if Meteor.user()
-  @route 'me',
-    onBeforeAction: ->
-      Router.go 'admin' if Meteor.user() and Meteor.user().type is 'admin'
-      Router.go 'student' if Meteor.user() and Meteor.user().type is 'student'
-      Router.go 'login' if !Meteor.user()
   @route 'admin'
     #onBeforeAction: -> Router.go 'users', _id: @params._id
   @route 'users',
@@ -28,19 +23,23 @@ Router.map ->
     path: '/admin/classes/:_id?'
     #data: -> classes.findOne _id: @params._id
   @route 'login',
-  path: '/login', onBeforeAction: -> Router.go 'me' if Meteor.user()
+    path: '/login', onBeforeAction: -> Router.go 'me' if Meteor.user()
   @route 'student',
     path: '/student'
-    data: -> Meteor.users.findOne _id: @params._id
   @route 'quiz',
     path: '/student/quiz'
-    data: -> Meteor.users.findOne _id: @params._id
-  @route 'quiz'
   @route 'test-editor', template: 'testEditor'
       #onBeforeAction: ->
         #Router.go 'me' if !Meteor.user() or Meteor.user().type isnt 'teacher'
+  # Todo: remove this when we finish
   @route 'ui-test', template: 'uiTest'
   @route 'quiz',
       onBeforeAction: ->
         Router.go 'me' if !Meteor.user() or Meteor.user().type isnt 'student'
   @route '404', path: '*'
+
+Deps.autorun ->
+  return unless Meteor.user()
+  Router.go 'admin' if Meteor.user() and Meteor.user().type is 'admin'
+  Router.go 'student' if Meteor.user() and Meteor.user().type is 'student'
+  Router.go 'login' if !Meteor.user()
