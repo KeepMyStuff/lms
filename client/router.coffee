@@ -24,6 +24,12 @@ Router.map ->
     #data: -> classes.findOne _id: @params._id
   @route 'login',
     path: '/login', onBeforeAction: -> Router.go 'me' if Meteor.user()
+  @route 'me',
+    # Auto user redirect
+    onBeforeAction: ->
+      Router.go 'login' if !Meteor.user()
+      Router.go 'admin' if Meteor.user() and Meteor.user().type is 'admin'
+      Router.go 'student' if Meteor.user() and Meteor.user().type is 'student'
   @route 'student',
     path: '/student'
   @route 'quiz',
@@ -38,8 +44,11 @@ Router.map ->
         Router.go 'me' if !Meteor.user() or Meteor.user().type isnt 'student'
   @route '404', path: '*'
 
+# Auto user routing.
+###
 Deps.autorun ->
   return unless Meteor.user()
   Router.go 'admin' if Meteor.user() and Meteor.user().type is 'admin'
   Router.go 'student' if Meteor.user() and Meteor.user().type is 'student'
   Router.go 'login' if !Meteor.user()
+###

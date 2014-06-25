@@ -1,7 +1,7 @@
 # - LOGIN template -
 
 login = (mail,pass) -> # Perform login request
-  if mail.length < 4 then return share.notify msg: 'Invalid E-Mail Address'
+  #if mail.length < 4 then return share.notify msg: 'Invalid E-Mail Address'
   Meteor.loginWithPassword mail, pass, (e) ->
     if e then share.errCallback e else Router.go 'me'
 

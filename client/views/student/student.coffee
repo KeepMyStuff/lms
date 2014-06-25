@@ -1,7 +1,7 @@
-tests = new Meteor.Collection
+tests = new Meteor.Collection null # use null to turn off meteor warning
 # Populate tests (temporary)
 if tests.find().count() is 0
-	
+
 else
   tests.insert
     title: 'Verifica', index: tests.find().count()+1, questions: [

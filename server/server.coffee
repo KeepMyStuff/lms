@@ -88,7 +88,7 @@ Meteor.users.allow gibPowerToAdmins
 classes.allow gibPowerToAdmins
 
 Meteor.publish 'users', ->
-  if Meteor.users.findOne(_id:@userId).type is 'admin'
+  if @userId and Meteor.users.findOne(_id:@userId).type is 'admin'
     return Meteor.users.find()
 # Tell the user his "type" field
 Meteor.publish 'user', ->
