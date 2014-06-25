@@ -1,5 +1,6 @@
-# LMS
-Learning Management System
+# Photon
+Extremely fast, modern and lightweight Learning Management System for
+high schools built on top of cutting-edge technologies.
 
 ### Features
 
@@ -13,15 +14,28 @@ Learning Management System
 
 ### Technology Used
 
-- **Database**: MongoDB
-- **Backend**: Meteor
-- **Frontend**: Bootstrap
+- **Database**: [MongoDB](http://mongodb.org)
+- **Backend**: [Meteor](http://meteor.com)
+- **Frontend**: [flatter-ui](http://github.com/rnhmjoj/flatter-ui)
+
+### Documentation
+You can find the docs here:
+- [Developer guidelines](https://github.com/KeepMyStuff/lms/blob/master/guidelines.md)
+- [Database organization](https://github.com/KeepMyStuff/lms/blob/master/database.md)
 
 ### Set Up
 
+You need:
+- Node and npm
+- [Meteor](http://meteor.com) and meteorite
+
+Step by step:
 - Clone the repo
 - Launch `mrt install`
-- Launch `meteor` to start a local instance of the application.
+- Launch `meteor` to start a local developer instance of the application.
+
+More advanced and customized set ups will be available after the *alpha*
+developement phase.
 
 ### License
 
