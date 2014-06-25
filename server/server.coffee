@@ -1,5 +1,8 @@
 # Account management: server side code
 getUser = (id) -> Meteor.users.findOne _id: id
+isAdmin = (id) -> id and getUser(id).type is 'admin'
+gibPowerToAdmins =
+insert: isAdmin, remove: isAdmin, update: isAdmin
 
 Meteor.startup -> # Executed when the server starts
   # Create default admin user if there are no users
@@ -29,7 +32,9 @@ Accounts.emailTemplates.verifyEmail.text = (user, url) ->
 
 Meteor.methods
   'newUser': (options) ->
-    u = getUser @userId; return no if !u or u.type isnt 'admin'
+    u = getUser @userId
+    if !u or u.type isnt 'admin'
+      throw new Meteor.Error 403, 'Insufficient permission'
     console.log "Create Account request accepted from "+u.username
     Accounts.createUser options
   'deleteUser': (id) ->
@@ -50,8 +55,7 @@ Meteor.methods
       console.log "user id:"+id+" has been given a new password"
       Accounts.setPassword id, pass; return yes
     else
-      console.log u
-      console.log "Password change request denied"
+      console.log "Password change request for "+id+"by "+@userId+" denied"
       return no
 
 # Collections
@@ -69,10 +73,6 @@ Meteor.publish 'classes', ->
       return classes.findOne _id:user.classId
     else if user.type is 'teacher'
       return classes.find teachers: $elemMatch: _id: @userId
-
-isAdmin = (id) -> id and getUser(id).type is 'admin'
-gibPowerToAdmins =
-  insert: isAdmin, remove: isAdmin, update: isAdmin
 
 Meteor.users.allow gibPowerToAdmins
 classes.allow gibPowerToAdmins
