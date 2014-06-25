@@ -1,7 +1,9 @@
 <template name="testEditor">
   <div class="container" id="test-editor">
     {{> Question}}
-    <button class="btn btn-info">Aggiungi</button>
+    <button class="btn btn-success">Aggiungi domanda</button>
+    <div style="background-color:red;">
+    </div>
   </div>
 </template>
 
@@ -12,7 +14,7 @@
         {{> Answer}}
         {{> Answer}}
         {{> Answer}}
-        <button class="btn btn-info answerbox">aggiungi</button>
+        <button class="btn btn-success answerbox">Aggiungi Risposta</button>
       </div>
       {{> Qpanel_footer}}
   </div>
@@ -23,20 +25,20 @@
     <span class="input-group-addon checkbackgr">
       <input class="check" type="checkbox">
     </span>
-      <textarea class="form-control answerarea" placeholder="Inserisci la risposta e indica se è corretta"></textarea>
+      <textarea rows="1" class="form-control answerarea" placeholder="Inserisci la risposta e indica se è corretta"></textarea>
     <!--<input type="text" class="form-control form-inline answerinput" placeholder="Inserisci la risposta e indica se è corretta">-->
     <span class="input-group-btn removeanswerbtn btn btn-danger">Elimina</span>
   </div>
 </template>
 
-<template name="Qpanel_head">
+<template name="Qpanel_head-">
   <div class="input-group">
-      <span class="input-group-addon panelheadnumber"><h4> n)</h4></span>
+      <span class="input-group-addon panelheadnumber"> n )</span>
       <textarea class="form-control questionarea" placeholder="Inserisci la Domanda"></textarea>
   </div>
 </template>
 
-<template name="Qpanel_head_old">
+<template name="Qpanel_head">
     <div class="panel-heading">
         <div class="input-group">
             <span class="input-group-addon"><h4> n)</h4></span>
@@ -46,7 +48,7 @@
 </template>
 
 <template name="Qpanel_footer">
-    <div class="panel-footer">-
+    <div class="panel-footer">
         <div class="input-group">
             <span class="input-group-addon">Punteggio </span>
             <input type="text" class="form-control" placeholder="Inserisci il punteggio">
