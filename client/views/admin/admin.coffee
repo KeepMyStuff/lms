@@ -98,10 +98,6 @@ indexOfUser = (u) ->
   return k for i,k in l when i is u._id; no
 Template.classEditor.added = -> indexOfUser(this) isnt false
 Template.classEditor.events
-  'click .students-drop .main-drop': (e,t) ->
-    t.$('.students-drop ul').slideToggle()
-  'click .teachers-drop .main-drop': (e,t) ->
-    t.$('.teachers-drop ul').slideToggle()
   'click .toggle-student': ->
     if indexOfUser(this) is false
       share.classes.update Router.current().params._id, $push: students: @_id
