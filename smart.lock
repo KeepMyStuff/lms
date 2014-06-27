@@ -15,8 +15,8 @@
       },
       "flatter-ui": {
         "git": "https://github.com/rnhmjoj/flatter-ui.git",
-        "tag": "v0.1.9",
-        "commit": "de2e75ad3048645366142d99889e51e913402f9a"
+        "tag": "v0.1.10",
+        "commit": "01d1ed83e47e33d7173f90caed2c8047f4a17e40"
       },
       "font-awesome": {
         "git": "https://github.com/nate-strauser/meteor-font-awesome.git",
