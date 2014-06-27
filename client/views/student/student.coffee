@@ -3,7 +3,7 @@ tests = new Meteor.Collection
 if tests.find().count() is 0
   tests.insert
     title: 'Verifica di Matematica', index: tests.find().count()+1,
-    date: Date(),
+    date: moment().format("MM-DD-YYYY"),
     questions: [
       {
         title: 'Di che colore è il cavallo bianco di napoleone?', index: 1
@@ -43,3 +43,5 @@ if tests.find().count() is 0
 
 
 Template.quiz.get = -> tests.findOne() # Temporary
+
+Template.quiz.events 'click .btn-end': ->
