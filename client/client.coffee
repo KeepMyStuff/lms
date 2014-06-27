@@ -5,6 +5,9 @@ Meteor.startup ->
   # Helpers and general stuff
   UI.registerHelper 'user', -> Meteor.user()
   UI.registerHelper 'admin', -> Meteor.user() and Meteor.user().type is 'admin'
+  UI.registerHelper 'classes', -> share.classes.find().fetch()
+  UI.registerHelper 'loading', ->
+    Meteor.loggingIn() or (Router.current() and !Router.current().ready())
   # My user data
   Meteor.subscribe 'user'
   # Users data. Only receivable by admins

@@ -1,6 +1,7 @@
 .admin-container {
   .container;
   .panels {
+    .row;
     margin-top: 2em;
     .users-button, .classes-button {
       .btn; .btn-primary;
@@ -8,6 +9,7 @@
       align: center;
     }
     .panel {
+      .center-block;
       max-width: 25em;
     }
     .panel-body {
@@ -27,10 +29,25 @@
   .btn-insert {
     margin-right: 1em; margin-left: 1em;
   }
+  .drop-wrap ul {
+    a {
+      color: @clouds;
+    }
+    a.toggle {
+      .pull-right;
+      i.fa-times {
+        color: @asbestos;
+      }
+      padding: 0 0.3em;
+      //margin-top: 0.2em;
+      //margin-right: 0.5em;
+      //font-size: 12px;
+    }
+  }
   .userlist, .classlist {
-    .list-group;
-    margin-bottom: 1em;
-    .user, .class {
+    .list-group; .center-block;
+    margin: 1em 2em;
+    a {
       .list-group-item;
       h4 {
         .list-group-item-heading;
@@ -50,25 +67,25 @@
 // Classes
 
 .class-container {
-  .text-center;
   .course {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
   }
   .class-adder-panel {
+    .center-block;
     max-width: 25em;
   }
-  ul .btn {
-    padding: 0.2em 0.5em;
-    margin-top: 0.2em;
-    font-size: 12px;
+  .panel {
+    h3 {
+      .text-center;
+      color: @concrete;
+    }
   }
 }
 
 // Users
 
 .users-container {
-  .container;
   h2 {
     margin-bottom: 0.4em;
   }
@@ -83,13 +100,14 @@
   }
   .new-container {
     .new {
-      .text-center;
       max-width: 20em;
     }
   }
 }
 
 .user-editor {
+  .center-block;
+  .text-center;
   width: 90%;
   max-width: 600px;
   margin-bottom: 2em;

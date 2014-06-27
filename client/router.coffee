@@ -6,7 +6,7 @@ Router.configure
   notFoundTemplate: '404' # Shown when the user accesses a non existant route
   # The router is automatically rendered and takes up all the body.
 
-# True if the user is logged in and is an administrator
+# True if the user is logged in and has corresponding type
 UI.registerHelper 'is', (what) ->
   Meteor.user() and Meteor.user().type is what
 
@@ -54,12 +54,3 @@ Router.map ->
     onbeforeAction: ->
       Router.go 'me' if !Meteor.user() or Meteor.User().type isnt 'student'
   @route '404', path: '*'
-
-# Auto user routing.
-###
-Deps.autorun ->
-  return unless Meteor.user()
-  Router.go 'admin' if Meteor.user() and Meteor.user().type is 'admin'
-  Router.go 'student' if Meteor.user() and Meteor.user().type is 'student'
-  Router.go 'login' if !Meteor.user()
-###

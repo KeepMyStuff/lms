@@ -2,9 +2,10 @@
 
 <template name="admin">
 <div class="admin-container">
-	<h2>Administration Panel</h2>
+	<h2 class="text-center">Administration Panel</h2>
 	<div class="panels">
 		<!-- Users information -->
+		<div class="col-sm-6 center-block">
 		<div class="user-panel panel panel-default">
 			<div class="panel-heading" align="center">
 				<span class="pull-left"><i class="fa fa-users"></i></span>
@@ -20,9 +21,9 @@
 		    <a class="users-button" href="{{pathFor 'users'}}">
 					<i class="fa fa-users"></i> Manage</a>
 		  </div>
-		</div>
+		</div></div>
 		<!-- Classes Information -->
-		<div class="classes-panel panel panel-default">
+		<div class="col-sm-6"><div class="classes-panel panel panel-default">
 			<div class="panel-heading" align="center">
 				<span class="pull-left"><i class="fa fa-graduation-cap"></i></span>
 				Classes Information
@@ -34,7 +35,7 @@
 				<a class="classes-button" href="{{pathFor 'classes'}}">
 					<i class="fa fa-graduation-cap"></i> Manage</a>
 			</div>
-		</div>
+		</div></div>
 	</div>
 </div>
 </template>
@@ -43,31 +44,37 @@
 
 <template name="users">
 <div class="users-container">
-	<h2>Users</h2>
+	<h2 class="text-center">Users</h2>
 	{{> error}}
 	{{> userEditor}}
 	<div class="userlist">
 		{{#each users}}
-		<a class="user {{active}}" href="{{pathFor 'users'}}">
+		<a class="{{active}}" href="{{pathFor 'users'}}">
 			<h4>{{username}}</h4>
 			<p>{{type}}</p>
 		</a>
 		{{/each}}
+		<div class="input-group new-container">
+			<span class="input-group-addon">New User</span>
+			<input type="text" class="form-control new" placeholder="Enter username and press enter">
+		</div>
 	</div>
-	<div class="input-group new-container">
-		<span class="input-group-addon">New User</span>
-		<input type="text" class="form-control new" placeholder="Enter username and press enter">
-	</div>
+	<!--<div class="pagination"><ul>
+		<li class="previous"><a href="">previous</a></li>
+		<li><a href="">1</a></li>
+		<li><a href="">2</a></li>
+		<li class="next"><a href="">next</a></li>
+	</ul></div>-->
 </div>
 </template>
 
 
 <template name="userEditor">
-{{#if show}}<div align="center">
+{{#if show}}
 	<div class="panel panel-default user-editor">
 		<div class="panel-heading">
 			<span class="pull-left"><i class="fa fa-edit"></i></span>
-			{{user._id}}
+			{{user.type}}: {{user._id}}
 			<!--<span class="pull-right"><i class="fa fa-times"></i></span>-->
 		</div>
 		<div class="panel-body">
@@ -78,11 +85,23 @@
 			<span class="input-group-addon">Password</span>
 			<input type="text" class="pass form-control" placeholder="Set a new password"></div>
 			<div class="drop-wrap">
-				<div class="main-drop">{{user.type}}</div>
+				<div class="main-drop">Select type</div>
 				<ul><li class="set-type set-student">Student</li>
 					<li class="set-type set-teacher">Teacher</li>
 					<li class="set-type set-admin">Admin</li></ul>
 			</div>
+			{{#if currentUserIsStudent}}
+			<div class="drop-wrap">
+				<div class="main-drop">Select class</div>
+				<ul>{{#each classes}}
+					<li><a href="{{pathFor 'classes'}}">{{year}}{{course}}{{section}}</a>
+						<a class="toggle"> <!--btn-{{#if matches}}danger{{else}}primary{{/if}}-->
+							{{#if matches}}<i class="fa fa-times"></i>{{else}}<i class="fa fa-plus"></i>{{/if}}
+						</a>
+					</li>
+				{{/each}}</ul>
+			</div>
+			{{/if}}
 			<button class="btn btn-danger btn-delete">
 				<i class="fa fa-trash-o"></i> Delete</button>
 			<button class="btn btn-success btn-insert">
@@ -92,20 +111,19 @@
 			<button class="btn btn-warning btn-close">
 				<i class="fa fa-times"></i> Close</button>
 		</div>
-	</div>
-</div>{{/if}}
+	</div>{{/if}}
 </template>
 
 <!-- Classes -->
 
 <template name="classes">
 <div class="class-container">
-	<h2>Classes</h2>
+	<h2 class="text-center">Classes</h2>
 	{{> error}}
 	{{> classEditor}}
 	<div class="classlist">
 		{{#each classes}}
-		<a class="class {{active}}" href="{{pathFor 'classes'}}">
+		<a class="{{active}}" href="{{pathFor 'classes'}}">
 			<h4>{{year}}{{course}}{{section}}</h4>
 			<p>Students: {{students.length}}, Teachers: {{teachers.length}}</p>
 		</a>
@@ -116,7 +134,7 @@
 </template>
 
 <template name="classAdder">
-<div class="panel panel-default class-adder-panel">
+<div class="panel panel-default class-adder-panel center-block">
 	<div align="center" class="panel-heading">
 		<span class="pull-left"><i class="fa fa-plus"></i></span> New Class
 	</div>
@@ -147,17 +165,16 @@
 		<!--<span class="pull-right"><i class="fa fa-times"></i></span>-->
 	</div>
 	<div class="panel-body">
+		<h3>{{year}}{{course}}{{section}}</h3>
 		<div class="students-drop drop-wrap">
 			<div class="main-drop">{{ntype 'student'}} Students
 			</div>
 			<ul>
 				{{#each students}}
-				<li>{{username}}
-				<button class="btn btn-{{#if added}}danger{{else}}success{{/if}} pull-right">
-					<a class="toggle-student">
+				<li><a href="{{pathFor 'users'}}">{{username}}</a>
+				<a class="toggle pull-right">
 					{{#if added}}<i class="fa fa-times"></i>{{else}}<i class="fa fa-plus"></i>{{/if}}
-					</a>
-				</button></li>
+				</a></li>
 				{{/each}}
 			</ul>
 		</div>
@@ -165,11 +182,9 @@
 			<div class="main-drop">{{ntype 'teacher'}} Teachers
 			</div>
 			<ul>
-				{{#each teachers}}<li>{{username}}
-				<button class="btn btn-{{#if added}}danger{{else}}success{{/if}} pull-right">
-					<a class="toggle-teacher">
+				{{#each teachers}}<li><a href="{{pathFor 'users'}}">{{username}}</a>
+				<button class="btn toggle-teacher btn-{{#if added}}danger{{else}}success{{/if}} pull-right">
 					{{#if added}}<i class="fa fa-times"></i>{{else}}<i class="fa fa-plus"></i>{{/if}}
-					</a>
 				</button>
 				</li>{{/each}}
 			</ul>

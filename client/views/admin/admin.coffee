@@ -5,7 +5,7 @@ Template.admin.nusers = -> Meteor.users.find().count()
 Template.admin.ntype = (t) -> Meteor.users.find(type:t).count()
 Template.admin.nclasses = -> share.classes.find().count()
 
-Template.users.users = -> Meteor.users.find().fetch()
+Template.users.users = -> Meteor.users.find({},{sort: username: 1}).fetch()
 Template.users.active = ->
   if Router.current().data() and Router.current().data()._id is @_id
     return 'active'
@@ -23,16 +23,20 @@ Template.users.events
       else share.notify msg: 'Account already exists'
 
 # User editor
+Template.userEditor.matches = ->
+  Meteor.users.findOne(Router.current().params._id).class is @_id
+Template.userEditor.currentUserIsStudent = ->
+  Meteor.users.findOne(Router.current().params._id).type is 'student'
 Template.userEditor.show = ->
   Router.current().params._id and Router.current().params._id isnt ''
 Template.userEditor.user = ->
-  Meteor.users.findOne _id: Router.current().params._id
+  Meteor.users.findOne  Router.current().params._id
 Template.userEditor.events
   'click .btn-close': -> Router.go 'users'
   'click .btn-insert': (e,t) ->
-    if Meteor.users.findOne {_id: Router.current().params._id}
+    if Meteor.users.findOne Router.current().params._id
       # Account exists
-      Meteor.users.update {_id: Router.current().params._id},
+      Meteor.users.update Router.current().params._id,
         $set: username: t.find('.name').value #, type: t.find('.type').value
       if t.find('.pass').value # Update the password
         p = t.find('.pass').value
@@ -54,6 +58,14 @@ Template.userEditor.events
         share.notify
           title: 'OK', type: 'success', msg: 'Account has been deleted'
         Router.go 'users'
+  'click .toggle': ->
+    id = Router.current().params._id
+    if Meteor.users.findOne(id).class is @_id
+      Meteor.users.update id, $unset: class: ''
+      share.classes.update @_id, $pull: students: id
+    else
+      Meteor.users.update id, $set: class: @_id
+      share.classes.update @_id, $addToSet: students: id
   'click .set-student': ->
     Meteor.users.update Router.current().params._id, $set: type: 'student'
   'click .set-teacher': ->
@@ -65,7 +77,6 @@ Template.userEditor.events
 
 Template.classes.active = ->
   Router.current() and Router.current().params._id is @_id
-Template.classes.classes = -> share.classes.find().fetch()
 
 Template.classAdder.events
   'click .btn-close': -> Router.go 'classes'
@@ -89,7 +100,7 @@ Template.classAdder.events
       share.notify title: 'OK', type: 'success', msg: 'class added successfully'
 
 Template.classEditor.class = ->
-  share.classes.findOne _id: Router.current().params._id
+  share.classes.findOne Router.current().params._id
 Template.classEditor.students = -> Meteor.users.find type: 'student'
 Template.classEditor.teachers = -> Meteor.users.find type: 'teacher'
 indexOfUser = (u) ->
@@ -98,14 +109,22 @@ indexOfUser = (u) ->
   return k for i,k in l when i is u._id; no
 Template.classEditor.added = -> indexOfUser(this) isnt false
 Template.classEditor.events
-  'click .toggle-student': ->
+  'click .toggle': ->
+    id = Router.current().params._id
     if indexOfUser(this) is false
-      share.classes.update Router.current().params._id, $push: students: @_id
-    else share.classes.update Router.current().params._id, $pull: students: @_id
-  'click .toggle-teacher': ->
-    if indexOfUser(this) is false
-      share.classes.update Router.current().params._id, $push: teachers: @_id
-    else share.classes.update Router.current().params._id, $pull: teachers: @_id
+      if @type is 'student'
+        share.classes.update id, $addToSet: students: @_id
+        Meteor.users.update @_id, $set: class: Router.current().params._id
+      else if Meteor.user().type is 'teacher'
+        share.classes.update id, $addToSet: teachers: @_id
+        Meteor.users.update @_id, $addToSet: classes: id
+    else
+      if @type is 'student'
+        share.classes.update Router.current().params._id, $pull: students: @_id
+        Meteor.users.update @_id, $unset: class: ""
+      else if @type is 'teacher'
+        share.classes.update Router.current().params._id, $pull: teachers: @_id
+        Meteor.users.update @_id, $pull: classes: id
   'click .btn-close': -> Router.go 'classes'
   'click .btn-delete': ->
     share.classes.remove Router.current().params._id,
