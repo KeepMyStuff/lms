@@ -1,3 +1,24 @@
+#student{
+	.container;
+	.center-block;
+	.text-center;
+	width:75%;
+	max-width:45em;
+	background-color:#ecf0f1;
+	border-radius:4px;
+	margin-top:3em;
+	padding: 1em;
+	h3{
+		color:#2980b9;
+	}
+	.btn{
+		.center-block;
+		width:25%;
+		max-width:20em;
+		min-width:10em;
+	}
+}
+
 #quiz{
 	.container;
 	.center-block;
@@ -10,87 +31,41 @@
 	margin-top:3em;
 	padding: 1em;
 	color:#136;
-
+	@media (max-width:500px){
+		width:90%;
+	}
 	h3{
-		color:#3ba57e;
-		padding:.3em;
+		color:#27ae60;
+		padding:.5em;
+	}
+	#username{
+		.pull-left;
+		padding:.5em;
+	}
+	#date{
+		.pull-right;
+		padding:.5em;
 	}
 	.question{
 		.text-justify;
-		padding: 1em;
+		padding: 1em 2em 1em 2em;
+		@media(max-width:500px){
+			padding:.6em;
+		}
 		background-color:#eeeeee;
 		border-radius:4px;
 		.options{
-			width:90%;
 			.container;
-			margin-top:1em;
 			.center-block;
 			.text-left;
-
-			/* Checkbox
-			===============================*/
-			.check {
-				.square(40px);
-				.transition;
-				.border-radius(4px);
-				position: relative;
-				-webkit-appearance: none;
-				-moz-appearance: none!important;
-				text-align: center;
-				vertical-align:-13px;
-
-				&:after {
-					.transition;
-					position: absolute;
-					top: 9px;
-					left: 8px;
-					content:"";
-					background:url('http://static.tumblr.com/upanoab/0hOmmcbuh/tick-sprite.png');
-					width: 22px;
-					height: 22px;
-				}
-
-				&:checked {
-					.transition;
-				}
-
-				&:checked:after {
-					.transition;
-					position: absolute;
-					top: 9px;
-					left: 6px;
-					content:"";
-					background:url('http://static.tumblr.com/upanoab/0hOmmcbuh/tick-sprite.png');
-					background-position:-20px;
-					width: 22px;
-					height: 22px;
-				}
+			width:90%;
+			margin-top:1em;
+			span{
+				margin-left:20px;
+			}
+			.check{
+			vertical-align:-8px;
 			}
 		}
-	}
-
-
-
-}
-
-#student{
-	.container;
-	.center-block;
-	.text-center;
-	width:75%;
-	max-width:45em;
-	background-color:#eee;
-	border-radius:4px;
-	margin-top:3em;
-	padding: 1em;
-
-	h3{
-		color:#46f;
-	}
-	.btn{
-		.center-block;
-		width:25%;
-		max-width:20em;
-		min-width:10em;
 	}
 }

@@ -6,23 +6,28 @@
 			<a href="#fakelink" class="btn btn-block btn-primary">Consegne</a>
 			<a href="#fakelink" class="btn btn-block btn-primary">Materiale</a>
 			<a href={{pathFor 'quiz'}} class="btn btn-block btn-primary ">Verifiche</a>
-
 		</div>
 </template>
 
-
 <template name="quiz">
 		<div id="quiz">
+			<div id="username">{{user.username}}</div><div id="date">{{get.date}}</div><br>
 			<h3>{{get.title}}</h3>
 			{{#each get.questions}}
 			<div class="question">
-				N. {{index}} {{title}}
+				{{index}}) {{title}}
 				<div class="options">
 					{{#each answers}}
-					<p><input class="check turq" type="checkbox"/>{{title}}</p>
+					<p><input class="check blue" checked type="checkbox"/><span>{{title}}</span></p>
 					{{/each}}
 				</div>
 			</div>
 			{{/each}}
+			<hr>
+			<a href={{pathFor 'test-result'}} class="btn btn-block btn-danger btn-end">Fine</a>
 		</div>
+</template>
+
+<template name="testResult">
+
 </template>

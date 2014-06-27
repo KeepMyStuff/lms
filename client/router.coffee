@@ -48,8 +48,11 @@ Router.map ->
   # Todo: remove this when we finish
   @route 'ui-test', template: 'uiTest'
   @route 'quiz',
-      onBeforeAction: ->
-        Router.go 'me' if !Meteor.user() or Meteor.user().type isnt 'student'
+    onBeforeAction: ->
+      Router.go 'me' if !Meteor.user() or Meteor.user().type isnt 'student'
+  @route 'test-result', template: 'testResult', path:'/quiz/test-result',
+    onbeforeAction: ->
+      Router.go 'me' if !Meteor.user() or Meteor.User().type isnt 'student'
   @route '404', path: '*'
 
 # Auto user routing.
