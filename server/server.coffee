@@ -1,12 +1,11 @@
 # Account management: server side code
 getUser = (id) -> Meteor.users.findOne _id: id
 isAdmin = (id) -> id and getUser(id).type is 'admin'
-gibPowerToAdmins =
-insert: isAdmin, remove: isAdmin, update: isAdmin
+gibPowerToAdmins = insert: isAdmin, remove: isAdmin, update: isAdmin
 
 # Function to test behaviur with a lot of users.
-createSoManyUsers = ->
-  for i in [1..500]
+populate = (count) ->
+  for i in [1..count]
     console.log "Creating user "+i
     Accounts.createUser
       username: 'user'+i
@@ -60,8 +59,7 @@ Meteor.methods
       return yes
     else return no
   'newPassword': (id,pass) ->
-    u = getUser @userId
-    if u and u.type is 'admin' and getUser id
+    if isAdmin @userId and getUser id
       console.log "user id:"+id+" has been given a new password"
       Accounts.setPassword id, pass; return yes
     else
@@ -76,7 +74,7 @@ classes = new Meteor.Collection 'classes'
 
 Meteor.publish 'classes', ->
   if @userId
-    user = Meteor.users.findOne _id:@userId
+    user = getUser @userId
     if user.type is 'admin'
       return classes.find()
     else if user.type is 'student'
@@ -88,8 +86,7 @@ Meteor.users.allow gibPowerToAdmins
 classes.allow gibPowerToAdmins
 
 Meteor.publish 'users', ->
-  if @userId and Meteor.users.findOne(_id:@userId).type is 'admin'
-    return Meteor.users.find()
+  if isAdmin @userId then return Meteor.users.find()
 # Tell the user his "type" field
 Meteor.publish 'user', ->
   Meteor.users.find { _id: @userId }, fields: { type: 1 }

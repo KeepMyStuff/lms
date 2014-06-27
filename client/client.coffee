@@ -22,6 +22,8 @@ Template.layout.isCurrent = (i) ->
   if Router.current() and Router.current().path.lastIndexOf('/'+i,0) is 0
     return 'current'
 Template.layout.events
+  # Toggle dropdown event
+  'click .drop-wrap': (e) -> $('ul', $(e.target).parent()).slideToggle()
   'click .logout': -> Meteor.logout(); Router.go 'home'
   'click .go-me': ->
     if !Meteor.user()
@@ -32,11 +34,6 @@ Template.layout.events
       else if Meteor.user().type is 'teacher'
         Router.go 'teacher'
       else Router.go 'admin'
-# Dropdown click event
-Template.layout.rendered = ->
-  $(document).ready ->
-    $('.drop-wrap').each ->
-      $(this).on 'click', -> $('ul', this).slideToggle()
 
 # - ERROR template -
 

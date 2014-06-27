@@ -78,9 +78,7 @@
 			<span class="input-group-addon">Password</span>
 			<input type="text" class="pass form-control" placeholder="Set a new password"></div>
 			<div class="drop-wrap">
-				<div class="main-drop">{{user.type}}
-					<span><img src="http://static.tumblr.com/upanoab/WRTmmcfvs/drop-down.png"/></span>
-				</div>
+				<div class="main-drop">{{user.type}}</div>
 				<ul><li class="set-type set-student">Student</li>
 					<li class="set-type set-teacher">Teacher</li>
 					<li class="set-type set-admin">Admin</li></ul>
@@ -151,7 +149,6 @@
 	<div class="panel-body">
 		<div class="students-drop drop-wrap">
 			<div class="main-drop">{{ntype 'student'}} Students
-				<span><img src="http://static.tumblr.com/upanoab/WRTmmcfvs/drop-down.png"/></span>
 			</div>
 			<ul>
 				{{#each students}}
@@ -166,7 +163,6 @@
 		</div>
 		<div class="teachers-drop drop-wrap">
 			<div class="main-drop">{{ntype 'teacher'}} Teachers
-				<span><img src="http://static.tumblr.com/upanoab/WRTmmcfvs/drop-down.png"/></span>
 			</div>
 			<ul>
 				{{#each teachers}}<li>{{username}}
