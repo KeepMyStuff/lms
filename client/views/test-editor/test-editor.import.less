@@ -1,27 +1,49 @@
 #test-editor {
-
+////////////////////////////////////////////////|  Score  |>
+  .scoregroup{
+    width: 9em;
+    float: right;
+  }
+  .scoreaddon{
+    background-color:@nephritis;
+    border-color: @nephritis;
+  }
+  .scoreinput{
+    width: 5em;
+    border-left: 0;
+  }
+////////////////////////////////////////////////|  Panel  |>
+  .panelopt{
+    border: 0;
+    border-top-left-radius: 5px;
+  }
   .panelheadnumber{
     border-color: @belize-hole;
     background-color: @belize-hole ;
-    border-radius-bottom-left: 0;
-    border-radius-bottom-right: 0;
+    border-bottom-left-radius: 0;
   }
-
-
+  .verticalpadded{
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+  }
+  .panelscorefooter{
+    height: 3em;
+  }
 ////////////////////////////////////////////////|  Question  |>
-  .questionpanel{
-    //border-color: @midnight-blue;
-    padding-color: @nephritis;
-    padding-size: 2em;
-    margin-top: 1em;
+  .questionnumber{
+    border-color: @belize-hole;
+    background-color: @belize-hole ;
+    border-bottom-left-radius: 0;
   }
   .questionarea{
     resize: none;
     font-weight: bold;
+    border-left: 0;
+    border-bottom-right-radius: 0;
   }
 ////////////////////////////////////////////////|  Answer  |>
   .answerbox {
-    margin-top: 0.2em;
+    margin-top: 0.3em;
   }
   .answerinput{
     //border-color: @nephritis;
@@ -43,7 +65,6 @@
     background: @peter-river;
     border-color: @peter-river;
   }
-
   .check {
     .square(0.7em);
     .transition;

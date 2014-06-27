@@ -1,22 +1,20 @@
 <template name="testEditor">
   <div class="container" id="test-editor">
     {{> Question}}
-    <button class="btn btn-success">Aggiungi domanda</button>
-    <div style="background-color:red;">
-    </div>
+    <button class="btn btn-success center-block">Aggiungi domanda</button>
   </div>
 </template>
 
 <template name="Question">
-  <div class="panel panel-default questionpanel">
-      {{> Qpanel_head}}
-      <div class="panel-body">
-        {{> Answer}}
-        {{> Answer}}
-        {{> Answer}}
-        <button class="btn btn-success answerbox">Aggiungi Risposta</button>
-      </div>
-      {{> Qpanel_footer}}
+  <div class="panel panel-default panelopt ">
+    {{> Qpanel_head}}
+    <div class="panel-body verticalpadded">
+      {{> Answer}}
+      {{> Answer}}
+      {{> Answer}}
+      <button class="btn btn-success answerbox center-block">Aggiungi Risposta</button>
+    </div>
+    {{> Qpanel_footer}}
   </div>
 </template>
 
@@ -25,33 +23,35 @@
     <span class="input-group-addon checkbackgr">
       <input class="check" type="checkbox">
     </span>
-      <textarea rows="1" class="form-control answerarea" placeholder="Inserisci la risposta e indica se è corretta"></textarea>
+    <textarea rows="1" class="form-control answerarea" placeholder="Inserisci la risposta e indica se è corretta"></textarea>
     <!--<input type="text" class="form-control form-inline answerinput" placeholder="Inserisci la risposta e indica se è corretta">-->
     <span class="input-group-btn removeanswerbtn btn btn-danger">Elimina</span>
   </div>
 </template>
 
-<template name="Qpanel_head-">
+<template name="Qpanel_head">
   <div class="input-group">
-      <span class="input-group-addon panelheadnumber"> n )</span>
-      <textarea class="form-control questionarea" placeholder="Inserisci la Domanda"></textarea>
+    <span class="input-group-addon panelheadnumber"><h4> n )</h4></span>
+    <textarea class="form-control questionarea" placeholder="Inserisci la Domanda"></textarea>
   </div>
 </template>
 
-<template name="Qpanel_head">
-    <div class="panel-heading">
-        <div class="input-group">
-            <span class="input-group-addon"><h4> n)</h4></span>
-            <textarea class="form-control questionarea" placeholder="Inserisci la Domanda"></textarea>
-        </div>
+<template name="Qpanel_head-">
+  <div class="panel-heading verticalpadded ">
+    <div class="input-group ">
+      <span class="input-group-addon questionnumber"><h4> n)</h4></span>
+      <textarea class="form-control questionarea " placeholder="Inserisci la Domanda"></textarea>
     </div>
+  </div>
 </template>
 
 <template name="Qpanel_footer">
-    <div class="panel-footer">
-        <div class="input-group">
-            <span class="input-group-addon">Punteggio </span>
-            <input type="text" class="form-control" placeholder="Inserisci il punteggio">
-        </div>
+  <div class="panel-footer panelscorefooter verticalpadded">
+    <button class="btn"><i class="fa fa-circle-o "></i></button>
+    <div class="input-group scoregroup">
+      <span class="input-group-addon scoreaddon">Punteggio </span>
+      <input type="text" maxlength="4" class="form-control scoreinput right-block">
+      <!--<span class="input-group-addon">/10 </span>-->
     </div>
+  </div>
 </template>
