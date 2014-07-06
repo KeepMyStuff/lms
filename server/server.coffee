@@ -6,8 +6,6 @@ gibPowerToAdmins = insert: isAdmin, remove: isAdmin, update: isAdmin
 # Collections
 
 classes = new Meteor.Collection 'classes'
-
-
 # Function to test behaviur with a lot of users.
 populate = (count) ->
   for i in [1..count]

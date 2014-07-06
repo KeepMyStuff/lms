@@ -1,26 +1,27 @@
 <template name="student">
 		<div id="student">
 			<h3>Benvenuto {{user.username}}</h3><br>
-			<a href={{pathFor 'ui-test'}} class="btn btn-block btn-primary">ui-test</a>
-			<a href="#fakelink" class="btn btn-block btn-primary">Compiti</a>
-			<a href="#fakelink" class="btn btn-block btn-primary">Consegne</a>
-			<a href="#fakelink" class="btn btn-block btn-primary">Materiale</a>
-			<a href={{pathFor 'quiz'}} class="btn btn-block btn-primary ">Verifiche</a>
+			<a href={{pathFor 'ui-test'}} class="btn btn-block btn-info">ui-test</a>
+			<a href="#fakelink" class="btn btn-block btn-info">Compiti</a>
+			<a href="#fakelink" class="btn btn-block btn-info">Consegne</a>
+			<a href="#fakelink" class="btn btn-block btn-info">Materiale</a>
+			<a href={{pathFor 'test'}} class="btn btn-block btn-info ">Verifiche</a>
 		</div>
 </template>
 
-<template name="quiz">
-		<div id="quiz">
-			<div id="username">{{user.username}}</div><div id="date">{{get.date}}</div><br>
-			<h3>{{get.title}}</h3>
-			{{#each get.questions}}
+<template name="test">
+		<div id="test">
+			<div id="username">{{user.username}}</div><div id="date">{{currentTest.date}}</div><br>
+			<h3>{{currentTest.title}}</h3>
+			{{#each currentTest.questions}}
 			<div class="question">
 				{{index}}) {{title}}
 				<div class="options">
 					{{#each answers}}
-					<p><input class="check blue" checked type="checkbox"/><span>{{title}}</span></p>
+					<p><input class="check blue" type="checkbox" checked/><span>{{title}}</span></p>
 					{{/each}}
 				</div>
+				<span>Question value: {{questValue}}pt.</span>
 			</div>
 			{{/each}}
 			<hr>
@@ -29,5 +30,19 @@
 </template>
 
 <template name="testResult">
-
+	<div id="test-result">
+		<div id="username">{{user.username}}</div>
+		<div id="date">{{currentTest.date}}</div><br>
+		<h3>Result of {{currentTest.title}}</h3>
+		{{#each currentTest.questions}}
+		<div class="question">
+			{{index}}) {{title}}
+			<div class="options">
+				{{#each answers}}
+				<p><input class="check blue" type="checkbox"/><span>{{title}}</span></p>
+				{{/each}}
+			</div>
+		</div>
+		{{/each}}
+	</div>
 </template>

@@ -55,7 +55,3 @@ share.errCallback = (err) -> if err then share.notify msg: err.reason
 Template.error.error = -> errorDep.depend(); currentError
 Template.error.events
   'click .close': -> share.notify() # Set current error to undefined
-
-# - STUDENT -
-
-Template.quiz.materia = -> "Matematica"
