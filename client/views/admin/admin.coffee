@@ -23,14 +23,21 @@ Template.users.events
       else share.notify msg: 'Account already exists'
 
 # User editor
+Template.userEditor.checked = ->
+  "checked" if Template.userEditor.userMail().verified
 Template.userEditor.matches = ->
   cl = share.classes.findOne(students: Router.current().params._id)
   cl and cl._id is @_id
-Template.userEditor.currentUserIsStudent = ->
+Template.userEditor.currentUserIs = (what) ->
   u = Meteor.users.findOne Router.current().params._id
-  u and u.type is 'student'
+  u and u.type is what
 Template.userEditor.show = ->
   Router.current().params._id and Router.current().params._id isnt ''
+Template.userEditor.userMail = ->
+  u = Meteor.users.findOne Router.current().params._id
+  if u and u.emails
+    {address: u.emails[0].address, verified: u.emails[0].verified}
+  else {address: '', verified: false}
 Template.userEditor.user = ->
   Meteor.users.findOne Router.current().params._id
 Template.userEditor.events
@@ -39,14 +46,19 @@ Template.userEditor.events
     if Meteor.users.findOne Router.current().params._id
       # Account exists
       Meteor.users.update Router.current().params._id,
-        $set: username: t.find('.name').value #, type: t.find('.type').value
+        $set:
+          fullname: t.find('.fullname').value
+          username: t.find('.name').value #, type: t.find('.type').value
+          'emails.0':
+            address: t.find('.addr').value, verified: t.find('.mailbox').checked
       if t.find('.pass').value # Update the password
         p = t.find('.pass').value
         Meteor.call 'newPassword', Router.current().params._id, p,
         (e) ->
           if e then share.errCallback e else
-          share.notify title: 'OK', type: 'success', msg: 'password changed'
+          share.notify title: 'OK', type: 'success', msg: 'data updated'
         t.find('.pass').value = ''
+      else share.notify title: 'OK', type: 'success', msg: 'data updated'
     else share.notify msg: 'User does not exist'
   'click .btn-assume': ->
     Meteor.call 'assumeIdentity', Router.current().params._id, (e) ->

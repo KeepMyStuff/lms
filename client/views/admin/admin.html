@@ -81,6 +81,12 @@
 			<div class="input-group name-container">
 			<span class="input-group-addon">Username</span>
 			<input type="text" class="name form-control" placeholder="Username" value="{{user.username}}"></div>
+			<div class="input-group name-container">
+			<span class="input-group-addon">Full Name</span>
+			<input type="text" class="fullname form-control" placeholder="Name and Surname" value="{{user.fullname}}"></div>
+			<div class="input-group mail-container">
+			<span class="input-group-addon">Email <input class="mailbox" type="checkbox" {{checked}}></span>
+			<input type="text" class="addr form-control" placeholder="Email" value="{{userMail.address}}"></div>
 			<div class="input-group pass-container">
 			<span class="input-group-addon">Password</span>
 			<input type="text" class="pass form-control" placeholder="Set a new password"></div>
@@ -90,7 +96,7 @@
 					<li class="set-type set-teacher">Teacher</li>
 					<li class="set-type set-admin">Admin</li></ul>
 			</div>
-			{{#if currentUserIsStudent}}
+			{{#if currentUserIs 'student'}}
 			<div class="drop-wrap">
 				<div class="main-drop">Select class</div>
 				<ul>{{#each classes}}

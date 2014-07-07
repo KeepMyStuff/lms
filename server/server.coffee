@@ -1,6 +1,8 @@
 # Account management: server side code
 getUser = (id) -> Meteor.users.findOne id
 isAdmin = (id) -> id and getUser(id).type is 'admin'
+mailVerified = (id) ->
+  id and (!getUser(id).emails or getUser(id).emails[0].verified is yes)
 gibPowerToAdmins = insert: isAdmin, remove: isAdmin, update: isAdmin
 
 # Collections
@@ -31,6 +33,7 @@ Meteor.startup -> # Executed when the server starts
 Accounts.config forbidClientAccountCreation: yes
 Accounts.onCreateUser (options,user) ->
   user.type = options.type or 'student'; user
+  user.fullname = options.fullname or options.username #or options.email
 
 # Email configuration
 Accounts.emailTemplates.siteName = 'Photon'
@@ -91,7 +94,7 @@ Meteor.users.allow gibPowerToAdmins
 classes.allow gibPowerToAdmins
 
 Meteor.publish 'users', ->
-  if isAdmin @userId then Meteor.users.find() else []
+  if isAdmin @userId then Meteor.users.find({},fields:services:0) else []
 # Tell the user his "type" field
 # For some reason meteor doesn't like "findOne" inside publish functions...
 Meteor.publish 'user', ->
