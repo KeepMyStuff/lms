@@ -44,15 +44,17 @@
 			background: white;
 			color: @silver;
 			width: 18em;
+			height: 20em;
 			text-align: center;
 			display: inline-block;
+			vertical-align:middle;
 			margin: .5em;
 			margin-bottom: 1em;
 			padding: 1em;
 
 			p {.justify;}
 			i {font-size: 4em; color: @asbestos}
-			h4{font-weight: 400; color: @wet-asphalt}
+			h4 {font-weight: 400; color: @wet-asphalt; margin: .5em}
 		}
 	}
 
@@ -67,7 +69,7 @@
 		article {
 			.center-block;
 			.justify;
-			max-width: 55em;
+			max-width: 50em;
 			margin-bottom: 2em;
 
 			img {
@@ -78,8 +80,10 @@
 				margin: 1em;
 			}
 
-			h4 {font-size: 1.2em}
 			&:nth-child(even) > img {float: right}
+
+			h4 {font-size: 1.2em}
+			p {max-width: 40em}
 		}
 	}
 
