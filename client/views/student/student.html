@@ -18,14 +18,14 @@
 				{{index}}) {{title}}
 				<div class="options">
 					{{#each answers}}
-					<p><input class="check blue" type="checkbox" checked/><span>{{title}}</span></p>
+					<p><input class="check blue" type="checkbox"/><span>{{title}}</span></p>
 					{{/each}}
 				</div>
 				<span>Question value: {{questValue}}pt.</span>
 			</div>
 			{{/each}}
 			<hr>
-			<a href={{pathFor 'test-result'}} class="btn btn-block btn-danger btn-end">Fine</a>
+			<a  class="btn btn-block btn-danger btn-end">Fine</a>
 		</div>
 </template>
 

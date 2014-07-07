@@ -2,28 +2,25 @@ Tests = new Meteor.Collection "tests"
 
 Meteor.publish 'tests', ->
   Tests.find({},{fields: {'questions.answers.correctAnswer':0}})
+
 # Populate tests (temporary)
 Meteor.startup ->
   Tests.remove()
   if Tests.find().count() is 0
     sampleQuiz=
-      title: 'Verifica di Italiano', index: Tests.find().count()+1,
+      title: 'Verifica di Filosofia',
       date: moment().format("DD/MM/YYYY"),
       questions: [
         {
           title: 'Di che colore è il cavallo bianco di napoleone?', index: 1
           answers: [
-            {title:"Wow!", correctAnswer:true},
-            {title:"Not wow", correctAnswer:true},
-            {title:"Such wow", correctAnswer:false}
+            {title:"Wow!"}, {title:"Not wow"}, {title:"Such wow"}
           ], questResult:false, questValue:1
         }
         {
           title: 'Questa è la domanda numero 2?', index: 2
           answers: [
-            {title:"no", correctAnswer:false},
-            {title:"forse", correctAnswer:false},
-            {title: "si", correctAnswer:true}
+            {title:"no"}, {title:"forse"}, {title: "si"}
           ], questResult:false, questValue:2
         }
         {
@@ -33,15 +30,16 @@ Meteor.startup ->
           answers:[
             {title:"a dire il vero non sappiamo bene la lunghezza di una
             risposta. Infatti ad una domanda molto lunga la risposta potrebbe
-            essere breve. E invece no!", correctAnswer:false},
+            essere breve. E invece no!"},
             {title:"a dire il vero non sappiamo bene la lunghezza di una
             risposta. Infatti ad una domanda molto lunga la risposta potrebbe
-            essere breve. E invece no!", correctAnswer:false},
+            essere breve. E invece no!"},
             {title:"a dire il vero non sappiamo bene la lunghezza di una
             risposta. Infatti ad una domanda molto lunga la risposta potrebbe
-            essere breve. E invece no!", correctAnswer:true}
+            essere breve. E invece no!"}
           ], questResult:false, questValue:1
         }
       ]
+    sampleAnswers=[[true, false, false],[false,false,true],[true,false,false]]
     Tests.insert sampleQuiz
     console.log 'Test "'+sampleQuiz.title+'" added.'
