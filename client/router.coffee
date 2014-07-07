@@ -32,6 +32,8 @@ Router.map ->
   @route 'classes', path: '/admin/classes/:_id?', controller: classesController
   @route 'login',
     path: '/login', onBeforeAction: -> Router.go 'me' if Meteor.user()
+  @route 'settings',
+    onBeforeAction: -> Router.go 'login' if !Meteor.user()
   @route 'me',
     # Auto user redirect
     onBeforeAction: ->
