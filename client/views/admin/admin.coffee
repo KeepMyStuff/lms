@@ -106,18 +106,25 @@ Template.classEditor.class = ->
 Template.classEditor.students = -> Meteor.users.find type: 'student'
 Template.classEditor.teachers = -> Meteor.users.find type: 'teacher'
 Template.classEditor.added = ->
-  cl = share.classes.findOne(students: @_id)
+  if Meteor.users.findOne(@_id).type is 'student'
+    cl = share.classes.findOne(students: @_id)
+  else cl = share.classes.findOne(teachers: @_id)
   #console.log cl
   cl and cl._id is Router.current().params._id
 Template.classEditor.events
   'click .toggle': ->
     id = Router.current().params._id
-    cl = share.classes.findOne(_id: id, students: @_id)
-    if cl
-      Meteor.call 'cleanUp', @_id
-    else
-      Meteor.call 'cleanUp', @_id, id
-      share.classes.update id, $addToSet: students: @_id
+    if Meteor.users.findOne(@_id).type is 'student'
+      cl = share.classes.findOne(_id: id, students: @_id)
+      if cl
+        Meteor.call 'cleanUp', @_id
+      else
+        Meteor.call 'cleanUp', @_id, id
+        share.classes.update id, $addToSet: students: @_id
+    else if Meteor.users.findOne(@_id).type is 'teacher'
+      if share.classes.findOne(_id: id,teachers:@_id)
+        share.classes.update id, $pull: teachers: @_id
+      else share.classes.update id, $addToSet: teachers: @_id
   'click .btn-close': -> Router.go 'classes'
   'click .btn-delete': ->
     share.classes.remove Router.current().params._id,

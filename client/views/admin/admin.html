@@ -158,7 +158,7 @@
 </template>
 
 <template name="classEditor">
-{{#if class}}<div class="panel panel-default user-editor">
+{{#if class}}<div class="panel panel-default class-editor">
 	<div class="panel-heading">
 		<span class="pull-left"><i class="fa fa-edit"></i></span>
 		{{class._id}}
@@ -183,10 +183,9 @@
 			</div>
 			<ul>
 				{{#each teachers}}<li><a href="{{pathFor 'users'}}">{{username}}</a>
-				<button class="btn toggle-teacher btn-{{#if added}}danger{{else}}success{{/if}} pull-right">
+				<a class="toggle pull-right">
 					{{#if added}}<i class="fa fa-times"></i>{{else}}<i class="fa fa-plus"></i>{{/if}}
-				</button>
-				</li>{{/each}}
+				</a></li>{{/each}}
 			</ul>
 		</div>
 		<!-- buttons -->
