@@ -16,54 +16,6 @@ populate = (count) ->
       email: 'user'+i+"@user.com"
       type: 'student'
 
-# Meteor-side clean up and error checking
-impeartiveCleanUp = ->
-  count = classes.find().count() + Meteor.users.find().count()
-  if count > 0
-    console.log "Checking "+count+" documents..."
-    for i in Meteor.users.find().fetch()
-      # Clean up admin documents
-      if i.type is 'admin'
-        Meteor.users.update i._id, $unset: {classes:'', class: ''}
-      # Clean up teacher documents
-      else if i.type is 'teacher'
-        Meteor.users.update i._id, $unset: class: ''
-        if not i.classes then Meteor.users.update j._id, classes: []
-        for j in classes.find().fetch()
-          # Check classes
-          if !j.students then classes.update j._id, $set: students: []
-          if !j.teachers then classes.update j._id, $set: teachers: []
-          if j.teachers.indexOf i._id >= 0
-            Meteor.users.update i._id, $addToSet: classes: j._id
-          else if i.classes.indexOf j._id >= 0
-            Meteor.users.update i._id, $pull: classes: j._id
-      # Clean up student documents
-      else if i.type is 'student'
-        Meteor.users.update i._id, $unset: classes: ''
-      # Invalid user document
-      else
-        console.log "Found user with no valid type: "+i._id
-        Meteor.users.remove i._id
-  console.log 'Done Clean up'
-
-# Database-side clean up and error checking
-dbCleanUp = ->
-  console.log "Starting db cleanup..."
-  a = classes.update (teachers: $exists: no), $set: teachers: []
-  a = classes.update (students: $exists: no), $set: students: []
-  if a>0
-    console.log "Found some problems in the classes. Fixed"
-  a=Meteor.users.find (type: 'teacher', classes: $exists: no), $set: classes: []
-  if a>0
-    console.log "Found some problems in teachers. Fixed"
-  a = Meteor.users.find(type: 'student', class: $exists: no).count()
-  if a>0
-    console.log "Done. There are "+a+"students that do not belong in a class"
-  a = Meteor.users.remove ($exists: type: no)
-  if a>0
-    console.log "Found "+a+" invalid user documents. Removed"
-  console.log "Done."
-
 Meteor.startup -> # Executed when the server starts
   # Create default admin user if there are no users
   if Meteor.users.find().count() is 0
@@ -114,6 +66,13 @@ Meteor.methods
       Accounts.setPassword id, pass; yes
     else
       console.log "Password change request for "+id+"by "+@userId+" denied"; no
+  'cleanUp': (id,except) ->
+    u = getUser id
+    if isAdmin(@userId) and u
+      if u.type is 'student'
+        classes.update {_id: {$ne: except}, students: id}, $pull: students: id
+      else if u.type is 'teacher'
+        classes.update {_id: {$ne: except}, teachers: id}, $pull: teachers: id
 
 # Publications and Permissions
 
@@ -125,7 +84,7 @@ Meteor.publish 'classes', ->
     else if user.type is 'student'
       classes.findOne user.classId
     else if user.type is 'teacher'
-      classes.find teachers: $elemMatch: _id: @userId
+      classes.find teachers: @userId
     else []
 
 Meteor.users.allow gibPowerToAdmins

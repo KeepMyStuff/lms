@@ -24,13 +24,15 @@ Template.users.events
 
 # User editor
 Template.userEditor.matches = ->
-  Meteor.users.findOne(Router.current().params._id).class is @_id
+  cl = share.classes.findOne(students: Router.current().params._id)
+  cl and cl._id is @_id
 Template.userEditor.currentUserIsStudent = ->
-  Meteor.users.findOne(Router.current().params._id).type is 'student'
+  u = Meteor.users.findOne Router.current().params._id
+  u and u.type is 'student'
 Template.userEditor.show = ->
   Router.current().params._id and Router.current().params._id isnt ''
 Template.userEditor.user = ->
-  Meteor.users.findOne  Router.current().params._id
+  Meteor.users.findOne Router.current().params._id
 Template.userEditor.events
   'click .btn-close': -> Router.go 'users'
   'click .btn-insert': (e,t) ->
@@ -60,11 +62,11 @@ Template.userEditor.events
         Router.go 'users'
   'click .toggle': ->
     id = Router.current().params._id
-    if Meteor.users.findOne(id).class is @_id
-      Meteor.users.update id, $unset: class: ''
-      share.classes.update @_id, $pull: students: id
+    cl = share.classes.findOne(_id: @_id, students: id)
+    if cl
+      Meteor.call 'cleanUp', id
     else
-      Meteor.users.update id, $set: class: @_id
+      Meteor.call 'cleanUp', id, @_id
       share.classes.update @_id, $addToSet: students: id
   'click .set-student': ->
     Meteor.users.update Router.current().params._id, $set: type: 'student'
@@ -103,28 +105,19 @@ Template.classEditor.class = ->
   share.classes.findOne Router.current().params._id
 Template.classEditor.students = -> Meteor.users.find type: 'student'
 Template.classEditor.teachers = -> Meteor.users.find type: 'teacher'
-indexOfUser = (u) ->
-  list = Template.classEditor.class()
-  if u.type is 'teacher' then l = list.teachers else l = list.students
-  return k for i,k in l when i is u._id; no
-Template.classEditor.added = -> indexOfUser(this) isnt false
+Template.classEditor.added = ->
+  cl = share.classes.findOne(students: @_id)
+  #console.log cl
+  cl and cl._id is Router.current().params._id
 Template.classEditor.events
   'click .toggle': ->
     id = Router.current().params._id
-    if indexOfUser(this) is false
-      if @type is 'student'
-        share.classes.update id, $addToSet: students: @_id
-        Meteor.users.update @_id, $set: class: Router.current().params._id
-      else if Meteor.user().type is 'teacher'
-        share.classes.update id, $addToSet: teachers: @_id
-        Meteor.users.update @_id, $addToSet: classes: id
+    cl = share.classes.findOne(_id: id, students: @_id)
+    if cl
+      Meteor.call 'cleanUp', @_id
     else
-      if @type is 'student'
-        share.classes.update Router.current().params._id, $pull: students: @_id
-        Meteor.users.update @_id, $unset: class: ""
-      else if @type is 'teacher'
-        share.classes.update Router.current().params._id, $pull: teachers: @_id
-        Meteor.users.update @_id, $pull: classes: id
+      Meteor.call 'cleanUp', @_id, id
+      share.classes.update id, $addToSet: students: @_id
   'click .btn-close': -> Router.go 'classes'
   'click .btn-delete': ->
     share.classes.remove Router.current().params._id,
