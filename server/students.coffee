@@ -4,7 +4,7 @@ Meteor.publish 'tests', ->
   Tests.find({},{fields: {'questions.answers.correctAnswer':0}})
 # Populate tests (temporary)
 Meteor.startup ->
-  Tests.remove({})
+  Tests.remove()
   if Tests.find().count() is 0
     sampleQuiz=
       title: 'Verifica di Italiano', index: Tests.find().count()+1,
