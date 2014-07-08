@@ -12,7 +12,7 @@
 						{{else}}
 							<li><a class="{{isCurrent 'me'}} go-me">Me</a></li>
 						{{/if}}
-						<li><a class="logout current">{{user.username}}</a></li>
+						<li><a class="logout current" href="">{{user.username}}</a></li>
 					{{else}}
 						<li><a class="{{isCurrent 'login'}}" href="{{pathFor 'login'}}">Login</a></li>
 					{{/if}}
