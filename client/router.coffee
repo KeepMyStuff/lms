@@ -6,12 +6,11 @@ Router.configure
   notFoundTemplate: '404' # Shown when the user accesses a non existant route
   # The router is automatically rendered and takes up all the body.
 
-share.verified = ->
+###share.verified = ->
   no unless Meteor.user()
-  !Meteor.user().emails or Meteor.user().emails[0].verified is yes
+  !Meteor.user().emails or Meteor.user().emails[0].verified is yes###
 UI.registerHelper 'is', (what) ->
   Meteor.user() and Meteor.user().type is what
-UI.registerHelper 'verified', -> share.verified()
 
 adminController = RouteController.extend
   action: ->
@@ -33,10 +32,9 @@ Router.map ->
   @route 'admin', controller: adminController
   @route 'users', path: '/admin/users/:_id?', controller: usersController
   @route 'classes', path: '/admin/classes/:_id?', controller: classesController
-  @route 'verify',
-    onBeforeAction: ->
-      Router.go 'login' if !Meteor.user()
-      Router.go 'me' if Meteor.user() and share.verified()
+  @route 'reset',
+    path: '/set/:token?'
+    onBeforeAction: -> Router.go 'me' if Meteor.user()
   @route 'login',
     path: '/login', onBeforeAction: -> Router.go 'me' if Meteor.user()
   @route 'settings',

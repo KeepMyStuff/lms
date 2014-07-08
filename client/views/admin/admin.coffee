@@ -22,6 +22,23 @@ Template.users.events
             share.notify title: 'OK', type: 'success', msg: 'Account created'
       else share.notify msg: 'Account already exists'
 
+# User adder
+Template.userAdder.events
+  'click .btn-insert': (e,t) ->
+    username = t.find('.username').value
+    password = t.find('.pass').value
+    email = t.find('.addr').value
+    type = t.find('.usertype').value
+    if type isnt 'admin' and type isnt 'teacher' and type isnt 'student'
+      return share.notify msg: 'invalid user type'
+    if !password and !email
+      return share.notify msg: 'either password or email is required!'
+    if !username
+      return share.notify msg: 'username is required'
+    Meteor.call 'newUser', {
+      username: username, password: password, type: type, email: email }, (e) ->
+      if e then share.errCallback e else
+      share.notify title: 'OK', type: 'success', msg: 'Account created'
 # User editor
 Template.userEditor.checked = ->
   "checked" if Template.userEditor.userMail().verified
@@ -49,8 +66,7 @@ Template.userEditor.events
         $set:
           fullname: t.find('.fullname').value
           username: t.find('.name').value #, type: t.find('.type').value
-          'emails.0':
-            address: t.find('.addr').value, verified: t.find('.mailbox').checked
+          'emails.0': address: t.find('.addr').value
       if t.find('.pass').value # Update the password
         p = t.find('.pass').value
         Meteor.call 'newPassword', Router.current().params._id, p,

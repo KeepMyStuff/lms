@@ -14,11 +14,18 @@
 </template>
 
 <!-- route: /verify -->
-<template name="verify">
+<template name="reset">
 	<div align="center" class="auth-container">
 		<div class="auth-minicontainer">
-			<i class="fa fa-envelope fa-2x"></i>
-			<input type="text" class="form-control token" placeholder="Insert Token">
+			<p class="lead"><i class="fa fa-envelope fa-2x"></i></p>
+			{{> error}}
+			{{#if verified}}<p>Your account is already verified. If you didn't
+			request to change your password you can already use it.</p>{{/if}}
+			<p>You should have received an email containing a link. Click on the link
+			or manually insert the token here to reset your password.</p>
+			<input type="text" class="form-control token" placeholder="Insert Token" value="{{token}}">
+			<input type="password" class="form-control pass" placeholder="Your new password">
+			<button class="btn btn-primary btn-ok">Confirm</button>
 		</div>
 	</div>
 </template>

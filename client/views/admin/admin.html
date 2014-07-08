@@ -54,10 +54,11 @@
 			<p>{{type}}</p>
 		</a>
 		{{/each}}
-		<div class="input-group new-container">
+		<!--<div class="input-group new-container">
 			<span class="input-group-addon">New User</span>
 			<input type="text" class="form-control new" placeholder="Enter username and press enter">
-		</div>
+		</div>-->
+		{{> userAdder}}
 	</div>
 	<!--<div class="pagination"><ul>
 		<li class="previous"><a href="">previous</a></li>
@@ -68,6 +69,34 @@
 </div>
 </template>
 
+<template name="userAdder">
+	<div class="panel panel-default user-adder">
+		<div class="panel-heading">
+			<span class="pull-left"><i class="fa fa-edit"></i></span>
+			Insert new User
+			<!--<span class="pull-right"><i class="fa fa-times"></i></span>-->
+		</div>
+		<div class="panel-body">
+			<div class="input-group name-container">
+			<span class="input-group-addon">Username</span>
+			<input type="text" class="username form-control" placeholder="Username (required)"></div>
+			<div class="input-group name-container">
+			<span class="input-group-addon">Full Name</span>
+			<input type="text" class="fullname form-control" placeholder="Name and Surname"></div>
+			<div class="input-group mail-container">
+			<span class="input-group-addon">Email<!-- <input class="mailbox" type="checkbox" {{checked}}>--></span>
+			<input type="text" class="addr form-control" placeholder="Email (required without password)"></div>
+			<div class="input-group pass-container">
+			<span class="input-group-addon">Password</span>
+			<input type="password" class="pass form-control" placeholder="Password (required without email)"></div>
+			<div class="input-group pass-container">
+			<span class="input-group-addon">Type</span>
+			<input type="text" class="usertype form-control" placeholder="'student', 'teacher', 'admin' (required)"></div>
+			<button class="btn btn-success btn-insert">
+				<i class="fa fa-upload"></i> Create</button>
+		</div>
+	</div>
+</template>
 
 <template name="userEditor">
 {{#if show}}
@@ -85,11 +114,11 @@
 			<span class="input-group-addon">Full Name</span>
 			<input type="text" class="fullname form-control" placeholder="Name and Surname" value="{{user.fullname}}"></div>
 			<div class="input-group mail-container">
-			<span class="input-group-addon">Email <input class="mailbox" type="checkbox" {{checked}}></span>
+			<span class="input-group-addon">Email<!-- <input class="mailbox" type="checkbox" {{checked}}>--></span>
 			<input type="text" class="addr form-control" placeholder="Email" value="{{userMail.address}}"></div>
 			<div class="input-group pass-container">
 			<span class="input-group-addon">Password</span>
-			<input type="text" class="pass form-control" placeholder="Set a new password"></div>
+			<input type="password" class="pass form-control" placeholder="Set a new password"></div>
 			<div class="drop-wrap">
 				<div class="main-drop">Select type</div>
 				<ul><li class="set-type set-student">Student</li>

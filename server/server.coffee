@@ -1,8 +1,9 @@
 # Account management: server side code
 getUser = (id) -> Meteor.users.findOne id
 isAdmin = (id) -> id and getUser(id).type is 'admin'
-mailVerified = (id) ->
-  id and (!getUser(id).emails or getUser(id).emails[0].verified is yes)
+###mailVerified = (id) ->
+  return unless id; u = getUser id
+  u and (!u.emails or (u.emails[0].verified is yes))###
 gibPowerToAdmins = insert: isAdmin, remove: isAdmin, update: isAdmin
 
 # Collections
@@ -15,7 +16,7 @@ populate = (count) ->
     Accounts.createUser
       username: 'user'+i
       password: 'user'+i
-      email: 'user'+i+"@user.com"
+      email: 'user'+i+"@photon.app", verified: yes
       type: 'student'
 
 Meteor.startup -> # Executed when the server starts
@@ -23,27 +24,41 @@ Meteor.startup -> # Executed when the server starts
   if Meteor.users.find().count() is 0
     id = Accounts.createUser
       username: 'admin', password: 'admin',
-      email: 'admin@admin.app', type: 'admin'
-    console.log '''No users in the database. Creating default admin user
-    Username: admin - Password: admin - Email: admin@admin.app - ID: '''+id
+      email: 'admin@photon.app', type: 'admin', verified: yes
+    console.log '''No users in the database. Created default admin user
+    Username: admin - Password: admin - ID: '''+id
   else
     userCount = Meteor.users.find().count()
     console.log "There are "+userCount+" users in the database."
+  # Check email settings
+  if !process.env.MAIL_URL
+    console.log "### WARNING ###\nPhoton won't be able to send emails!"
+  else console.log "Using EMAIL: "+process.env.MAIL_URL
 
 Accounts.config forbidClientAccountCreation: yes
 Accounts.onCreateUser (options,user) ->
   user.type = options.type or 'student'; user
   user.fullname = options.fullname or options.username #or options.email
+  if options.verified is yes then user.emails[0].verified = yes
+  return user # Don't remove this instruction.
 
 # Email configuration
 Accounts.emailTemplates.siteName = 'Photon'
 Accounts.emailTemplates.from = 'Admin'
-Accounts.emailTemplates.verifyEmail.subject = (user) ->
-  "You can now activate your Photon account"
-Accounts.emailTemplates.verifyEmail.text = (user, url) ->
+Accounts.emailTemplates.resetPassword.subject = (user) ->
+  "Reset your "+Accounts.emailTemplates.siteName+" password"
+Accounts.emailTemplates.resetPassword.text = (user, url) ->
   token = url.split '/'; token = token[token.length - 1]
-  '''You can verify this email address and start using your account by logging\
-  in and using the following token: #{token}'''
+  link = url.split('/')[0]+'//'+url.split('/')[1]+'/set/'+token
+  '''You can set a new password by clicking\
+  on the following link: '''+link
+Accounts.emailTemplates.enrollAccount.subject = (user) ->
+  "Activate your "+Accounts.emailTemplates.siteName+" account"
+Accounts.emailTemplates.enrollAccount.text = (user, url) ->
+  token = url.split '/'; token = token[token.length - 1]
+  link = url.split('/')[0]+'//'+url.split('/')[1]+'/set/'+token
+  '''You can set a password and activate your account by clicking\
+  on the following link: '''+link
 
 Meteor.methods
   'newUser': (options) ->
@@ -51,14 +66,18 @@ Meteor.methods
     if !u or u.type isnt 'admin'
       throw new Meteor.Error 403, 'Insufficient permission'
     console.log "Create Account request accepted from "+u.username
-    Accounts.createUser options
+    id = Accounts.createUser options
+    if options.email and !options.verified
+      console.log "Sending enrollment email to "+id
+      Accounts.sendEnrollmentEmail id
   'deleteUser': (id) ->
     u = getUser @userId
     if id is @userId or (u and u.type is 'admin')
       console.log "user id:"+id+" is being deleted from the database"
-      Meteor.users.remove id;s yes
+      Meteor.users.remove id; yes
     else no
   'assumeIdentity': (id) ->
+    # This is broken, needs fix
     u = getUser @userId
     if u.type is 'admin'
       @setUserId id; yes
@@ -84,11 +103,12 @@ Meteor.publish 'classes', ->
     user = getUser @userId
     if user.type is 'admin'
       classes.find()
-    else if user.type is 'student'
-      classes.findOne user.classId
-    else if user.type is 'teacher'
-      classes.find teachers: @userId
-    else []
+    else if validEmail @userId
+      if user.type is 'student'
+        classes.findOne user.classId
+      else if user.type is 'teacher'
+        classes.find teachers: @userId
+      else []
 
 Meteor.users.allow gibPowerToAdmins
 classes.allow gibPowerToAdmins
