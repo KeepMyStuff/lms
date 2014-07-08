@@ -83,11 +83,11 @@ Meteor.methods
       @setUserId id; yes
     else no
   'newPassword': (id,pass) ->
-    if isAdmin @userId and getUser id
+    if isAdmin(@userId) and getUser id
       console.log "user id:"+id+" has been given a new password"
-      Accounts.setPassword id, pass; yes
+      Accounts.setPassword id, pass
     else
-      console.log "Password change request for "+id+"by "+@userId+" denied"; no
+      console.log "Password change request for "+id+"by "+@userId+" denied"
   'cleanUp': (id,except) ->
     u = getUser id
     if isAdmin(@userId) and u
@@ -103,7 +103,7 @@ Meteor.publish 'classes', ->
     user = getUser @userId
     if user.type is 'admin'
       classes.find()
-    else if validEmail @userId
+    else
       if user.type is 'student'
         classes.findOne user.classId
       else if user.type is 'teacher'

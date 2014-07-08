@@ -11,6 +11,16 @@ Template.login.events
     if e.keyCode is 13 then login t.find('.mail').value, t.find('.pass').value
   'click .login-btn': (e,t) ->
     login t.find('.mail').value, t.find('.pass').value
+  'click .forgot-btn': (e,t) ->
+    mail = t.find('.mail').value
+    if !mail
+      share.notify type:'warning', title: 'Notice:', msg:"please insert your \
+      email: we will send you instructions so you can set a new password."
+    else Accounts.forgotPassword email:mail, (e) ->
+      console.log e
+      if e then share.errCallback e
+      else
+        share.notify type:'success', title:'OK', msg:'the email has been sent'
 
 # - RESET template -
 Template.reset.token = -> Router.current().params.token

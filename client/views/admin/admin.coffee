@@ -5,6 +5,10 @@ Template.admin.nusers = -> Meteor.users.find().count()
 Template.admin.ntype = (t) -> Meteor.users.find(type:t).count()
 Template.admin.nclasses = -> share.classes.find().count()
 
+Template.users.show = ->
+  if Router.current().params._id and Router.current().params._id isnt ''
+    return '6'
+  '12'
 Template.users.users = -> Meteor.users.find({},{sort: username: 1}).fetch()
 Template.users.active = ->
   if Router.current().data() and Router.current().data()._id is @_id
@@ -72,7 +76,8 @@ Template.userEditor.events
         Meteor.call 'newPassword', Router.current().params._id, p,
         (e) ->
           if e then share.errCallback e else
-          share.notify title: 'OK', type: 'success', msg: 'data updated'
+          share.notify title: 'OK', type: 'success', msg: 'data updated and \
+          password changed'
         t.find('.pass').value = ''
       else share.notify title: 'OK', type: 'success', msg: 'data updated'
     else share.notify msg: 'User does not exist'

@@ -55,3 +55,8 @@ share.errCallback = (err) -> if err then share.notify msg: err.reason
 Template.error.error = -> errorDep.depend(); currentError
 Template.error.events
   'click .close': -> share.notify() # Set current error to undefined
+
+# Autorun stuff
+
+# Automatically clears notification when user logs in or logs out
+Deps.autorun -> Meteor.user(); share.notify()
