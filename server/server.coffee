@@ -65,14 +65,18 @@ Meteor.methods
     u = getUser @userId
     if !u or u.type isnt 'admin'
       throw new Meteor.Error 403, 'Insufficient permission'
+    if Meteor.users.findOne(username:options.username)
+      console.log Meteor.users.findOne(username:options.username)
+      return no
     console.log "Create Account request accepted from "+u.username
     id = Accounts.createUser options
     if options.email and !options.verified
       console.log "Sending enrollment email to "+id
       Accounts.sendEnrollmentEmail id
+    return id
   'deleteUser': (id) ->
     u = getUser @userId
-    if id is @userId or (u and u.type is 'admin')
+    if u and u.type is 'admin'
       console.log "user id:"+id+" is being deleted from the database"
       Meteor.users.remove id; yes
     else no

@@ -17,20 +17,42 @@
 
 <!-- route: /verify -->
 <template name="reset">
-	<div align="center" class="auth-container">
-		<div class="auth-minicontainer">
-			<p class="lead"><i class="fa fa-envelope fa-2x"></i></p>
-			{{> error}}
-			{{#if verified}}<p>Your account is already verified. If you didn't
-			request to change your password you can already use it.</p>{{/if}}
-			<p>You should have received an email containing a link. Click on the link
-			or manually insert the token here to reset your password.</p>
-			<input type="text" class="form-control token" placeholder="Insert Token" value="{{token}}">
-			<input type="password" class="form-control pass" placeholder="Your new password">
-			<button class="btn btn-primary btn-ok">Confirm</button>
-		</div>
+<div align="center" class="auth-container">
+	<div class="auth-minicontainer">
+		<p class="lead"><i class="fa fa-envelope fa-2x"></i></p>
+		{{> error}}
+		{{#if verified}}<p>Your account is already verified. If you didn't
+		request to change your password you can already use it.</p>{{/if}}
+		<p>You should have received an email containing a link. Click on the link
+		or manually insert the token here to reset your password.</p>
+		<input type="text" class="form-control token" placeholder="Insert Token" value="{{token}}">
+		<input type="password" class="form-control pass" placeholder="Your new password">
+		<button class="btn btn-primary btn-ok">Confirm</button>
 	</div>
+</div>
 </template>
 
 <!-- settings -->
-<template name="settings">Settings</template>
+<template name="settings">
+<div class="settings-container">
+	<div class="user-info">
+		<div class="panel-heading text-center">
+			<span class="pull-left"><i class="fa fa-user"></i></span>
+			{{user.email}}
+		</div>
+		<div class="panel-body">
+			<div class="text-center">
+				<i class="fa fa-2x fa-user"></i>
+				<div><h3>{{user.fullname}}</h3></div><div>{{user.username}}</div>
+			</div>
+			<div class="input-group newpass-group">
+			<span class="input-group-addon">Reset Password</span>
+			<input type="password" class="newpass form-control" placeholder="new password"></div>
+			<div class="text-center">
+				<button class="btn btn-danger logout-btn">
+					<i class="fa fa-sign-out"></i> Logout</button>
+			</div>
+		</div>
+	</div>
+</div>
+</template>

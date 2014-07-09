@@ -3,7 +3,9 @@
 # Code that is executed when the client starts.
 Meteor.startup ->
   # Helpers and general stuff
-  UI.registerHelper 'user', -> Meteor.user()
+  UI.registerHelper 'user', ->
+    u = Meteor.user(); return unless u
+    u.email = u.emails[0].address; u
   UI.registerHelper 'admin', -> Meteor.user() and Meteor.user().type is 'admin'
   UI.registerHelper 'classes', -> share.classes.find().fetch()
   UI.registerHelper 'loading', ->
@@ -27,7 +29,6 @@ Template.layout.isCurrent = (i) ->
 Template.layout.events
   # Toggle dropdown event
   'click .drop-wrap': (e) -> $('ul', $(e.target).parent()).slideToggle()
-  'click .logout': -> Meteor.logout(); Router.go 'home'
 
 # - ERROR template -
 

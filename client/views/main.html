@@ -12,7 +12,8 @@
 						{{else}}
 							<li><a class="{{isCurrent 'me'}}" href="{{pathFor 'me'}}">Me</a></li>
 						{{/if}}
-						<li><a class="logout current" href="">{{user.username}}</a></li>
+						<li><a class="{{isCurrent 'settings'}}" href="{{pathFor 'settings'}}">
+						{{user.username}}<i class="icon fa fa-user"></i></a></li>
 					{{else}}
 						<li><a class="{{isCurrent 'login'}}" href="{{pathFor 'login'}}">Login</a></li>
 					{{/if}}

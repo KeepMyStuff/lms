@@ -41,9 +41,12 @@ Template.userAdder.events
       return share.notify msg: 'username is required'
     Meteor.call 'newUser', {
       username: name, password: pass, fullname: t.find('.fullname').value
-      type: type, email: email }, (e) ->
+      type: type, email: email }, (e,x) ->
       if e then share.errCallback e else
-      share.notify title: 'OK', type: 'success', msg: 'Account created'
+        if x is no
+          share.notify msg: 'username already exists'
+        else
+          share.notify title: 'OK', type: 'success', msg: 'Account created'
 # User editor
 Template.userEditor.checked = ->
   "checked" if Template.userEditor.userMail().verified
@@ -83,16 +86,18 @@ Template.userEditor.events
       else share.notify title: 'OK', type: 'success', msg: 'data updated'
     else share.notify msg: 'User does not exist'
   'click .btn-assume': ->
-    Meteor.call 'assumeIdentity', Router.current().params._id, (e) ->
+    Meteor.call 'assumeIdentity', Router.current().params._id, (e,r) ->
       if e then share.errCallback e else
       share.notify title:'OK',type:'success', msg:"you're a wizard now!"
   'click .btn-delete': (e,t) ->
     Meteor.call 'deleteUser', Router.current().params._id,
-    (e) ->
+    (e,r) ->
       if e then share.errCallback e
       else
-        share.notify
-          title: 'OK', type: 'success', msg: 'Account has been deleted'
+        if r is yes
+          share.notify
+            title: 'OK', type: 'success', msg: 'account has been deleted'
+        else share.notify msg: 'account deletion failed'
         Router.go 'users'
   'click .toggle': ->
     id = Router.current().params._id

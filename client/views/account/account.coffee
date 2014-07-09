@@ -36,3 +36,8 @@ Template.reset.events
     Accounts.resetPassword token, pass, (e) ->
       if e then share.errCallback e
       else share.notify title: 'OK', type:'success', msg:'password changed'
+
+# - SETTINGS -
+
+Template.settings.events
+  'click .logout-btn': -> Meteor.logout(); Router.go 'home'
