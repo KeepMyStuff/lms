@@ -122,4 +122,5 @@ Meteor.publish 'users', ->
 # Tell the user his "type" field
 # For some reason meteor doesn't like "findOne" inside publish functions...
 Meteor.publish 'user', ->
-  if @userId then Meteor.users.find @userId, fields: { type: 1 } else []
+  return [] unless @userId
+  Meteor.users.find @userId, fields: { fullname:1, type: 1 }
