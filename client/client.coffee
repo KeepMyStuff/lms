@@ -4,8 +4,8 @@
 Meteor.startup ->
   # Helpers and general stuff
   UI.registerHelper 'user', ->
-    u = Meteor.user(); return unless u
-    u.email = u.emails[0].address; u
+    u = Meteor.user(); return unless u; u.email = 'no email'
+    u.email = u.emails[0].address if u.emails and u.emails[0]; u
   UI.registerHelper 'admin', -> Meteor.user() and Meteor.user().type is 'admin'
   UI.registerHelper 'classes', -> share.classes.find().fetch()
   UI.registerHelper 'loading', ->
