@@ -29,18 +29,19 @@ Template.users.events
 # User adder
 Template.userAdder.events
   'click .btn-insert': (e,t) ->
-    username = t.find('.username').value
-    password = t.find('.pass').value
+    name = t.find('.username').value
+    pass = t.find('.pass').value
     email = t.find('.addr').value
     type = t.find('.usertype').value
     if type isnt 'admin' and type isnt 'teacher' and type isnt 'student'
       return share.notify msg: 'invalid user type'
-    if !password and !email
+    if !pass and !email
       return share.notify msg: 'either password or email is required!'
-    if !username
+    if !name
       return share.notify msg: 'username is required'
     Meteor.call 'newUser', {
-      username: username, password: password, type: type, email: email }, (e) ->
+      username: name, password: pass, fullname: t.find('.fullname').value
+      type: type, email: email }, (e) ->
       if e then share.errCallback e else
       share.notify title: 'OK', type: 'success', msg: 'Account created'
 # User editor
