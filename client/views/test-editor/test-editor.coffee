@@ -24,7 +24,7 @@ if inediting.find().count() is 0
         i: 0
         question:''
         score:''
-        answers:[]
+        answers:['','']
       }
     ]
   console.log ">> AFTER INSERT"
@@ -34,16 +34,16 @@ if inediting.find().count() is 0
 getEmptyQuestion= ->
 #  console.log "Adding question n° " + inediting.findOne().questions.length
   emptyquestion= {
-    i: inediting.findOne().questions.size
+    i: inediting.findOne().questions.length
     question:''
     score:''
-    answers:["prova"]
+    answers:['','']
   }
 
 #console.log "number of questions " + inediting.findOne().questions.length
 record = inediting.findOne()
 Template.testEditor.questions= -> inediting.findOne().questions
-Template.testEditor.resp= -> this
+Template.testEditor.that= -> this #hahahaha, no!
 Template.testEditor.qindex= -> @i+1
 
 console.log ">> AFTER HELPERS"
@@ -53,7 +53,7 @@ Template.testEditor.events
     inediting.update {_id: record._id, 'questions.i': @i},
                       $push: 'questions.$.answers': ''
 
-  "click .addquestionstbtn":->
+  "click .addquestionbtn":->
     inediting.update {_id: record._id},
                     $push: 'questions': getEmptyQuestion()
     #console.log inediting.findOne()
