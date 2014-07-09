@@ -1,43 +1,51 @@
 <!-- Overview -->
 
 <template name="admin">
-<div class="admin-container">
-	<h2 class="text-center">Administration Panel</h2>
-	<div class="panels">
-		<!-- Users information -->
-		<div class="col-sm-6 center-block">
-		<div class="user-panel panel panel-default">
-			<div class="panel-heading" align="center">
-				<span class="pull-left"><i class="fa fa-users"></i></span>
-				User Information
+	<div class="admin-container">
+		<h2 class="text-center">Administration Panel</h2>
+		<div class="panels">
+
+			<!-- Users information -->
+			<div class="col-sm-6 center-block">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span class="pull-left"><i class="fa fa-users"></i></span>
+						User Information
+					</div>
+					<div class="panel-body">
+						There are <b>{{nusers}}</b> accounts in the database.
+						<ul>
+							<li><b>{{ntype 'student'}}</b> students</li>
+							<li><b>{{ntype 'teacher'}}</b> teachers</li>
+							<li><b>{{ntype 'admin'}}</b> administrators</li>
+						</ul>
+						<a class="users-button" href="{{pathFor 'users'}}">
+							<i class="fa fa-users"></i>
+							Manage
+						</a>
+					</div>
+				</div>
 			</div>
-			<div class="panel-body">
-				There are <b>{{nusers}}</b> accounts in the database.
-				<ul><li><b>{{ntype 'student'}}</b> students</li>
-				<li><b>{{ntype 'teacher'}}</b> teachers</li>
-				<li><b>{{ntype 'admin'}}</b> administrators</li></ul>
+
+			<!-- Classes Information -->
+			<div class="col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span class="pull-left"><i class="fa fa-graduation-cap"></i></span>
+						Classes Information
+					</div>
+					<div class="panel-body">
+						There are <b>{{nclasses}}</b> classes in the database.
+						<a class="classes-button" href="{{pathFor 'classes'}}">
+							<i class="fa fa-graduation-cap"></i>
+							Manage
+						</a>
+					</div>
+				</div>
 			</div>
-			<div align="center">
-		    <a class="users-button" href="{{pathFor 'users'}}">
-					<i class="fa fa-users"></i> Manage</a>
-		  </div>
-		</div></div>
-		<!-- Classes Information -->
-		<div class="col-sm-6"><div class="classes-panel panel panel-default">
-			<div class="panel-heading" align="center">
-				<span class="pull-left"><i class="fa fa-graduation-cap"></i></span>
-				Classes Information
-			</div>
-			<div class="panel-body">
-				There are <b>{{nclasses}}</b> classes in the database.
-			</div>
-			<div align="center">
-				<a class="classes-button" href="{{pathFor 'classes'}}">
-					<i class="fa fa-graduation-cap"></i> Manage</a>
-			</div>
-		</div></div>
+		</div>
+
 	</div>
-</div>
 </template>
 
 <!-- Users -->
@@ -57,17 +65,7 @@
 			<p>{{type}}</p>
 		</a>
 		{{/each}}
-		<!--<div class="input-group new-container">
-			<span class="input-group-addon">New User</span>
-			<input type="text" class="form-control new" placeholder="Enter username and press enter">
-		</div>-->
 	</div>
-	<!--<div class="pagination"><ul>
-		<li class="previous"><a href="">previous</a></li>
-		<li><a href="">1</a></li>
-		<li><a href="">2</a></li>
-		<li class="next"><a href="">next</a></li>
-	</ul></div>-->
 </div>
 </template>
 
@@ -76,26 +74,29 @@
 		<div class="panel-heading">
 			<span class="pull-left"><i class="fa fa-edit"></i></span>
 			Insert new User
-			<!--<span class="pull-right"><i class="fa fa-times"></i></span>-->
 		</div>
 		<div class="panel-body">
 			<div class="input-group name-container">
-			<span class="input-group-addon">Username</span>
-			<input type="text" class="username form-control" placeholder="Username (required)"></div>
+				<span class="input-group-addon">Username</span>
+				<input type="text" class="username form-control" placeholder="Username (required)">
+			</div>
 			<div class="input-group name-container">
-			<span class="input-group-addon">Full Name</span>
-			<input type="text" class="fullname form-control" placeholder="Name and Surname"></div>
+				<span class="input-group-addon">Full Name</span>
+				<input type="text" class="fullname form-control" placeholder="Name and Surname">
+			</div>
 			<div class="input-group mail-container">
-			<span class="input-group-addon">Email<!-- <input class="mailbox" type="checkbox" {{checked}}>--></span>
-			<input type="text" class="addr form-control" placeholder="Email (required without password)"></div>
+				<span class="input-group-addon">Email</span>
+				<input type="text" class="addr form-control" placeholder="Email (required without password)">
+			</div>
 			<div class="input-group pass-container">
-			<span class="input-group-addon">Password</span>
-			<input type="password" class="pass form-control" placeholder="Password (required without email)"></div>
+				<span class="input-group-addon">Password</span>
+				<input type="password" class="pass form-control" placeholder="Password (required without email)">
+			</div>
 			<div class="input-group pass-container">
-			<span class="input-group-addon">Type</span>
-			<input type="text" class="usertype form-control" placeholder="'student', 'teacher', 'admin' (required)"></div>
-			<button class="btn btn-success btn-insert">
-				<i class="fa fa-upload"></i> Create</button>
+				<span class="input-group-addon">Type</span>
+				<input type="text" class="usertype form-control" placeholder="'student', 'teacher', 'admin' (required)">
+			</div>
+			<button class="btn btn-success btn-insert"><i class="fa fa-upload"></i> Create</button>
 		</div>
 	</div>
 </template>
@@ -103,136 +104,162 @@
 <template name="userEditor">
 {{#if show}}
 	<div class="col-md-6 center-block">
-	<div class="panel panel-default user-editor">
-		<div class="panel-heading">
-			<span class="pull-left"><i class="fa fa-edit"></i></span>
-			{{user.type}}: {{user._id}}
-			<!--<span class="pull-right"><i class="fa fa-times"></i></span>-->
-		</div>
-		<div class="panel-body">
-			<div class="input-group name-container">
-			<span class="input-group-addon">Username</span>
-			<input type="text" class="name form-control" placeholder="Username" value="{{user.username}}"></div>
-			<div class="input-group name-container">
-			<span class="input-group-addon">Full Name</span>
-			<input type="text" class="fullname form-control" placeholder="Name and Surname" value="{{user.fullname}}"></div>
-			<div class="input-group mail-container">
-			<span class="input-group-addon">Email<!-- <input class="mailbox" type="checkbox" {{checked}}>--></span>
-			<input type="text" class="addr form-control" placeholder="Email" value="{{userMail.address}}"></div>
-			<div class="input-group pass-container">
-			<span class="input-group-addon">Password</span>
-			<input type="password" class="pass form-control" placeholder="Set a new password"></div>
-			<div class="drop-wrap">
-				<div class="main-drop">Select type</div>
-				<ul><li class="set-type set-student">Student</li>
-					<li class="set-type set-teacher">Teacher</li>
-					<li class="set-type set-admin">Admin</li></ul>
+		<div class="panel panel-default user-editor">
+			<div class="panel-heading">
+				<span class="pull-left"><i class="fa fa-edit"></i></span>
+				{{user.type}}: {{user._id}}
 			</div>
-			{{#if currentUserIs 'student'}}
-			<div class="drop-wrap">
-				<div class="main-drop">Select class</div>
-				<ul>{{#each classes}}
-					<li><a href="{{pathFor 'classes'}}">{{year}}{{course}}{{section}}</a>
-						<a class="toggle"> <!--btn-{{#if matches}}danger{{else}}primary{{/if}}-->
-							{{#if matches}}<i class="fa fa-times"></i>{{else}}<i class="fa fa-plus"></i>{{/if}}
-						</a>
-					</li>
-				{{/each}}</ul>
+			<div class="panel-body">
+				<div class="input-group name-container">
+					<span class="input-group-addon">Username</span>
+					<input type="text" class="name form-control" placeholder="Username" value="{{user.username}}">
+				</div>
+				<div class="input-group name-container">
+					<span class="input-group-addon">Full Name</span>
+					<input type="text" class="fullname form-control" placeholder="Name and Surname" value="{{user.fullname}}">
+				</div>
+				<div class="input-group mail-container">
+					<span class="input-group-addon">Email</span>
+					<input type="text" class="addr form-control" placeholder="Email" value="{{userMail.address}}">
+				</div>
+				<div class="input-group pass-container">
+					<span class="input-group-addon">Password</span>
+					<input type="password" class="pass form-control" placeholder="Set a new password">
+				</div>
+				<div class="drop-wrap">
+					<div class="main-drop">Select type</div>
+					<ul>
+						<li class="set-type set-student">Student</li>
+						<li class="set-type set-teacher">Teacher</li>
+						<li class="set-type set-admin">Admin</li>
+					</ul>
+				</div>
+				{{#if currentUserIs 'student'}}
+				<div class="drop-wrap">
+					<div class="main-drop">Select class</div>
+					<ul>
+						{{#each classes}}
+						<li>
+							<a href="{{pathFor 'classes'}}">{{year}}{{course}}{{section}}</a>
+							<a class="toggle">
+								{{#if matches}}<i class="fa fa-times"></i>{{else}}<i class="fa fa-plus"></i>{{/if}}
+							</a>
+						</li>
+						{{/each}}
+					</ul>
+				</div>
+				{{/if}}
+				<button class="btn btn-danger btn-delete">
+					<i class="fa fa-trash-o"></i> Delete
+				</button>
+				<button class="btn btn-success btn-insert">
+					<i class="fa fa-upload"></i> Update
+				</button>
+				<!--<button class="btn btn-primary btn-assume">
+					<i class="fa fa-user"></i> Assume Identity
+				</button>-->
+				<button class="btn btn-warning btn-close">
+					<i class="fa fa-times"></i> Close
+				</button>
 			</div>
-			{{/if}}
-			<button class="btn btn-danger btn-delete">
-				<i class="fa fa-trash-o"></i> Delete</button>
-			<button class="btn btn-success btn-insert">
-				<i class="fa fa-upload"></i> Update</button>
-			<!--<button class="btn btn-primary btn-assume">
-				<i class="fa fa-user"></i> Assume Identity</button>-->
-			<button class="btn btn-warning btn-close">
-				<i class="fa fa-times"></i> Close</button>
 		</div>
-	</div></div>{{/if}}
+	</div>{{/if}}
 </template>
 
 <!-- Classes -->
 
 <template name="classes">
-<div class="class-container">
-	<h2 class="text-center">Classes</h2>
-	{{> error}}
-	{{> classEditor}}
-	<div class="classlist">
-		{{#each classes}}
-		<a class="{{active}}" href="{{pathFor 'classes'}}">
-			<h4>{{year}}{{course}}{{section}}</h4>
-			<p>Students: {{students.length}}, Teachers: {{teachers.length}}</p>
-		</a>
-		{{/each}}
+	<div class="class-container">
+		<h2 class="text-center">Classes</h2>
+		{{> error}}
+		{{> classEditor}}
+		<div class="classlist">
+			{{#each classes}}
+			<a class="{{active}}" href="{{pathFor 'classes'}}">
+				<h4>{{year}}{{course}}{{section}}</h4>
+				<p>Students: {{students.length}}, Teachers: {{teachers.length}}</p>
+			</a>
+			{{/each}}
+		</div>
+		{{> classAdder}}
 	</div>
-	{{> classAdder}}
-</div>
 </template>
 
 <template name="classAdder">
-<div class="panel panel-default class-adder-panel center-block">
-	<div align="center" class="panel-heading">
-		<span class="pull-left"><i class="fa fa-plus"></i></span> New Class
+	<div class="panel panel-default class-adder-panel">
+		<div class="panel-heading">
+			<span class="pull-left"><i class="fa fa-plus"></i></span> New Class
+		</div>
+		<div class="panel-body">
+			<div class="input-group year">
+				<span class="input-group-addon">Year</span>
+				<input type="text" class="form-control new year-val" placeholder="1-5">
+			</div>
+			<div class="input-group course">
+				<span class="input-group-addon">Course</span>
+				<input type="text" class="form-control new course-val" placeholder="Enter any letter">
+			</div>
+			<div class="input-group section">
+				<span class="input-group-addon">Section</span>
+				<input type="text" class="form-control new section-val" placeholder="A-Z">
+			</div>
+			<button class="btn btn-success btn-insert">
+				<i class="fa fa-upload"></i> Create
+			</button>
+		</div>
 	</div>
-	<div class="panel-body">
-		<div class="input-group year">
-			<span class="input-group-addon">Year</span>
-			<input type="text" class="form-control new year-val" placeholder="1-5">
-		</div>
-		<div class="input-group course">
-			<span class="input-group-addon">Course</span>
-			<input type="text" class="form-control new course-val" placeholder="Enter any letter">
-		</div>
-		<div class="input-group section">
-			<span class="input-group-addon">Section</span>
-			<input type="text" class="form-control new section-val" placeholder="A-Z">
-		</div>
-		<button class="btn btn-success btn-insert">
-			<i class="fa fa-upload"></i> Create</button>
-	</div>
-</div>
 </template>
 
 <template name="classEditor">
-{{#if class}}<div class="panel panel-default class-editor">
-	<div class="panel-heading">
-		<span class="pull-left"><i class="fa fa-edit"></i></span>
-		{{class._id}}
-		<!--<span class="pull-right"><i class="fa fa-times"></i></span>-->
-	</div>
-	<div class="panel-body">
-		<h3>{{year}}{{course}}{{section}}</h3>
-		<div class="students-drop drop-wrap">
-			<div class="main-drop">{{ntype 'student'}} Students
-			</div>
-			<ul>
-				{{#each students}}
-				<li><a href="{{pathFor 'users'}}">{{username}}</a>
-				<a class="toggle pull-right">
-					{{#if added}}<i class="fa fa-times"></i>{{else}}<i class="fa fa-plus"></i>{{/if}}
-				</a></li>
-				{{/each}}
-			</ul>
+	{{#if class}}<div class="panel panel-default class-editor">
+		<div class="panel-heading">
+			<span class="pull-left"><i class="fa fa-edit"></i></span>
+			{{class._id}}
 		</div>
-		<div class="teachers-drop drop-wrap">
-			<div class="main-drop">{{ntype 'teacher'}} Teachers
+		<div class="panel-body">
+			<h3>{{year}}{{course}}{{section}}</h3>
+			<div class="students-drop drop-wrap">
+				<div class="main-drop">{{ntype 'student'}} Students
+				</div>
+				<ul>
+					{{#each students}}
+					<li><a href="{{pathFor 'users'}}">{{username}}</a>
+					<a class="toggle pull-right">
+						{{#if added}}
+							<i class="fa fa-times"></i>
+						{{else}}
+							<i class="fa fa-plus"></i>
+						{{/if}}
+					</a></li>
+					{{/each}}
+				</ul>
 			</div>
-			<ul>
-				{{#each teachers}}<li><a href="{{pathFor 'users'}}">{{username}}</a>
-				<a class="toggle pull-right">
-					{{#if added}}<i class="fa fa-times"></i>{{else}}<i class="fa fa-plus"></i>{{/if}}
-				</a></li>{{/each}}
-			</ul>
+			<div class="teachers-drop drop-wrap">
+				<div class="main-drop">{{ntype 'teacher'}} Teachers</div>
+				<ul>
+					{{#each teachers}}
+					<li>
+						<a href="{{pathFor 'users'}}">{{username}}</a>
+						<a class="toggle pull-right">
+							{{#if added}}
+								<i class="fa fa-times"></i>
+							{{else}}
+								<i class="fa fa-plus"></i>
+							{{/if}}
+						</a>
+					</li>{{/each}}
+				</ul>
+			</div>
+			<!-- buttons -->
+			<button class="btn btn-danger btn-delete">
+				<i class="fa fa-trash-o"></i> Delete
+			</button>
+			<button class="btn btn-success btn-insert">
+				<i class="fa fa-upload"></i> Update
+			</button>
+			<button class="btn btn-warning btn-close">
+				<i class="fa fa-times"></i> Close
+			</button>
 		</div>
-		<!-- buttons -->
-		<button class="btn btn-danger btn-delete">
-			<i class="fa fa-trash-o"></i> Delete</button>
-		<button class="btn btn-success btn-insert">
-			<i class="fa fa-upload"></i> Update</button>
-		<button class="btn btn-warning btn-close">
-			<i class="fa fa-times"></i> Close</button>
-	</div>
-</div>{{/if}}
+	</div>{{/if}}
 </template>

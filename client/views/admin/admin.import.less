@@ -1,115 +1,113 @@
 .admin-container {
-  .container;
-  .panels {
-    .row; .center-block;
-    max-width: 60em;
-    margin-top: 2em;
-    .users-button, .classes-button {
-      .btn; .btn-primary;
-      margin-bottom: 1em;
-      align: center;
+    .container;
+
+    .panels {
+        .row;
+        .center-block;
+        max-width: 60em;
+        margin-top: 2em;
+        color: @concrete;
+
+        .users-button, .classes-button {
+            .btn;
+            .btn-primary;
+            .center-block;
+            width: 7em;
+            margin-bottom: 1em;
+        }
+
+        .panel {
+            .center-block;
+            max-width: 25em;
+            height: 15em;
+        }
+
+        .classes-button {margin-top: 6.8em}
+        .panel-body {padding-left: 1em}
+        .panel-heading {text-align: center}
     }
-    .panel {
-      .center-block;
-      max-width: 25em;
-    }
-    .panel-body {
-      color: @concrete;
-    }
-  }
 }
 
 .users-container, .class-container {
-  .container;
-  h2 {
-    margin-bottom: 0.4em;
-  }
-  .btn {
-    margin-top: 1em;
-  }
-  .btn-insert {
-    margin-right: 1em; margin-left: 1em;
-  }
-  .drop-wrap ul {
-    a {
-      color: @clouds;
+    .container;
+
+    .drop-wrap ul {
+        a.toggle {
+            .pull-right;
+            padding: 0 0.3em;
+
+            i.fa-times {color: @asbestos}
+        }
+
+        a {color: @clouds}
     }
-    a.toggle {
-      .pull-right;
-      i.fa-times {
-        color: @asbestos;
-      }
-      padding: 0 0.3em;
-      //margin-top: 0.2em;
-      //margin-right: 0.5em;
-      //font-size: 12px;
+
+    .userlist, .classlist {
+        .center-block;
+        .list-group;
+        max-width: 50em;
+
+        a {
+            .list-group-item;
+
+            &:first-child {
+                border-top-right-radius: 4px;
+                border-top-left-radius: 4px;
+            }
+
+            &:last-child {
+                border-bottom-right-radius: 4px;
+                border-bottom-left-radius: 4px;
+            }
+
+            h4 {.list-group-item-heading; color: @asbestos}
+            p {.list-group-item-text; color: @concrete}
+
+        }
+        .active {background-color: @clouds;}
     }
-  }
-  .userlist, .classlist {
-    .list-group; .center-block;
-    margin: 1em 2em;
-    a {
-      .list-group-item;
-      h4 {
-        .list-group-item-heading;
-        color: @asbestos
-      }
-      p {
-        .list-group-item-text;
-        color: @concrete
-      }
-    }
-    .active {
-      background-color: @clouds;
-    }
-  }
+
+    h2 {margin-bottom: 0.4em}
+    .btn {margin-top: 1em}
+    .btn-insert {margin-right: 1em; margin-left: 1em}
+
 }
 
 // Classes
-
 .class-container {
-  .course {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-  }
-  .class-adder-panel {
-    .center-block;
-    max-width: 25em;
-  }
-  .panel {
-    h3 {
-      .text-center;
-      color: @concrete;
+    .class-adder-panel {
+        .center-block;
+        max-width: 25em;
+
+        .btn {.center-block; width: 7em}
+        .input-group-addon {min-width: 5em}
     }
-  }
+
+    .panel {
+        h3 {.text-center; color: @concrete}
+        .panel-heading {text-align: center}
+    }
+
+    .course {margin-top: 0.5em; margin-bottom: 0.5em}
 }
 
 // Users
-
 .users-container {
-  h2 {
-    margin-bottom: 0.4em;
-  }
-  .pass-container, .name-container, .mail-container {
-    margin: 0.5em 2em 0 2em;
-  }
-  .type-container {
-    max-width: 300px;
-  }
-  .new-container {
-    .new {
-      max-width: 20em;
+    .pass-container, .name-container, .mail-container {
+        margin: 0.5em 2em 0 2em;
     }
-  }
+
+    h2 {margin-bottom: 0.4em}
+    .type-container {max-width: 300px}
 }
 
 .user-editor, .user-adder, .class-editor {
-  .center-block;
-  .text-center;
-  width: 90%;
-  max-width: 600px;
-  margin-bottom: 2em;
-  .drop-wrap {
-    margin-top: 1em;
-  }
+    .center-block;
+    .text-center;
+    width: 90%;
+    max-width: 600px;
+    margin-bottom: 2em;
+
+    .input-group-addon {min-width: 6em}
+    .drop-wrap {margin-top: 1em}
 }
