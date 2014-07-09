@@ -105,7 +105,7 @@ Meteor.publish 'classes', ->
       classes.find()
     else
       if user.type is 'student'
-        classes.findOne user.classId
+        classes.findOne students: user._id
       else if user.type is 'teacher'
         classes.find teachers: @userId
       else []

@@ -1,7 +1,7 @@
 # Database Organizazion
 
 - **User**
-  - Username, emails
+  - Username, email
   - Full name
   - Registration date and last time logged in date
   - **type**: 'student', 'teacher' or 'admin'

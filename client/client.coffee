@@ -28,15 +28,6 @@ Template.layout.events
   # Toggle dropdown event
   'click .drop-wrap': (e) -> $('ul', $(e.target).parent()).slideToggle()
   'click .logout': -> Meteor.logout(); Router.go 'home'
-  'click .go-me': ->
-    if !Meteor.user()
-      Router.go 'login'
-    else
-      if Meteor.user().type is 'student'
-        Router.go 'student'
-      else if Meteor.user().type is 'teacher'
-        Router.go 'teacher'
-      else Router.go 'admin'
 
 # - ERROR template -
 
