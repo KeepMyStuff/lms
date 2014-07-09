@@ -1,6 +1,6 @@
 <template name="student">
-		<div id="student-container">
-			<h3>Benvenuto {{user.fullname}}</h3><br>
+		<div class="student-container">
+			<h3>Benvenuto {{user.username}}</h3><br>
 			<a href="#fakelink" class="btn btn-block btn-info">Compiti</a>
 			<a href="#fakelink" class="btn btn-block btn-info">Consegne</a>
 			<a href="#fakelink" class="btn btn-block btn-info">Materiale</a>
@@ -9,9 +9,9 @@
 </template>
 
 <template name="test">
-		<div id="test-container">
-			<div id="username">{{user.username}}</div>
-			<div id="date">{{currentTest.assignations.date}}</div><br>
+		<div class="test-container">
+			<div class="username">{{user.username}}</div>
+			<div class="date">{{currentTest.assignations.date}}</div><br>
 			<h3>{{currentTest.title}}</h3>
 			{{#each currentTest.questions}}
 			<div class="question">
