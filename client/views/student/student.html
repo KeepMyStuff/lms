@@ -1,48 +1,34 @@
 <template name="student">
-		<div id="student">
-			<h3>Benvenuto {{user.username}}</h3><br>
-			<a href={{pathFor 'ui-test'}} class="btn btn-block btn-info">ui-test</a>
+		<div id="student-container">
+			<h3>Benvenuto {{user.fullname}}</h3><br>
 			<a href="#fakelink" class="btn btn-block btn-info">Compiti</a>
 			<a href="#fakelink" class="btn btn-block btn-info">Consegne</a>
 			<a href="#fakelink" class="btn btn-block btn-info">Materiale</a>
-			<a href={{pathFor 'test'}} class="btn btn-block btn-info ">Verifiche</a>
+			<a href={{pathFor 'test'}} class="btn btn-block btn-info ">Verifica</a>
 		</div>
 </template>
 
 <template name="test">
-		<div id="test">
-			<div id="username">{{user.username}}</div><div id="date">{{currentTest.date}}</div><br>
+		<div id="test-container">
+			<div id="username">{{user.username}}</div>
+			<div id="date">{{currentTest.assignations.date}}</div><br>
 			<h3>{{currentTest.title}}</h3>
 			{{#each currentTest.questions}}
 			<div class="question">
-				{{index}}) {{title}}
+				{{index}}) {{question}}
 				<div class="options">
 					{{#each answers}}
-					<p><input class="check blue" type="checkbox"/><span>{{title}}</span></p>
+					<p><input class="check blue" type="checkbox"/><span>{{answer}}</span></p>
 					{{/each}}
 				</div>
-				<span>Question value: {{questValue}}pt.</span>
+				<span>Question value: {{score}}pt.</span>
 			</div>
 			{{/each}}
 			<hr>
-			<a  class="btn btn-block btn-danger btn-end">Fine</a>
+			<a class="btn btn-block btn-danger btn-end">Fine</a>
 		</div>
 </template>
 
 <template name="testResult">
-	<div id="test-result">
-		<div id="username">{{user.username}}</div>
-		<div id="date">{{currentTest.date}}</div><br>
-		<h3>Result of {{currentTest.title}}</h3>
-		{{#each currentTest.questions}}
-		<div class="question">
-			{{index}}) {{title}}
-			<div class="options">
-				{{#each answers}}
-				<p><input class="check blue" type="checkbox"/><span>{{title}}</span></p>
-				{{/each}}
-			</div>
-		</div>
-		{{/each}}
-	</div>
+
 </template>
