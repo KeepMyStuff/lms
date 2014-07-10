@@ -37,7 +37,16 @@ Template.reset.events
       if e then share.errCallback e
       else share.notify title: 'OK', type:'success', msg:'password changed'
 
-# - SETTINGS -
+# - SETTINGS template -
 
 Template.settings.events
   'click .logout-btn': -> Meteor.logout(); Router.go 'home'
+  'click .pass-btn': (e,t) ->
+    if !t.find('.newpass').value or !t.find('.oldpass').value
+      return share.notify msg: 'please insert your old password \
+      and a new password'
+    console.log "Changing password"
+    Accounts.changePassword t.find('.oldpass').value, t.find('.newpass').value,
+    (e) ->
+      if e then share.errCallback e
+      else share.notify type:'success', title: 'OK', msg: 'password changed'

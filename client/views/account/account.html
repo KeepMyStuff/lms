@@ -35,6 +35,7 @@
 <!-- settings -->
 <template name="settings">
 <div class="settings-container">
+	{{> error}}
 	<div class="user-info">
 		<div class="panel-heading text-center">
 			<span class="pull-left"><i class="fa fa-user"></i></span>
@@ -45,9 +46,21 @@
 				<i class="fa fa-2x fa-user"></i>
 				<div><h3>{{user.fullname}}</h3></div><div>{{user.username}}</div>
 			</div>
+			<hr>
+			<h4 class="text-center">Reset Password</h4>
 			<div class="input-group newpass-group">
-			<span class="input-group-addon">Reset Password</span>
-			<input type="password" class="newpass form-control" placeholder="new password"></div>
+				<span class="input-group-addon"><i class="fa fa-key"></i></span>
+				<input type="password" class="oldpass form-control" placeholder="old password">
+			</div>
+			<div class="input-group oldpass-group">
+				<span class="input-group-addon"><i class="fa fa-key"></i></span>
+				<input type="password" class="newpass form-control" placeholder="new password">
+			</div>
+			<div class="text-center">
+				<button class="btn btn-warning pass-btn">
+					<i class="fa fa-cog"></i> Reset</button>
+			</div>
+			<hr>
 			<div class="text-center">
 				<button class="btn btn-danger logout-btn">
 					<i class="fa fa-sign-out"></i> Logout</button>
