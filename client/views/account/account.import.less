@@ -1,16 +1,11 @@
 .auth-container {
 	margin-top: 2em;
-	p {
-		color: @concrete;
-	}
+
+	p {color: @concrete}
 }
 
 .auth-minicontainer {
 	max-width: 15em;
-
-	input {
-		margin-top: 1em;
-	}
 
 	.btn {
 		width: 6em;
@@ -18,17 +13,36 @@
 		margin-right: .5em;
 		margin-left: .5em;
 	}
+
+	input {margin-top: 1em}
 }
 
 .settings-container {
 	.container;
-	input { .form-control; }
+
 	.user-info {
 		.panel; .panel-default;
 		.center-block;
 		max-width: 25em;
 		color: @concrete;
+
+		#full-name {
+			text-align: center;
+			& > * {margin: 1em}
+		}
+
+		img {
+			.square(5em);
+			background: @clouds;
+		}
+
+		.btn {
+			width: 7em;
+		}
+
 	}
+
 	.input-group { margin: 1em 2em .25em 2em; }
 	.oldpass-group { margin-bottom: 1em; }
+
 }
