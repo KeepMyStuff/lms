@@ -122,11 +122,12 @@ Template.userEditor.events
 
 # Classes
 
-Template.classes.active = ->
+Template.adminClasses.active = ->
   Router.current() and Router.current().params._id is @_id
+Template.adminClasses.classes = -> share.classes.find().fetch()
 
 Template.classAdder.events
-  'click .btn-close': -> Router.go 'classes'
+  'click .btn-close': -> Router.go 'admin-classes'
   'click .btn-insert': (e,t) ->
     year = t.find('.year-val').value
     section = t.find('.section-val').value
@@ -170,11 +171,11 @@ Template.classEditor.events
       if share.classes.findOne(_id: id,teachers:@_id)
         share.classes.update id, $pull: teachers: @_id
       else share.classes.update id, $addToSet: teachers: @_id
-  'click .btn-close': -> Router.go 'classes'
+  'click .btn-close': -> Router.go 'admin-classes'
   'click .btn-delete': ->
     share.classes.remove Router.current().params._id,
     (e) ->
       if e then share.errCallback e
       else
         share.notify title: 'OK', type: 'success', msg: 'class has been deleted'
-        Router.go 'classes'
+        Router.go 'admin-classes'

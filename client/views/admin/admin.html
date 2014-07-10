@@ -36,7 +36,7 @@
 					</div>
 					<div class="panel-body">
 						There are <b>{{nclasses}}</b> classes in the database.
-						<a class="classes-button" href="{{pathFor 'classes'}}">
+						<a class="classes-button" href="{{pathFor 'admin-classes'}}">
 							<i class="fa fa-graduation-cap"></i>
 							Manage
 						</a>
@@ -148,7 +148,7 @@
 					<ul>
 						{{#each classes}}
 						<li>
-							<a href="{{pathFor 'classes'}}">{{year}}{{course}}{{section}}</a>
+							<a href="{{pathFor 'admin-classes'}}">{{year}}{{course}}{{section}}</a>
 							<a class="toggle">
 								{{#if matches}}<i class="fa fa-times"></i>{{else}}<i class="fa fa-plus"></i>{{/if}}
 							</a>
@@ -176,14 +176,14 @@
 
 <!-- Classes -->
 
-<template name="classes">
+<template name="adminClasses">
 	<div class="class-container">
 		<h2 class="text-center">Classes</h2>
 		{{> error}}
 		{{> classEditor}}
 		<div class="classlist">
 			{{#each classes}}
-			<a class="{{active}}" href="{{pathFor 'classes'}}">
+			<a class="{{active}}" href="{{pathFor 'admin-classes'}}">
 				<h4>{{year}}{{course}}{{section}}</h4>
 				<p>Students: {{students.length}}, Teachers: {{teachers.length}}</p>
 			</a>

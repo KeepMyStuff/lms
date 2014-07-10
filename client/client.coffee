@@ -7,7 +7,6 @@ Meteor.startup ->
     u = Meteor.user(); return unless u; u.email = 'no email'
     u.email = u.emails[0].address if u.emails and u.emails[0]; u
   UI.registerHelper 'admin', -> Meteor.user() and Meteor.user().type is 'admin'
-  UI.registerHelper 'classes', -> share.classes.find().fetch()
   UI.registerHelper 'loading', ->
     Meteor.loggingIn() or (Router.current() and !Router.current().ready())
   # My user data
@@ -21,14 +20,14 @@ Meteor.startup ->
 # Layout template
 
 Template.layout.isCurrent = (i) ->
-  if Router.current() and Router.current().lookupTemplate() is i
-    return 'current'
-  # Find "subroutes"
-  if Router.current() and Router.current().path.lastIndexOf('/'+i,0) is 0
-    return 'current'
+  return unless Router.current()
+  return 'current' if i is Router.match(Router.current().path).name
+
 Template.layout.events
   # Toggle dropdown event
   'click .drop-wrap': (e) -> $('ul', $(e.target).parent()).slideToggle()
+  'click #my-class': ->
+    Router.go 'class', _id: share.classes.findOne(student: Meteor.user()._id)._id
 
 # - ERROR template -
 

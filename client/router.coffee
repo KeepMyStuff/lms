@@ -29,7 +29,10 @@ Router.map ->
   @route 'home', path: '/'
   @route 'admin', controller: adminController
   @route 'users', path: '/admin/users/:_id?', controller: usersController
-  @route 'classes', path: '/admin/classes/:_id?', controller: classesController
+  @route 'admin-classes',
+    path: '/admin/classes/:_id?',
+    template: 'adminClasses',
+    controller: classesController
   @route 'reset',
     path: '/set/:token?'
     onBeforeAction: -> Router.go 'me' if Meteor.user()
@@ -45,6 +48,8 @@ Router.map ->
       Router.go 'student' if Meteor.user() and Meteor.user().type is 'student'
   @route 'student'
   @route 'test-editor', template: 'testEditor'
+  @route 'classes', path: '/class'
+  @route 'class', path: '/class/:_id'
   @route 'ui-test', template: 'uiTest' # TODO: remove this later
   @route 'test',
     path: '/student/test'
