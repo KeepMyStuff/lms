@@ -1,9 +1,6 @@
 # Account management: server side code
 getUser = (id) -> Meteor.users.findOne id
 isAdmin = (id) -> id and getUser(id).type is 'admin'
-###mailVerified = (id) ->
-  return unless id; u = getUser id
-  u and (!u.emails or (u.emails[0].verified is yes))###
 gibPowerToAdmins = insert: isAdmin, remove: isAdmin, update: isAdmin
 
 # Collections
@@ -103,16 +100,16 @@ Meteor.methods
 # Publications and Permissions
 
 Meteor.publish 'classes', ->
-  if @userId
-    user = getUser @userId
-    if user.type is 'admin'
-      classes.find()
-    else
-      if user.type is 'student'
-        classes.findOne students: user._id
-      else if user.type is 'teacher'
-        classes.find teachers: @userId
-      else []
+  return [] unless @userId
+  user = getUser @userId
+  if user.type is 'admin'
+    classes.find()
+  else
+    if user.type is 'student'
+      classes.findOne students: user._id
+    else if user.type is 'teacher'
+      classes.find teachers: @userId
+    else []
 
 Meteor.users.allow gibPowerToAdmins
 classes.allow gibPowerToAdmins
