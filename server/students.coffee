@@ -47,7 +47,7 @@ Meteor.methods
 Meteor.startup ->
   tests.remove({})
   if tests.find().count() < 2
-    tests.insert
+    ###tests.insert
       solutions:[[true, false, false],[false,false,true],[true,false,false]]
       assignations:[{classe:"4IA"},
                     {date:moment().format("DD/MM/YYYY")},
@@ -109,3 +109,4 @@ Meteor.startup ->
             answers:['','']
           }
         ]
+###
