@@ -1,12 +1,17 @@
-Tests = new Meteor.Collection "tests"
-TestsResults = new Meteor.Collection "testsResults"
+tests = new Meteor.Collection "tests"
+testsResults = new Meteor.Collection "testsResults"
+
+tests.allow
+  insert: -> yes
+  update: -> yes
+  remove: -> yes
 
 Meteor.publish 'tests', ->
-  Tests.find({},{fields: {solutions:0}})
+  tests.find({},{fields: {solutions:0}})
 
 Meteor.methods
   'checkTest': (answers) ->
-    currentTest=Tests.findOne()
+    currentTest=tests.findOne()
     sScore=0 #student's total score
     totScore=0 #test's total score
     x=0  #number of correct options in a question
@@ -28,21 +33,21 @@ Meteor.methods
     console.log "student's score= "+sScore
     mark = sScore/totScore*100
     result=
-      testId:Tests.findOne()._id
+      testId:tests.findOne()._id
       studentName:Meteor.users.findOne(@userId).username,
       studentScore:sScore,
       totScore:totScore,
       mark:sScore/totScore*100
     console.log result
-    TestsResults.insert result
+    testsResults.insert result
     console.log corrAns
     corrAns
 
 # Populate tests (temporary)
 Meteor.startup ->
-  Tests.remove({})
-  if Tests.find().count() is 0
-    sampleQuiz=
+  tests.remove({})
+  if tests.find().count() < 2
+    tests.insert
       solutions:[[true, false, false],[false,false,true],[true,false,false]]
       assignations:[{classe:"4IA"},
                     {date:moment().format("DD/MM/YYYY")},
@@ -80,4 +85,27 @@ Meteor.startup ->
           ]
         }
       ]
-    Tests.insert sampleQuiz
+#       NO FINGHH!
+      tests.insert
+        title:''
+        assignations:[
+          {
+            class:''
+            date:''
+            hour:''
+            duration:''
+          }
+        ]
+        permissions:[
+          {
+            permission:''
+            subject:''
+          }
+        ]
+        questions:[{
+            index: 0
+            question:''
+            score:''
+            answers:['','']
+          }
+        ]

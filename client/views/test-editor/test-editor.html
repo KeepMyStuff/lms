@@ -1,6 +1,6 @@
 <template name="testEditor">
   <div class="container" id="test-editor">
-    {{#each questions}}
+    {{#each getquestions}}
       <div class="panel panel-default panelopt ">
         <div class="input-group">
           <span class="input-group-addon panelheadnumber"><h4> {{qindex}} )</h4></span>
@@ -19,8 +19,11 @@
           <button class="btn btn-success answerbox center-block addanswerbtn">Aggiungi Risposta</button>
         </div>
         <div class="panel-footer panelscorefooter verticalpadded">
-          <button class="btn btn-info btn-sm"><i class="fa fa-arrow-down "></i></button>
-          <button class="btn btn-success btn-sm"><i class="fa fa-arrow-up "></i></button>
+          <button class="btn btn-danger btn-sm"><i class="fa fa-times "></i></button>
+          <div class="btn-group">
+            <button class="btn btn-warning btn-sm"><i class="fa fa-chevron-down "></i></button>
+            <button class="btn btn-warning btn-sm rightmovebtn"><i class="fa fa-chevron-up "></i></button>
+          </div>
           <div class="input-group scoregroup">
             <span class="input-group-addon scoreaddon">Punteggio </span>
             <input type="text" maxlength="4" class="form-control scoreinput right-block" value="{{score}}">

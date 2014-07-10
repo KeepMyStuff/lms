@@ -1,68 +1,52 @@
-inediting = new Meteor.Collection null
-#Meteor.subscribe 'inediting'
+tests = share.tests
+Meteor.subscribe 'tests'
 
-if inediting.find().count() is 0
-  console.log ">> BEFORE INSERT"
-  console.log inediting.findOne()
-  inediting.insert
-    title:''
-    assignations:[
-      {
-        class:''
-        date:''
-        hour:''
-        duration:''
-      }
-    ]
-    permissions:[
-      {
-        permission:''
-        subject:''
-      }
-    ]
-    questions:[{
-        i: 0
-        question:''
-        score:''
-        answers:['','']
-      }
-    ]
-  console.log ">> AFTER INSERT"
-  console.log inediting.findOne()
-    #solutions:[[]]
+console.log ">> TEST EDITOR after subscribe:"
+console.log tests.findOne(skip: 1)
+
+console.log ">> TEST EDITOR after (possible) insert"
+console.log getTest
 
 getEmptyQuestion= ->
-#  console.log "Adding question n° " + inediting.findOne().questions.length
+#  console.log "Adding question n " + getTest.questions.length
   emptyquestion= {
-    i: inediting.findOne().questions.length
+    i: getTest.questions.length
     question:''
     score:''
     answers:['','']
   }
 
-#console.log "number of questions " + inediting.findOne().questions.length
-record = inediting.findOne()
-Template.testEditor.questions= -> inediting.findOne().questions
+#console.log "number of questions " + getTest.questions.length
+
+getTest = Template.testEditor.get = -> tests.findOne(skip: 1)
+Template.testEditor.getquestions= -> getTest().questions
 Template.testEditor.that= -> this #hahahaha, no!
 Template.testEditor.qindex= -> @i+1
 
-console.log ">> AFTER HELPERS"
-
 Template.testEditor.events
   "click .addanswerbtn":()->
-    inediting.update {_id: record._id, 'questions.i': @i},
-                      $push: 'questions.$.answers': ''
+    tests.update {_id: record._id, 'questions.i': @i},
+                      $push: 'questions.$.answers':''
 
   "click .addquestionbtn":->
-    inediting.update {_id: record._id},
+    tests.update {_id: record._id},
                     $push: 'questions': getEmptyQuestion()
-    #console.log inediting.findOne()
+    #console.log getTest
 
   "click .removeanswerbtn":(e) ->
-    id = $($(e.currentTarget).parents().get 3).find('h4').text().replace(")","") - 1
+    index = $($(e.currentTarget).parents().get 3).find('h4').text().replace(")","") - 1
+    console.log 'TestEditor>> Trying to remove the answer "'+this+'" from the question n '+index
+    Meteor.call 'pullAnswer', record._id, index, this
+
+###
+    toremove='questions.'+index+'.answers'
+    console.log "remove from: '"+toremove+"'"
+    tests.update {_id: record._id}, $pull:{ toremove: this}
+###
+
+#, 'questions.i': index
     #console.log id
     #answers.find('.btn').each (i)->
-    #  if $(this).is(e.currentarget)
-    #Meteor.call 'pullAnswer', record._id, id, this
-    #inediting.update {_id: record._id, 'questions.i': id}, $pull: {'questions.$.answers': this}
-console.log ">> COFEE END"
+    #if $(this).is(e.currentarget)
+    #Meteor.call 'pullAnswer', record._id, index, this
+    #tests.update {_id: record._id, 'questions.i': id}, $pull: {'questions.$.answers': this}

@@ -1,7 +1,7 @@
-Tests= new Meteor.Collection "tests"
+tests = share.tests = new Meteor.Collection 'tests'
 
 Meteor.subscribe 'tests', ->
-  Template.test.currentTest=Tests.findOne()
+  Template.test.currentTest = tests.findOne()
   console.log Template.test.currentTest
 
 Template.test.events 'click .btn-end': ->
