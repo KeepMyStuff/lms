@@ -16,9 +16,15 @@
 
 - **Post**
   - list of pages where the post is displayed
+  - creation date
+  - owner
+  - parent id (if it doesn't exist then this is not a reply post)
+  - title
   - post text
     - possible markdown parsing
   - Attached files list
+  - due date (if this is a Homework)
+
 
 - **File**
   - name
