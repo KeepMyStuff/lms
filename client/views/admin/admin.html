@@ -44,7 +44,6 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 </template>
 
@@ -66,6 +65,11 @@
 		</a>
 		{{/each}}
 	</div>
+	<ul class="pagination">
+	{{#each paginator}}
+		<li class="{{active}}"><a href="">{{index}}</a></li>
+	{{/each}}
+	</ul>
 </div>
 </template>
 

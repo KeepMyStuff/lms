@@ -5,11 +5,16 @@ Template.admin.nusers = -> Meteor.users.find().count()
 Template.admin.ntype = (t) -> Meteor.users.find(type:t).count()
 Template.admin.nclasses = -> share.classes.find().count()
 
+usersPaginator = new share.Paginator 3
+Template.users.paginator = -> usersPaginator.pages()
 Template.users.show = ->
   if Router.current().params._id and Router.current().params._id isnt ''
     return '6'
   '12'
-Template.users.users = -> Meteor.users.find({},{sort: username: 1}).fetch()
+Template.users.users = ->
+  opt = usersPaginator.queryOptions(); opt.sort = username: 1
+  console.log usersPaginator.pages()
+  Meteor.users.find({},opt).fetch()
 Template.users.active = ->
   if Router.current().data() and Router.current().data()._id is @_id
     return 'active'
