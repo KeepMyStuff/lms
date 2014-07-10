@@ -46,53 +46,53 @@ Meteor.methods
 # Populate tests (temporary)
 Meteor.startup ->
   tests.remove({})
+  console.log moment().format()
   if tests.find().count() < 2
-    ###tests.insert
-      solutions:[[true, false, false],[false,false,true],[true,false,false]]
-      assignations:[{classe:"4IA"},
-                    {date:moment().format("DD/MM/YYYY")},
-                    {duration:"60"}],
-      title: 'Verifica di Matematica',
+    tests.insert
+      title: 'Verifica di Matematica'
+      assignations:[
+        {
+          class:"4IA"
+          time:moment().format("DD/MM/YYYY")
+          duration:"60"
+        }
+      ]
       questions: [
         {
+          index: 1, score:2
           question: 'Di che colore è il cavallo bianco di napoleone?',
-          index: 1, questResult:false, score:2
-          answers: [
-            {answer:"Wow!"}, {answer:"Not wow"}, {answer:"Such wow"}
-          ]
+          answers: ["Bianco", "Nero", "Giallo"]
         },
         {
+          index: 2, score:2,
           question: 'Questa è la domanda numero 2?',
-          index: 2, questResult:false, score:2,
-          answers: [
-            {answer:"no"}, {answer:"forse"}, {answer: "si"}
-          ]
+          answers: ["no", "forse", "si"]
         },
         {
+          index: 3, score:1
           question: 'Bisogna tenere a mente che una domanda pobrebbe essere
           piuttosto lunga. Questo significa che 1+2 non fa half life 3,giusto?',
-          index: 3, questResult:false, score:1
           answers:[
-            {answer:"a dire il vero non sappiamo bene la lunghezza di una
+            "a dire il vero non sappiamo bene la lunghezza di una
             risposta. Infatti ad una domanda molto lunga la risposta potrebbe
-            essere breve. E invece no!"},
-            {answer:"a dire il vero non sappiamo bene la lunghezza di una
-            risposta. Infatti ad una domanda molto lunga la risposta potrebbe
-            essere breve. E invece no!"},
-            {answer:"a dire il vero non sappiamo bene la lunghezza di una
-            risposta. Infatti ad una domanda molto lunga la risposta potrebbe
-            essere breve. E invece no!"}
+            essere breve. E invece no!",
+            "a dire il vero non sappiamo bene la lunghezza di una
+            risposta.Infatti ad una domanda molto lunga la risposta potrebbe
+            essere breve. E invece no!",
+            "a dire il vero non sappiamo bene la lunghezza di una
+            risposta. infatti ad una domanda molto lunga la risposta potrebbe
+            essere breve. E invece no!"
           ]
         }
       ]
-#       NO FINGHH!
+      solutions:[[true, false, false],[false,false,true],[true,false,false]]
+###
       tests.insert
         title:''
         assignations:[
           {
             class:''
-            date:''
-            hour:''
+            time:''
             duration:''
           }
         ]
@@ -104,8 +104,8 @@ Meteor.startup ->
         ]
         questions:[{
             index: 0
-            question:''
             score:''
+            question:''
             answers:['','']
           }
         ]

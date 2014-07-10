@@ -4,6 +4,8 @@ Meteor.subscribe 'tests', ->
   Template.test.currentTest = tests.findOne()
   console.log Template.test.currentTest
 
+Template.test.that = -> this
+Template.test.class = -> share.classes.findOne students: Meteor.user()._id
 Template.test.events 'click .btn-end': ->
   solutions = []
   x=0

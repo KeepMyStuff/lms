@@ -1,6 +1,6 @@
 <template name="student">
 		<div class="student-container">
-			<h3>Benvenuto {{user.username}}</h3><br>
+			<h3>Benvenuto {{user.fullname}}</h3><br>
 			<a href="#fakelink" class="btn btn-block btn-info">Compiti</a>
 			<a href="#fakelink" class="btn btn-block btn-info">Consegne</a>
 			<a href="#fakelink" class="btn btn-block btn-info">Materiale</a>
@@ -10,15 +10,15 @@
 
 <template name="test">
 		<div class="test-container">
-			<div class="username">{{user.username}}</div>
-			<div class="date">{{currentTest.assignations.date}}</div><br>
+			<div class="username">{{user.fullname}}</div>
+			<div class="date"></div><br>
 			<h3>{{currentTest.title}}</h3>
 			{{#each currentTest.questions}}
 			<div class="question">
 				{{index}}) {{question}}
 				<div class="options">
 					{{#each answers}}
-					<p><input class="check blue" type="checkbox"/><span>{{answer}}</span></p>
+					<p><input class="check blue" type="checkbox"/><span>{{that}}</span></p>
 					{{/each}}
 				</div>
 				<span>Question value: {{score}}pt.</span>
