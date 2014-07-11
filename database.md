@@ -15,15 +15,18 @@
   - Teacher (creator) id
 
 - **Post**
-  - list of pages where the post is displayed
   - creation date
-  - owner
+  - userId of the owner
   - parent id (if it doesn't exist then this is not a reply post)
   - title
-  - post text
-    - possible markdown parsing
+  - post text (character limit?)
   - Attached files list
   - due date (if this is a Homework)
+  - Read and Edit/Delete permissions (this needs planning)
+  - display:
+    - classes: classes where the post is displayed
+    - users: user pages where the post is displayed
+    - pages: other pages where the post is displayed. Example: ['admin','homepage']
 
 
 - **File**
