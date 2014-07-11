@@ -5,19 +5,11 @@ Template.admin.nusers = -> Meteor.users.find().count()
 Template.admin.ntype = (t) -> Meteor.users.find(type:t).count()
 Template.admin.nclasses = -> share.classes.find().count()
 
-<<<<<<< HEAD
 Template.users.paginator = new share.Paginator 5
-Template.users.show = ->
-  if Router.current().params._id and Router.current().params._id isnt ''
-    return '6'
-  '12'
 Template.users.users = ->
   opt = Template.users.paginator.queryOptions(); opt.sort = username: 1
   Template.users.paginator.calibrate Meteor.users.find().count()
   Meteor.users.find({},opt).fetch()
-=======
-Template.users.users = -> Meteor.users.find({},{sort: username: 1}).fetch()
->>>>>>> removed multiple windows and fix errors left
 Template.users.active = ->
   if Router.current().data() and Router.current().data()._id is @_id
     return 'active'
