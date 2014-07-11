@@ -53,10 +53,8 @@
 <div class="users-container">
 	<h2 class="text-center">Users</h2>
 	{{> error}}
-	<div class="row">
-		<div class="col-md-{{show}} center-block">{{> userAdder}}</div>
-		{{> userEditor}}
-	</div>
+	{{> userEditor}}
+	{{> userAdder}}
 	{{#if paginator.show}}
 	<div class="text-center">
 		<ul class="pagination">
@@ -78,6 +76,7 @@
 </template>
 
 <template name="userAdder">
+	{{#if show}}
 	<div class="panel panel-default user-adder">
 		<div class="panel-heading">
 			<i class="fa fa-edit"></i>
@@ -107,71 +106,68 @@
 			<button class="btn btn-success btn-insert"><i class="fa fa-upload"></i> Create</button>
 		</div>
 	</div>
+	{{/if}}
 </template>
 
 <template name="userEditor">
-{{#if show}}
-	<div class="col-md-6 center-block">
-		<div class="panel panel-default user-editor">
-			<div class="panel-heading">
-				<i class="fa fa-edit"></i>
-				{{user.type}}: {{user._id}}
-			</div>
-			<div class="panel-body">
-				<div class="input-group name-container">
-					<span class="input-group-addon">Username</span>
-					<input type="text" class="name form-control" placeholder="Username" value="{{user.username}}">
-				</div>
-				<div class="input-group name-container">
-					<span class="input-group-addon">Full Name</span>
-					<input type="text" class="fullname form-control" placeholder="Name and Surname" value="{{user.fullname}}">
-				</div>
-				<div class="input-group mail-container">
-					<span class="input-group-addon">Email</span>
-					<input type="text" class="addr form-control" placeholder="Email" value="{{userMail.address}}">
-				</div>
-				<div class="input-group pass-container">
-					<span class="input-group-addon">Password</span>
-					<input type="password" class="pass form-control" placeholder="Set a new password">
-				</div>
-				<div class="drop-wrap">
-					<div class="main-drop">Select type</div>
-					<ul>
-						<li class="set-type set-student">Student</li>
-						<li class="set-type set-teacher">Teacher</li>
-						<li class="set-type set-admin">Admin</li>
-					</ul>
-				</div>
-				{{#if currentUserIs 'student'}}
-				<div class="drop-wrap">
-					<div class="main-drop">Select class</div>
-					<ul>
-						{{#each classes}}
-						<li>
-							<a href="{{pathFor 'admin-classes'}}">{{year}}{{course}}{{section}}</a>
-							<a class="toggle">
-								{{#if matches}}<i class="fa fa-times"></i>{{else}}<i class="fa fa-plus"></i>{{/if}}
-							</a>
-						</li>
-						{{/each}}
-					</ul>
-				</div>
-				{{/if}}
-				<button class="btn btn-danger btn-delete">
-					<i class="fa fa-trash-o"></i> Delete
-				</button>
-				<button class="btn btn-success btn-insert">
-					<i class="fa fa-upload"></i> Update
-				</button>
-				<!--<button class="btn btn-primary btn-assume">
-					<i class="fa fa-user"></i> Assume Identity
-				</button>-->
-				<button class="btn btn-warning btn-close">
-					<i class="fa fa-times"></i> Close
-				</button>
-			</div>
+	{{#if user}}
+	<div class="panel panel-default user-editor">
+		<div class="panel-heading">
+			<i class="fa fa-edit"></i>
+			{{user.type}}: {{user._id}}
 		</div>
-	</div>{{/if}}
+		<div class="panel-body">
+			<div class="input-group name-container">
+				<span class="input-group-addon">Username</span>
+				<input type="text" class="name form-control" placeholder="Username" value="{{user.username}}">
+			</div>
+			<div class="input-group name-container">
+				<span class="input-group-addon">Full Name</span>
+				<input type="text" class="fullname form-control" placeholder="Name and Surname" value="{{user.fullname}}">
+			</div>
+			<div class="input-group mail-container">
+				<span class="input-group-addon">Email</span>
+				<input type="text" class="addr form-control" placeholder="Email" value="{{userMail.address}}">
+			</div>
+			<div class="input-group pass-container">
+				<span class="input-group-addon">Password</span>
+				<input type="password" class="pass form-control" placeholder="Set a new password">
+			</div>
+			<div class="drop-wrap">
+				<div class="main-drop">Select type</div>
+				<ul>
+					<li class="set-type set-student">Student</li>
+					<li class="set-type set-teacher">Teacher</li>
+					<li class="set-type set-admin">Admin</li>
+				</ul>
+			</div>
+			{{#if currentUserIs 'student'}}
+			<div class="drop-wrap">
+				<div class="main-drop">Select class</div>
+				<ul>
+					{{#each classes}}
+					<li>
+						<a href="{{pathFor 'admin-classes'}}">{{year}}{{course}}{{section}}</a>
+						<a class="toggle">
+							{{#if matches}}<i class="fa fa-times"></i>{{else}}<i class="fa fa-plus"></i>{{/if}}
+						</a>
+					</li>
+					{{/each}}
+				</ul>
+			</div>
+			{{/if}}
+			<button class="btn btn-danger btn-delete">
+				<i class="fa fa-trash-o"></i> Delete
+			</button>
+			<button class="btn btn-success btn-insert">
+				<i class="fa fa-upload"></i> Update
+			</button>
+			<button class="btn btn-warning btn-close">
+				<i class="fa fa-times"></i> Close
+			</button>
+		</div>
+	</div>
+	{{/if}}
 </template>
 
 <!-- Classes -->
@@ -181,6 +177,7 @@
 		<h2 class="text-center">Classes</h2>
 		{{> error}}
 		{{> classEditor}}
+		{{> classAdder}}
 		<div class="classlist">
 			{{#each classes}}
 			<a class="{{active}}" href="{{pathFor 'admin-classes'}}">
@@ -189,11 +186,11 @@
 			</a>
 			{{/each}}
 		</div>
-		{{> classAdder}}
 	</div>
 </template>
 
 <template name="classAdder">
+	{{#if show}}
 	<div class="panel panel-default class-adder-panel">
 		<div class="panel-heading">
 			<i class="fa fa-plus"></i> New Class
@@ -216,10 +213,12 @@
 			</button>
 		</div>
 	</div>
+	{{/if}}
 </template>
 
 <template name="classEditor">
-	{{#if class}}<div class="panel panel-default class-editor">
+	{{#if class}}
+	<div class="panel panel-default class-editor">
 		<div class="panel-heading">
 			<i class="fa fa-edit"></i>
 			{{class._id}}
@@ -269,5 +268,6 @@
 				<i class="fa fa-times"></i> Close
 			</button>
 		</div>
-	</div>{{/if}}
+	</div>
+	{{/if}}
 </template>

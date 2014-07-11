@@ -2,20 +2,20 @@
 
 # Code that is executed when the client starts.
 Meteor.startup ->
+  # Collections and subscriptions
+  Meteor.subscribe 'user' # My user data
+  Meteor.subscribe 'users' # Users data. Only receivable by admins
+  share.classes = new Meteor.Collection 'classes' # Classes
+  Meteor.subscribe 'classes'
   # Helpers and general stuff
-  UI.registerHelper 'user', ->
+  share.user = ->
     u = Meteor.user(); return unless u; u.email = 'no email'
+    u.class = share.classes.findOne students: u._id
     u.email = u.emails[0].address if u.emails and u.emails[0]; u
+  UI.registerHelper 'user', -> share.user()
   UI.registerHelper 'admin', -> Meteor.user() and Meteor.user().type is 'admin'
   UI.registerHelper 'loading', ->
     Meteor.loggingIn() or (Router.current() and !Router.current().ready())
-  # My user data
-  Meteor.subscribe 'user'
-  # Users data. Only receivable by admins
-  Meteor.subscribe 'users'
-  # Classes
-  share.classes = new Meteor.Collection 'classes'
-  Meteor.subscribe 'classes'
 
 # Layout template
 
@@ -27,7 +27,7 @@ Template.layout.events
   # Toggle dropdown event
   'click .drop-wrap': (e) -> $('ul', $(e.target).parent()).slideToggle()
   'click #my-class': ->
-    Router.go 'class', _id: share.classes.findOne(student: Meteor.user()._id)._id
+    Router.go 'class', _id: share.classes.findOne(student: share.user()._id)._id
 
 # - ERROR template -
 

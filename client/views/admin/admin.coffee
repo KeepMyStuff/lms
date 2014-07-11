@@ -5,6 +5,7 @@ Template.admin.nusers = -> Meteor.users.find().count()
 Template.admin.ntype = (t) -> Meteor.users.find(type:t).count()
 Template.admin.nclasses = -> share.classes.find().count()
 
+<<<<<<< HEAD
 Template.users.paginator = new share.Paginator 5
 Template.users.show = ->
   if Router.current().params._id and Router.current().params._id isnt ''
@@ -14,6 +15,9 @@ Template.users.users = ->
   opt = Template.users.paginator.queryOptions(); opt.sort = username: 1
   Template.users.paginator.calibrate Meteor.users.find().count()
   Meteor.users.find({},opt).fetch()
+=======
+Template.users.users = -> Meteor.users.find({},{sort: username: 1}).fetch()
+>>>>>>> removed multiple windows and fix errors left
 Template.users.active = ->
   if Router.current().data() and Router.current().data()._id is @_id
     return 'active'
@@ -33,6 +37,7 @@ Template.users.events
       else share.notify msg: 'Account already exists'
 
 # User adder
+Template.userAdder.show = -> !Template.userEditor.user()
 Template.userAdder.events
   'click .btn-insert': (e,t) ->
     name = t.find('.username').value
@@ -62,13 +67,12 @@ Template.userEditor.matches = ->
 Template.userEditor.currentUserIs = (what) ->
   u = Meteor.users.findOne Router.current().params._id
   u and u.type is what
-Template.userEditor.show = ->
-  Router.current().params._id and Router.current().params._id isnt ''
 Template.userEditor.userMail = ->
   u = Meteor.users.findOne Router.current().params._id
   if u and u.emails
     {address: u.emails[0].address, verified: u.emails[0].verified}
   else {address: '', verified: false}
+Template.userEditor.classes = -> share.classes.find().fetch()
 Template.userEditor.user = ->
   Meteor.users.findOne Router.current().params._id
 Template.userEditor.events
@@ -126,6 +130,7 @@ Template.adminClasses.active = ->
   Router.current() and Router.current().params._id is @_id
 Template.adminClasses.classes = -> share.classes.find().fetch()
 
+Template.classAdder.show = -> !Template.classEditor.class()
 Template.classAdder.events
   'click .btn-close': -> Router.go 'admin-classes'
   'click .btn-insert': (e,t) ->
