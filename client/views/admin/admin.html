@@ -57,6 +57,15 @@
 		<div class="col-md-{{show}} center-block">{{> userAdder}}</div>
 		{{> userEditor}}
 	</div>
+	{{#if paginator.show}}
+	<div class="text-center">
+		<ul class="pagination">
+				{{#each paginator.pages}}
+				<li class="{{activePage}}"><a class="page" href="">{{index}}</a></li>
+				{{/each}}
+		</ul>
+	</div>
+	{{/if}}
 	<div class="userlist">
 		{{#each users}}
 		<a class="{{active}}" href="{{pathFor 'users'}}">
@@ -65,11 +74,6 @@
 		</a>
 		{{/each}}
 	</div>
-	<ul class="pagination">
-	{{#each paginator}}
-		<li class="{{active}}"><a href="">{{index}}</a></li>
-	{{/each}}
-	</ul>
 </div>
 </template>
 

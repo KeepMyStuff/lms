@@ -5,20 +5,21 @@ Template.admin.nusers = -> Meteor.users.find().count()
 Template.admin.ntype = (t) -> Meteor.users.find(type:t).count()
 Template.admin.nclasses = -> share.classes.find().count()
 
-usersPaginator = new share.Paginator 3
-Template.users.paginator = -> usersPaginator.pages()
+Template.users.paginator = new share.Paginator 5
 Template.users.show = ->
   if Router.current().params._id and Router.current().params._id isnt ''
     return '6'
   '12'
 Template.users.users = ->
-  opt = usersPaginator.queryOptions(); opt.sort = username: 1
-  console.log usersPaginator.pages()
+  opt = Template.users.paginator.queryOptions(); opt.sort = username: 1
+  Template.users.paginator.calibrate Meteor.users.find().count()
   Meteor.users.find({},opt).fetch()
 Template.users.active = ->
   if Router.current().data() and Router.current().data()._id is @_id
     return 'active'
 Template.users.events
+  'click .page': (e,t) ->
+    Template.users.paginator.page parseInt e.currentTarget.innerText
   'keypress .new': (e,t) ->
     if e.keyCode is 13 and t.find('.new').value isnt ''
       data = t.find('.new').value; t.find('.new').value = ''
