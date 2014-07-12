@@ -20,6 +20,7 @@
   - parent id (if it doesn't exist then this is not a reply post)
   - title
   - post text (character limit?)
+  - tags list
   - Attached files list
   - due date (if this is a Homework)
   - Read and Edit/Delete permissions (this needs planning)
