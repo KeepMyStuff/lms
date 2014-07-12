@@ -1,4 +1,4 @@
-tests = new Meteor.Collection "tests"
+tests = share.tests = new Meteor.Collection "tests"
 testsResults = new Meteor.Collection "testsResults"
 
 tests.allow
@@ -86,27 +86,28 @@ Meteor.startup ->
         }
       ]
       solutions:[[true, false, false],[false,false,true],[true,false,false]]
-###
-      tests.insert
-        title:''
-        assignations:[
-          {
-            class:''
-            time:''
-            duration:''
-          }
-        ]
-        permissions:[
-          {
-            permission:''
-            subject:''
-          }
-        ]
-        questions:[{
-            index: 0
-            score:''
-            question:''
-            answers:['','']
-          }
-        ]
-###
+
+#       NO FINGHH!
+    tests.insert
+      title:''
+      assignations:[
+        {
+          class:''
+          date:''
+          hour:''
+          duration:''
+        }
+      ]
+      permissions:[
+        {
+          permission:''
+          subject:''
+        }
+      ]
+      questions:[{
+          index: 0
+          question:''
+          score:''
+          answers:['','']
+        }
+      ]

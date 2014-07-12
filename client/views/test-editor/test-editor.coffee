@@ -1,37 +1,41 @@
 tests = share.tests
 Meteor.subscribe 'tests'
 
-console.log ">> TEST EDITOR after subscribe:"
-console.log tests.findOne(skip: 1)
+getTest = -> tests.findOne({},skip: 1)
+getQuestionCount =-> getTest().questions.length -1
 
-console.log ">> TEST EDITOR after (possible) insert"
-console.log getTest
+console.log getTest()
 
 getEmptyQuestion= ->
-#  console.log "Adding question n " + getTest.questions.length
-  emptyquestion= {
-    i: getTest.questions.length
+#console.log "Adding question n " + getQuestionCount()
+  {
+    index: getQuestionCount()
     question:''
     score:''
     answers:['','']
   }
 
-#console.log "number of questions " + getTest.questions.length
+#console.log "number of questions " + getTest().questions.length
 
-getTest = Template.testEditor.get = -> tests.findOne(skip: 1)
-Template.testEditor.getquestions= -> getTest().questions
-Template.testEditor.that= -> this #hahahaha, no!
+
+Template.testEditor.getQuestions= -> getTest().questions
+  #for question in getTest().questions
+
+Template.testEditor.that= -> this
 Template.testEditor.qindex= -> @i+1
 
 Template.testEditor.events
-  "click .addanswerbtn":()->
-    tests.update {_id: record._id, 'questions.i': @i},
+  "click .addanswerbtn":->
+    Meteor.call 'addAnswer', getTest()._id, @index
+###
+    tests.update {_id: getTest()._id, 'questions.index': @index},
                       $push: 'questions.$.answers':''
-
+###
   "click .addquestionbtn":->
-    tests.update {_id: record._id},
+    console.log "adding question no"
+    tests.update {_id: getTest()._id},
                     $push: 'questions': getEmptyQuestion()
-    #console.log getTest
+    #console.log getTest()
 
   "click .removeanswerbtn":(e) ->
     index = $($(e.currentTarget).parents().get 3).find('h4').text().replace(")","") - 1
