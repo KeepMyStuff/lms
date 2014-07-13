@@ -178,6 +178,15 @@
 		{{> error}}
 		{{> classEditor}}
 		{{> classAdder}}
+		{{#if paginator.show}}
+		<div class="text-center">
+			<ul class="pagination">
+					{{#each paginator.pages}}
+					<li class="{{activePage}}"><a class="page" href="">{{index}}</a></li>
+					{{/each}}
+			</ul>
+		</div>
+		{{/if}}
 		<div class="classlist">
 			{{#each classes}}
 			<a class="{{active}}" href="{{pathFor 'admin-classes'}}">

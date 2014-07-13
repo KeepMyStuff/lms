@@ -55,3 +55,15 @@
 		<i class="fa fa-circle-o-notch fa-spin"></i>
 	</div>
 </template>
+
+<template name="paginator">
+{{#if paginator.show}}
+	<div class="text-center">
+		<ul class="pagination">
+				{{#each paginator.pages}}
+				<li class="{{activePage}}"><a class="page" href="">{{index}}</a></li>
+				{{/each}}
+		</ul>
+	</div>
+{{/if}}
+</template>

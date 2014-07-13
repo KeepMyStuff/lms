@@ -118,9 +118,17 @@ Template.userEditor.events
 
 # Classes
 
+Template.adminClasses.paginator = new share.Paginator 5
 Template.adminClasses.active = ->
   Router.current() and Router.current().params._id is @_id
-Template.adminClasses.classes = -> share.classes.find().fetch()
+Template.adminClasses.classes = ->
+  Template.adminClasses.paginator.calibrate share.classes.find().count()
+  opt = Template.adminClasses.paginator.queryOptions()
+  opt.sort = year: 1, course: 1, section: 1
+  share.classes.find({},opt).fetch()
+Template.adminClasses.events
+  'click .page': (e,t) ->
+    Template.adminClasses.paginator.page parseInt e.currentTarget.innerText
 
 Template.classAdder.show = -> !Template.classEditor.class()
 Template.classAdder.events

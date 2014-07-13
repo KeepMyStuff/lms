@@ -21,7 +21,7 @@ share.Paginator = class Paginator
     if @currPage > 0
       @currPage-=1; @dep.changed(); return yes
     else return no
-  slide: -> console.log "Paginator::slide not implemented"
+  slide: (n) -> console.log "Paginator::slide not implemented"
   perPage: (i) ->
     @dep.depend()
     if i then @dep.changed() @rPerPage = i else @rPerPage
@@ -31,8 +31,7 @@ share.Paginator = class Paginator
   pages: ->
     @dep.depend(); list = []
     for p in [1..@npages]
-      console.log p+' == '+@currPage+" -> "+(p is @currPage)
       if p is @currPage
         list.push { activePage: 'active', index: p }
       else list.push index: p
-    console.log list; list
+    list
