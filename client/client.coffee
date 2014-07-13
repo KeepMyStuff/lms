@@ -21,13 +21,19 @@ Meteor.startup ->
 
 Template.layout.isCurrent = (i) ->
   return unless Router.current()
-  return 'current' if i is Router.match(Router.current().path).name
+  current = Router.match(Router.current().path).name
+
+  if i is 'me' and current in ['student','teacher'] then 'current'
+  if i is 'admin' and current in ['users','admin-classes'] then 'current'
+  if i is current then 'current'
 
 Template.layout.events
   # Toggle dropdown event
   'click .drop-wrap': (e) -> $('ul', $(e.target).parent()).slideToggle()
-  'click #my-class': ->
-    Router.go 'class', _id: share.classes.findOne(student: share.user()._id)._id
+  # Go to user's class [NOT WORKING]
+  'click header #class': ->
+    userClass = share.classes.findOne(student: share.user()._id)
+    if userClass? then Router.go 'class', _id: userClass._id
 
 # - ERROR template -
 

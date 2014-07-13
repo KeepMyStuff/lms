@@ -48,7 +48,6 @@ Router.map ->
       Router.go 'student' if Meteor.user() and Meteor.user().type is 'student'
   @route 'student'
   @route 'test-editor', template: 'testEditor'
-  @route 'classes', path: '/class'
   @route 'class', path: '/class/:_id'
   @route 'ui-test', template: 'uiTest' # TODO: remove this later
   @route 'test',

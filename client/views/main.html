@@ -11,8 +11,7 @@
 							<li><a class="{{isCurrent 'admin'}}" href="{{pathFor 'admin'}}">Admin</a></li>
 						{{else}}
 							<li><a class="{{isCurrent 'me'}}" href="{{pathFor 'me'}}">Me</a></li>
-							<li><a class="{{isCurrent 'class'}}" id="my-class" href="" >My class</a></li>
-							<li><a class="{{isCurrent 'classes'}}" href="{{pathFor 'classes'}}">Classes</a></li>
+							<li><a class="{{isCurrent 'class'}}" id="class" href="" >Class</a></li>
 						{{/if}}
 						<li><a class="{{isCurrent 'settings'}}" href="{{pathFor 'settings'}}">
 						{{user.username}}<i class="icon fa fa-user"></i></a></li>
