@@ -56,14 +56,16 @@
 	</div>
 </template>
 
-<template name="paginator">
-{{#if paginator.show}}
-	<div class="text-center">
-		<ul class="pagination">
-				{{#each paginator.pages}}
-				<li class="{{activePage}}"><a class="page" href="">{{index}}</a></li>
-				{{/each}}
-		</ul>
+<!-- Confirm -->
+<template name="confirm">
+<div class="panel panel-default">
+	<div class="panel-heading">
+		Warning
 	</div>
-{{/if}}
+	<div class="panel-body">
+		{{get.msg}}
+	</div>
+	<button class="btn btn-success yes">Yes</button>
+	<button class="btn btn-warning no">No</button>
+</div>
 </template>

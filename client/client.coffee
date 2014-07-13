@@ -47,6 +47,22 @@ Template.error.error = -> errorDep.depend(); currentError
 Template.error.events
   'click .close': -> share.notify() # Set current error to undefined
 
+# - CONFIRM template -
+currentConfirm = undefined
+confirmDep = new Deps.Dependency
+# Show a confirmation dialog. The cb is called if the users confirms the action
+share.confirm = (cb,msg) ->
+  if !cb
+    currentConfirm = undefined
+  else
+    msg ?= 'Are you sure?'
+    currentConfirm = msg: msg, cb: cb
+  confirmDep.changed()
+Template.confirm.get = -> confirmDep.depend(); currentConfirm
+Template.confirm.events
+  'click .yes': -> cb()
+  'click .btn': -> share.confirm()
+
 # Autorun stuff
 
 # Automatically clears notification when user logs in or logs out
