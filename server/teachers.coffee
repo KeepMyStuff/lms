@@ -12,14 +12,17 @@ getEmptyQuestion= (test) ->
 
 Meteor.methods
   'addAnswer':(test,ques)->
+    console.log 'TestEditor>> adding an empty answer to the question n ' + (ques+1)
     tests.update {_id: test, 'questions.index': ques},$push: 'questions.$.answers':''
-    console.log 'added an empty answer to the question n ' + (ques+1) + ' (index:'+ques+')'
+
 
   'pullAnswer': (test,ques,answ) ->
+    console.log 'TestEditor>> removing the answer "'+answ+'" from the question n ' + (ques+1)
     tests.update {_id: test, 'questions.index': ques},$pull: {'questions.$.answers': answ}
-    console.log 'removed the answer "'+answ+'" from the quwstion n ' + (ques+1) + '(index:'+ques+')'
+
 
   'addQuestion':(test) ->
+    console.log 'TestEditor>> adding an empty question'
     tests.update {_id: test},$push: 'questions': getEmptyQuestion(test)
 
   'updateQuestion':(test,ques,cont) ->

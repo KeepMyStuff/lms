@@ -108,6 +108,12 @@ Meteor.startup ->
           index: 0
           question:''
           score:''
-          answers:['','']
+          answers:['test1','prova2']
+        },
+        {
+          index: 1
+          question:''
+          score:''
+          answers:['test1','prova2']
         }
       ]
