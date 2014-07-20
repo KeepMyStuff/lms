@@ -25,6 +25,9 @@ usersController = adminController.extend
 classesController = adminController.extend
   data: -> share.classes.findOne _id: @params._id
 
+postsController = adminController.extend
+  data: -> share.posts.findOne _id: @params._id
+
 Router.map ->
   @route 'home', path: '/'
   @route 'admin', controller: adminController
@@ -33,6 +36,10 @@ Router.map ->
     path: '/admin/classes/:_id?',
     template: 'adminClasses',
     controller: classesController
+  @route 'admin-posts',
+    path: '/admin/posts/:_id?'
+    template: 'adminPosts'
+    controller: postsController
   @route 'reset',
     path: '/set/:token?'
     onBeforeAction: -> Router.go 'me' if Meteor.user()

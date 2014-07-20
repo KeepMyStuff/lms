@@ -23,6 +23,7 @@
 		</div>
     </header>
 	{{> yield}} <!-- Insert here the current router template -->
+	{{> confirm}} <!-- eventual confirmation dialog goes here -->
 	{{#if loggingIn}}{{> loading}}{{/if}}
 </template>
 
@@ -57,14 +58,38 @@
 
 <!-- Confirm -->
 <template name="confirm">
-<div class="panel panel-default">
+{{#if get}}
+<div class="confirm-panel">
 	<div class="panel-heading">
 		Warning
 	</div>
 	<div class="panel-body">
 		{{get.msg}}
+		<br>
+		<button class="btn btn-success yes">Yes</button>
+		<button class="btn btn-warning no">No</button>
 	</div>
-	<button class="btn btn-success yes">Yes</button>
-	<button class="btn btn-warning no">No</button>
+</div>
+{{/if}}
+</template>
+
+<!-- Post Adder -->
+<template name="postAdder">
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<input type="text" class="title" placeholder="Title">
+	</div>
+	<div class="panel-body">
+		<input type="text" class="content" placeholder="Content">
+	</div>
+	{{#if canPostToClass}}
+		<!-- class where he can post list -->
+	{{/if}}
+	{{#if is 'admin'}}
+		<!-- users that are not admin list -->
+	{{else}}
+		<input type="checkbox" class="to-profile"> post to your profile
+	{{/if}}
+	<button class="btn-insert">Post</button>
 </div>
 </template>

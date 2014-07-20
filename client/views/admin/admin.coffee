@@ -4,6 +4,7 @@
 Template.admin.nusers = -> Meteor.users.find().count()
 Template.admin.ntype = (t) -> Meteor.users.find(type:t).count()
 Template.admin.nclasses = -> share.classes.find().count()
+Template.admin.nposts = -> share.posts.find().count()
 
 Template.users.paginator = new share.Paginator 5
 Template.users.users = ->
@@ -16,17 +17,6 @@ Template.users.active = ->
 Template.users.events
   'click .page': (e,t) ->
     Template.users.paginator.page parseInt e.currentTarget.innerText
-  'keypress .new': (e,t) ->
-    if e.keyCode is 13 and t.find('.new').value isnt ''
-      data = t.find('.new').value; t.find('.new').value = ''
-      if !Meteor.users.findOne {username: data}
-        Meteor.call 'newUser', {
-          username: data, password: data
-          type: 'student' },
-          (e) ->
-            if e then share.errCallback e else
-            share.notify title: 'OK', type: 'success', msg: 'Account created'
-      else share.notify msg: 'Account already exists'
 
 # User adder
 Template.userAdder.show = -> !Template.userEditor.user()

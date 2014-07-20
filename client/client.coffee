@@ -7,6 +7,8 @@ Meteor.startup ->
   Meteor.subscribe 'users' # Users data. Only receivable by admins
   share.classes = new Meteor.Collection 'classes' # Classes
   Meteor.subscribe 'classes'
+  share.posts = new Meteor.Collection 'posts'
+  Meteor.subscribe 'posts'
   # Helpers and general stuff
   share.user = ->
     u = Meteor.user(); return unless u; u.email = 'no email'
@@ -61,13 +63,12 @@ share.confirm = (cb,msg) ->
   if !cb
     currentConfirm = undefined
   else
-    msg ?= 'Are you sure?'
-    currentConfirm = msg: msg, cb: cb
+    currentConfirm = msg: msg or 'Are you sure?', cb: cb
   confirmDep.changed()
 Template.confirm.get = -> confirmDep.depend(); currentConfirm
 Template.confirm.events
-  'click .yes': -> cb()
-  'click .btn': -> share.confirm()
+  'click .yes': -> currentConfirm.cb(); share.confirm()
+  'click .no': -> share.confirm()
 
 # Autorun stuff
 

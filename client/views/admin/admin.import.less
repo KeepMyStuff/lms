@@ -8,7 +8,7 @@
         margin-top: 2em;
         color: @concrete;
 
-        .users-button, .classes-button {
+        .users-button, .classes-button, .posts-button {
             .btn;
             .btn-primary;
             .center-block;
@@ -19,16 +19,16 @@
         .panel {
             .center-block;
             max-width: 25em;
-            height: 15em;
+            height: 16em;
         }
 
-        .classes-button {margin-top: 6.8em}
+        .classes-button, .posts-button {margin-top: 8.9em}
         .panel-body {padding-left: 1em}
         .panel-heading {text-align: center}
     }
 }
 
-.users-container, .class-container {
+.users-container, .class-container, .posts-container {
     .container;
 
     .drop-wrap ul {
@@ -42,7 +42,7 @@
         a {color: @clouds}
     }
 
-    .userlist, .classlist {
+    .userlist, .classlist, .postlist {
         .center-block;
         .list-group;
         max-width: 50em;

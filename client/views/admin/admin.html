@@ -6,7 +6,7 @@
 		<div class="panels">
 
 			<!-- Users information -->
-			<div class="col-sm-6 center-block">
+			<div class="col-md-4 center-block">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<i class="fa fa-users"></i>
@@ -28,7 +28,7 @@
 			</div>
 
 			<!-- Classes Information -->
-			<div class="col-sm-6">
+			<div class="col-md-4">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<i class="fa fa-graduation-cap"></i>
@@ -39,6 +39,22 @@
 						<a class="classes-button" href="{{pathFor 'admin-classes'}}">
 							<i class="fa fa-graduation-cap"></i>
 							Manage
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<i class="fa fa-graduation-cap"></i>
+						Posts Information
+					</div>
+					<div class="panel-body">
+						There are <b>{{nposts}}</b> posts in the database.
+						<a class="posts-button" href="{{pathFor 'admin-posts'}}">
+							<i class="fa fa-database"></i>
+							View
 						</a>
 					</div>
 				</div>
@@ -279,4 +295,28 @@
 		</div>
 	</div>
 	{{/if}}
+</template>
+
+<!-- Posts -->
+<template name="adminPosts">
+{{> postAdder}}
+<div class="post-container">
+	{{#if paginator.show}}
+	<div class="text-center">
+		<ul class="pagination">
+				{{#each paginator.pages}}
+				<li class="{{activePage}}"><a class="page" href="">{{index}}</a></li>
+				{{/each}}
+		</ul>
+	</div>
+	{{/if}}
+	<div class="postlist">
+		{{#each posts}}
+		<a href="{{pathFor 'posts'}}">
+			<h4>{{title}}</h4>
+			<p>{{content}}</p>
+		</a>
+		{{/each}}
+	</div>
+</div>
 </template>

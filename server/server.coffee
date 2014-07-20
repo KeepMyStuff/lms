@@ -5,6 +5,7 @@ gibPowerToAdmins = insert: isAdmin, remove: isAdmin, update: isAdmin
 
 # Collections
 
+posts = new Meteor.Collection 'posts'
 classes = new Meteor.Collection 'classes'
 # Function to test behaviur with a lot of users.
 populate = (count) ->
@@ -99,6 +100,9 @@ Meteor.methods
 
 # Publications and Permissions
 
+Meteor.publish 'posts', ->
+  if isAdmin @userId then return posts.find()
+
 Meteor.publish 'classes', ->
   return [] unless @userId
   user = getUser @userId
@@ -112,6 +116,7 @@ Meteor.publish 'classes', ->
     else []
 
 Meteor.users.allow gibPowerToAdmins
+posts.allow gibPowerToAdmins
 classes.allow gibPowerToAdmins
 
 Meteor.publish 'users', ->
