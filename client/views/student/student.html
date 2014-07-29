@@ -8,10 +8,16 @@
 		</div>
 </template>
 
+<template name="all-tests">
+	<div class="all-tests-container">
+
+	</div>
+</template>
+
 <template name="test">
 		<div class="test-container">
 			<div class="username">{{user.fullname}}</div>
-			<div class="date"></div><br>
+			<div class="class">{{class}}</div><br>
 			<h3>{{currentTest.title}}</h3>
 			{{#each currentTest.questions}}
 			<div class="question">
@@ -25,10 +31,19 @@
 			</div>
 			{{/each}}
 			<hr>
+			{{>testResult}}
 			<a class="btn btn-block btn-danger btn-end">Fine</a>
 		</div>
 </template>
 
 <template name="testResult">
-
+	<div class="test-result-container">
+		<div class="line"> Nome: {{user.fullname}} </div>
+		<div class="line"> Class: </div>
+		<div class="line"> Date: </div>
+		<div class="line"> Test: {{currentTest.title}} </div>
+		<div class="line"> Total questions: </div>
+		<div class="line"> Correct Answers: </div>
+		<div class="line"> Mark: %</div>
+	</div>
 </template>
