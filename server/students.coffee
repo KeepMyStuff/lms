@@ -43,7 +43,7 @@ Meteor.methods
     console.log corrAns
     corrAns
 
-  'classId': (year, course, section) ->
+  """'classId': (year, course, section) ->
     classes=share.classes.find().fetch()
     for i in share.classes.find().count()
       if year is classes[i].year
@@ -51,7 +51,7 @@ Meteor.methods
           if section is classes[i].section
             console.log "class id: "+classes[i]._id
             return classes[i]._id
-
+"""
 
 # Populate tests (temporary)
 Meteor.startup ->
