@@ -43,7 +43,7 @@ Meteor.methods
     console.log corrAns
     corrAns
 
-  """'classId': (year, course, section) ->
+  'classId': (year, course, section) ->
     classes=share.classes.find().fetch()
     for i in share.classes.find().count()
       if year is classes[i].year
@@ -51,12 +51,12 @@ Meteor.methods
           if section is classes[i].section
             console.log "class id: "+classes[i]._id
             return classes[i]._id
-"""
+
 
 # Populate tests (temporary)
 Meteor.startup ->
   tests.remove({})
-  console.log moment("17/07/2014 22:00","DD-MM-YYYY HH:mm").isBefore()
+  #console.log moment("17/07/2014 22:00","DD-MM-YYYY HH:mm").isBefore()
   if tests.find().count() < 2
     tests.insert
       title: 'Verifica di Matematica'

@@ -1,15 +1,12 @@
 tests = share.tests = new Meteor.Collection 'tests'
 
 Meteor.subscribe 'tests', ->
-  Template.test.currentTest = tests.findOne()
+  Template.test.currentTest = Template.testResult.currentTest = tests.findOne()
   console.log Template.test.currentTest
 
-#share.classes = new Meteor.Collection 'classes' # Classes
-#Meteor.subscribe 'classes'
-
-Template.test.that = -> this
-  #class : -> share.classes.find({students: Meteor.user()._id})
-  #that : -> this
+Template.test.helpers
+  class : -> share.classes.find({students: Meteor.user()._id})
+  that : -> this
 
 Template.test.events 'click .btn-end': ->
   solutions = []
@@ -21,6 +18,6 @@ Template.test.events 'click .btn-end': ->
     $('.check', this).each ->
       solutions[i-1].push $(this).is(':checked')
   console.log solutions
-  #console.log share.classes.find({students: Meteor.user()._id})
+  console.log share.classes.find({students: Meteor.user()._id})
   Meteor.call 'checkTest', solutions, (e, x) ->
     console.log x
