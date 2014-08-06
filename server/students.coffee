@@ -42,7 +42,8 @@ Meteor.methods
     testsResults.insert result
     console.log corrAns
     corrAns
-
+    
+  # not needed
   'classId': (year, course, section) ->
     classes=share.classes.find().fetch()
     for i in share.classes.find().count()

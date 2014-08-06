@@ -32,14 +32,15 @@
 			{{/each}}
 			<hr>
 			{{>testResult}}
-			<a class="btn btn-block btn-danger btn-end">Fine</a>
+			<a class="btn btn-block btn-danger btn-end">Test End</a>
 		</div>
 </template>
 
+<!-- this will be shown only when the test has already be completed -->
 <template name="testResult">
 	<div class="test-result-container">
 		<div class="line"> Nome: {{user.fullname}} </div>
-		<div class="line"> Class: </div>
+		<div class="line"> Class: {{class}}</div>
 		<div class="line"> Date: </div>
 		<div class="line"> Test: {{currentTest.title}} </div>
 		<div class="line"> Total questions: </div>
