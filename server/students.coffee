@@ -42,8 +42,7 @@ Meteor.methods
     testsResults.insert result
     console.log corrAns
     corrAns
-    
-  # not needed
+
   'classId': (year, course, section) ->
     classes=share.classes.find().fetch()
     for i in share.classes.find().count()
@@ -52,7 +51,6 @@ Meteor.methods
           if section is classes[i].section
             console.log "class id: "+classes[i]._id
             return classes[i]._id
-
 
 # Populate tests (temporary)
 Meteor.startup ->
@@ -105,7 +103,7 @@ Meteor.startup ->
       ]
       solutions:[[true, false, false],[false,false,true],[true,false,false]]
 
-#       NO FINGHH!
+#    sample test
     tests.insert
       title:''
       assignations:[

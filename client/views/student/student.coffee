@@ -6,14 +6,16 @@ Meteor.subscribe 'tests', ->
 
 Template.test.helpers
   that : -> this
-  # why it doesn't work? just trying with the class id, in future it will be
-  # the class name
-  class : -> share.classes.find({students: Meteor.user()._id})._id
+
+Handlebars.registerHelper 'className', ->
+  share.classes.findOne({students: Meteor.user()._id}).year +
+  share.classes.findOne({students: Meteor.user()._id}).course +
+  share.classes.findOne({students: Meteor.user()._id}).section
+
+Handlebars.registerHelper 'todayDate', ->
+  moment().format("DD/MM/YYYY")
 
 Template.test.events 'click .btn-end': ->
-  # trying to print when I click the "test end" button but
-  # it returns "undefinied"
-  console.log share.classes.find({students: Meteor.user()._id})._id
   solutions = []
   x=0
   i=0
