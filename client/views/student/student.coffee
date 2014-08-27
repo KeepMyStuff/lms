@@ -27,4 +27,7 @@ Template.test.events 'click .btn-end': ->
   console.log solutions
   console.log share.classes.find({students: Meteor.user()._id})
   Meteor.call 'checkTest', solutions, (e, x) ->
-    console.log x
+    Handlebars.registerHelper 'result', ->
+      Meteor.call 'getTestResult', tests.findOne(), (e, result) ->
+        result
+  UI.render(Template.testResult)

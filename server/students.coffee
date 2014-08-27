@@ -30,18 +30,23 @@ Meteor.methods
       if currentTest.questions[i].answers.length is x
         sScore+=currentTest.questions[i].score
       x=0
-    console.log "student's score= "+sScore
-    mark = sScore/totScore*100
+    console.log "student's score= " + sScore
+    mark = sScore / totScore * 100
     result=
-      testId:tests.findOne()._id
-      studentName:Meteor.users.findOne(@userId).username,
-      studentScore:sScore,
-      totScore:totScore,
-      mark:sScore/totScore*100
+      testId: currentTest._id
+      studentName: Meteor.users.findOne(@userId).username
+      correctAnswers: corrAns.length
+      totQuestions: currentTest.questions.length
+      studentScore: sScore
+      totScore:  totScore
+      mark: mark
     console.log result
     testsResults.insert result
     console.log corrAns
     corrAns
+
+  'getTestResult': (test) ->
+    return testsResults.findOne({testId: test._id})
 
   'classId': (year, course, section) ->
     classes=share.classes.find().fetch()
@@ -55,6 +60,7 @@ Meteor.methods
 # Populate tests (temporary)
 Meteor.startup ->
   tests.remove({})
+  testsResults.remove({})
   #console.log moment("17/07/2014 22:00","DD-MM-YYYY HH:mm").isBefore()
   if tests.find().count() < 2
     tests.insert
