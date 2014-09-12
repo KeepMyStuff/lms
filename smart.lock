@@ -2,51 +2,24 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
-      "iron-router": {},
       "flatter-ui": {},
-      "font-awesome": {},
       "moment": {}
     },
     "packages": {
-      "iron-router": {
-        "git": "https://github.com/EventedMind/iron-router.git",
-        "tag": "v0.8.2",
-        "commit": "05415a8891ea87a00fb1e2388585f2ca5a38e0da"
-      },
       "flatter-ui": {
         "git": "https://github.com/rnhmjoj/flatter-ui.git",
-        "tag": "v0.2.1",
-        "commit": "07b917b889a3272436a62ae75b3efcf9ab8c7dfe"
+        "tag": "v0.2.2",
+        "commit": "677dda8d1c12a3fd5cef9abd907b92d3b691aca4"
+      },
+      "moment": {
+        "git": "https://github.com/acreeger/meteor-moment.git",
+        "tag": "v2.8.1",
+        "commit": "722ea63783d594341023836b7d418ab2567dab8c"
       },
       "font-awesome": {
         "git": "https://github.com/nate-strauser/meteor-font-awesome.git",
         "tag": "v4.1.0",
         "commit": "ce6b1e92715d1938babc5d69c655c17e387f5926"
-      },
-      "moment": {
-        "git": "https://github.com/acreeger/meteor-moment.git",
-        "tag": "v2.6.0",
-        "commit": "26156df681750fd6e6ed77043eef32b6653ebbdf"
-      },
-      "iron-layout": {
-        "git": "https://github.com/EventedMind/iron-layout.git",
-        "tag": "v0.2.0",
-        "commit": "4a2d53e35ba036b0c189c7ceca34be494d4c6c97"
-      },
-      "blaze-layout": {
-        "git": "https://github.com/EventedMind/blaze-layout.git",
-        "tag": "v0.2.5",
-        "commit": "273e3ab7d005d91a1a59c71bd224533b4dae2fbd"
-      },
-      "iron-core": {
-        "git": "https://github.com/EventedMind/iron-core.git",
-        "tag": "v0.2.0",
-        "commit": "0e48b5dc50d03f01025b7b900fb5ce2f13d52cad"
-      },
-      "iron-dynamic-template": {
-        "git": "https://github.com/EventedMind/iron-dynamic-template.git",
-        "tag": "v0.2.1",
-        "commit": "4dd1185c4d9d616c9abdb3f33e4a7d5a88db7e18"
       }
     }
   }

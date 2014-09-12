@@ -5,8 +5,11 @@
 
 standard-app-packages
 coffeescript
-iron-router
+iron:router
 less
-font-awesome
+email
 accounts-password
-moment
+natestrauser:font-awesome
+mrt:flatter-ui
+mrt:moment
+
